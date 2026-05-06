@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="assets/img/nadiv2.png"
+      type="image/x-icon"
+    />
+    <title>NADI - Formulir Pengambilan Barang</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background: #f4f6f9;
+        color: #333;
+      }
+
+      /* HEADER BAR */
+      header {
+        background: #1f3c88;
+        color: white;
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .header-left,
+      .header-center,
+      .header-right {
+        display: flex;
+        align-items: center;
+      }
+
+      .header-center {
+        flex: 1;
+        justify-content: center;
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      /* BACK BUTTON */
+      .back-btn {
+        background: rgba(255, 255, 255, 0.15);
+        color: white;
+        padding: 6px 10px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 13px;
+      }
+
+      .back-btn:hover {
+        background: rgba(255, 255, 255, 0.25);
+      }
+
+      /* LOGO */
+      .logo {
+        width: 70px;
+        height: 70px;
+        border-radius: 6px;
+        object-fit: cover;
+      }
+
+      /* CONTAINER */
+      .container {
+        max-width: 900px;
+        margin: 20px auto;
+        padding: 10px;
+      }
+
+      /* CARD */
+      .card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+      }
+
+      .card-header {
+        padding: 12px 16px;
+        background: #f0f2f5;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: bold;
+      }
+
+      .btn {
+        background: #1f3c88;
+        color: white;
+        padding: 6px 10px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 12px;
+      }
+
+      .btn:hover {
+        background: #16306b;
+      }
+
+      /* FORM */
+      .form-wrapper {
+        width: 100%;
+        height: 85vh;
+      }
+
+      .form-wrapper iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+
+      /* FOOTER */
+      footer {
+        text-align: center;
+        padding: 12px;
+        margin-top: 20px;
+        font-size: 13px;
+        color: #666;
+      }
+
+      /* MOBILE */
+      @media (max-width: 600px) {
+        .header-center {
+          font-size: 15px;
+        }
+
+        .form-wrapper {
+          height: 80vh;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <header>
+      <div class="header-left">
+        <a href="dashboard.html" class="back-btn">← Kembali</a>
+      </div>
+
+      <div class="header-center">
+        Formulir Pengambilan Barang persediaan / ATK
+      </div>
+
+      <div class="header-right">
+        <!-- ganti src dengan logo kamu -->
+        <img class="logo" src="assets/img/nadiv2.png" alt="Logo" />
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="card">
+        <!-- <div class="card-header">
+          <span>Form Pengisian</span>
+
+          <a href="#" class="btn" target="_blank"> Spreadsheet </a>
+        </div> -->
+
+        <div class="form-wrapper">
+          <iframe
+            src="https://docs.google.com/forms/d/e/1FAIpQLSc3MKsnCPu3HSYlQcVvChbW82y7aJBNMGa9bUGlWHr2bu_IcA/viewform?embedded=true"
+            width="640"
+            height="1631"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
+            >Memuat…</iframe
+          >
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      © <span id="year"></span> NADI - Navigasi Administrasi Digital Internal
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

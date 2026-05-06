@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+  <head>
+    <base target="_top" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Profil - NADI</title>
+
+    <link
+      rel="shortcut icon"
+      href="assets/img/nadiv2.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="./assets/css/interface.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css"
+    />
+  </head>
+
+  <body>
+    <!-- HEADER (SAMA PERSIS DENGAN DASHBOARD) -->
+    <header>
+      <div class="logo">
+        <img
+          src="assets/img/nadiv2.png"
+          width="85"
+          style="display: block; margin: 2 auto 20px"
+        />
+        <span>
+          NADI - Navigasi Administrasi Digital Internal <br />
+          KPU Kab. Purbalingga
+        </span>
+      </div>
+
+      <div class="clock" id="clock">--:--:--</div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="profile-page">
+      <a href="userslist.html" class="back-btn-box">← Kembali</a>
+
+      <div class="page-title">
+        <h2>👤 Detail User</h2>
+      </div>
+
+      <div class="user-grid">
+        <div class="avatar-box">
+          <img
+            src="https://ui-avatars.com/api/?name=User"
+            class="avatar"
+            id="avatar"
+          />
+        </div>
+        <div class="user-detail">
+          <h3 id="nama">-</h3>
+          <small id="username">@username</small>
+          <br />
+          <small id="status"></small>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      © <span id="year"></span> NADI - Navigasi Administrasi Digital Internal
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+    <script src="./assets/js/clock.js"></script>
+
+    <!-- nanti script profil kita taruh di sini -->
+    <script type="module" src="./assets/js/auth-guard.js"></script>
+    <script type="module">
+      import { db } from "./assets/js/firebase.js";
+      import {
+        collection,
+        query,
+        where,
+        getDocs,
+      } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+      // ambil username dari URL
+      const params = new URLSearchParams(window.location.search);
+      const username = params.get("username");
+
+      async function loadUser() {
+        const q = query(
+          collection(db, "users"),
+          where("username", "==", username),
+        );
+
+        const snapshot = await getDocs(q);
+
+        if (snapshot.empty) {
+          alert("User tidak ditemukan");
+          return;
+        }
+
+        const d = snapshot.docs[0].data();
+
+        document.getElementById("nama").innerText = d.nama;
+        document.getElementById("username").innerText = "@" + d.username;
+
+        document.getElementById("status").innerHTML = d.aktif
+          ? "<span style='color:green'>Aktif</span>"
+          : "<span style='color:red'>Nonaktif</span>";
+
+        // avatar dinamis
+        document.getElementById("avatar").src =
+          `https://ui-avatars.com/api/?name=${encodeURIComponent(d.nama)}`;
+      }
+
+      loadUser();
+    </script>
+    <script type="module">
+      import "./assets/js/admin-protect.js";
+    </script>
+  </body>
+</html>

@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+  <head>
+    <base target="_top" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Profil - NADI</title>
+
+    <link
+      rel="shortcut icon"
+      href="assets/img/nadiv2.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="./assets/css/interface.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css"
+    />
+  </head>
+
+  <body>
+    <!-- HEADER (SAMA PERSIS DENGAN DASHBOARD) -->
+    <header>
+      <div class="logo">
+        <img
+          src="assets/img/nadiv2.png"
+          width="85"
+          style="display: block; margin: 2 auto 20px"
+        />
+        <span>
+          NADI - Navigasi Administrasi Digital Internal <br />
+          KPU Kab. Purbalingga
+        </span>
+      </div>
+
+      <div class="clock" id="clock">--:--:--</div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="container">
+      <!-- TITLE -->
+
+      <div class="page-title">
+        <h2 class="page-title">👤 Profil Pegawai</h2>
+      </div>
+
+      <!-- USER CARD GRID -->
+      <div class="user-grid">
+        <div class="avatar-box">
+          <img src="assets/img/nadi-logo.png" class="avatar" />
+        </div>
+
+        <div class="user-detail">
+          <h3 id="nama">Nama Pegawai</h3>
+          <small id="username">@username</small>
+        </div>
+      </div>
+
+      <div class="form-card" style="margin-top: 10px">
+        <a href="ubahpassword.html"
+          ><button class="btn-warning">Ubah Password</button></a
+        >
+      </div>
+
+      <!-- SUMMARY GRID -->
+      <!-- <div class="summary-grid">
+        <div class="summary-box">
+          <span class="label">Hadir</span>
+          <span id="totalHadir" class="value">0</span>
+        </div>
+
+        <div class="summary-box">
+          <span class="label">Telat</span>
+          <span id="totalTelat" class="value">0</span>
+        </div>
+
+        <div class="summary-box">
+          <span class="label">Absen Tidak Lengkap</span>
+          <span id="totalAbsen" class="value">0</span>
+        </div>
+      </div> -->
+
+      <!-- TABLE SECTION -->
+      <div class="table-section">
+        <h3>📅 Riwayat Absensi</h3>
+
+        <div class="table-wrapper">
+          <table id="absensiTable" class="display">
+            <thead>
+              <tr>
+                <th>Tanggal</th>
+                <th>Masuk</th>
+                <th>Keluar</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+
+            <tbody></tbody>
+          </table>
+          <a href="dashboard.html" class="back-btn-box">← Kembali</a>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      © <span id="year"></span> NADI - Navigasi Administrasi Digital Internal
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+    <script src="./assets/js/clock.js"></script>
+
+    <!-- nanti script profil kita taruh di sini -->
+    <script type="module" src="./assets/js/auth-guard.js"></script>
+    <script type="module" src="./assets/js/profile.js"></script>
+  </body>
+</html>

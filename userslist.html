@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+  <head>
+    <base target="_top" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Profil - NADI</title>
+
+    <link
+      rel="shortcut icon"
+      href="assets/img/nadiv2.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="./assets/css/interface.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css"
+    />
+  </head>
+
+  <body>
+    <!-- HEADER (SAMA PERSIS DENGAN DASHBOARD) -->
+    <header>
+      <div class="logo">
+        <img
+          src="assets/img/nadiv2.png"
+          width="85"
+          style="display: block; margin: 2 auto 20px"
+        />
+        <span>
+          NADI - Navigasi Administrasi Digital Internal <br />
+          KPU Kab. Purbalingga
+        </span>
+      </div>
+
+      <div class="clock" id="clock">--:--:--</div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="container">
+      <div class="page-title">
+        <h2>👥 Daftar User</h2>
+        <p>Monitoring user yang terdaftar</p>
+      </div>
+
+      <div class="table-wrapper">
+        <table id="tableUser" class="display">
+          <thead>
+            <tr>
+              <th>Nama</th>
+              <th>Username</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <button
+        class="btn-secondary"
+        onclick="window.location.href = 'admin.html'"
+      >
+        ← Kembali
+      </button>
+    </main>
+
+    <footer>
+      © <span id="year"></span> NADI - Navigasi Administrasi Digital Internal
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+    <script src="./assets/js/clock.js"></script>
+
+    <!-- nanti script profil kita taruh di sini -->
+    <script type="module" src="./assets/js/auth-guard.js"></script>
+    <script type="module">
+      import { db } from "./assets/js/firebase.js";
+      import {
+        collection,
+        getDocs,
+      } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+      async function loadUsers() {
+        const snapshot = await getDocs(collection(db, "users"));
+
+        let data = [];
+
+        snapshot.forEach((doc) => {
+          const d = doc.data();
+
+          data.push([
+            d.nama,
+            d.username,
+            d.aktif
+              ? "<span style='background:#e6f7ee;color:#1a7f37;padding:4px 8px;border-radius:8px'>Aktif</span>"
+              : "<span style='background:#fdeaea;color:#b42318;padding:4px 8px;border-radius:8px'>Nonaktif</span>",
+          ]);
+        });
+
+        // init DataTable
+        const table = $("#tableUser").DataTable({
+          data: data,
+          columns: [
+            { title: "Nama" },
+            { title: "Username" },
+            { title: "Status" },
+          ],
+          pageLength: 10,
+          destroy: true,
+        });
+
+        // klik row
+        $("#tableUser tbody").on("click", "tr", function () {
+          const rowData = table.row(this).data();
+          const username = rowData[1];
+
+          window.location.href = `userdetail.html?username=${username}`;
+        });
+      }
+
+      loadUsers();
+    </script>
+
+    <script type="module">
+      import "./assets/js/admin-protect.js";
+    </script>
+  </body>
+</html>

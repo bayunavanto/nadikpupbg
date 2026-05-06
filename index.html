@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NADI - Formulir Absen Online KPU Kab. Purbalingga</title>
+    <link rel="icon" href="assets/img/nadiv2.png" type="image/png" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="./assets/css/absen.css" />
+  </head>
+  <body>
+    <div class="registration-form">
+      <form id="frm" autocomplete="off">
+        <div>
+          <img
+            src="assets/img/nadiv2.png"
+            alt="Logo Instansi"
+            width="100"
+            style="display: block; margin: 0 auto 20px"
+          />
+        </div>
+        <div style="text-align: center; margin-bottom: 25px">
+          <div
+            class="error"
+            id="errorMsg"
+            style="text-align: center; margin-bottom: 25px"
+          ></div>
+        </div>
+        <div class="form-group">
+          <input
+            type="text"
+            id="username"
+            placeholder="Username"
+            class="form-control item"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            class="form-control item"
+          />
+        </div>
+        <div class="form-group">
+          <button
+            type="button"
+            id="btnLogin"
+            onclick="login()"
+            class="btn btn-block create-account"
+          >
+            Login
+          </button>
+        </div>
+      </form>
+      <div class="social-media">
+        <div>
+          <small
+            >Dev by
+            <a href="https://vantolab.biz.id" target="_blank">Vanss</a></small
+          >
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module">
+      import { auth, db } from "./assets/js/firebase.js";
+      import {
+        signInWithEmailAndPassword,
+        signOut,
+        onAuthStateChanged,
+      } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+      import {
+        collection,
+        query,
+        where,
+        getDocs,
+      } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+      const errorMsg = document.getElementById("errorMsg");
+      const btn = document.getElementById("btnLogin");
+
+      // ================= LOGIN =================
+      window.login = async function () {
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value.trim();
+
+        errorMsg.innerText = "";
+
+        if (!username || !password) {
+          errorMsg.innerText = "Semua field wajib diisi!";
+          return;
+        }
+
+        const email = username + "@nadikpupbg.local";
+
+        // 🔒 DISABLE BUTTON
+        btn.disabled = true;
+        btn.innerText = "Sedang login...";
+
+        try {
+          // 🔐 Login ke Firebase Auth
+          await signInWithEmailAndPassword(auth, email, password);
+
+          // ❗ jangan redirect di sini
+          // biarkan onAuthStateChanged yang handle
+        } catch (error) {
+          console.log("LOGIN ERROR:", error.code, error.message);
+
+          if (error.code === "auth/invalid-credential") {
+            errorMsg.innerText = "Username atau password salah";
+          } else if (error.code === "auth/user-not-found") {
+            errorMsg.innerText = "User tidak ditemukan";
+          } else if (error.code === "auth/wrong-password") {
+            errorMsg.innerText = "Password salah";
+          } else {
+            errorMsg.innerText = "Terjadi kesalahan saat login";
+          }
+          // 🔓 ENABLE KEMBALI
+          btn.disabled = false;
+          btn.innerText = "Login";
+        }
+      };
+
+      // ================= AUTH CHECK =================
+      onAuthStateChanged(auth, async (user) => {
+        if (!user) return;
+
+        try {
+          const username = user.email.split("@")[0];
+
+          const q = query(
+            collection(db, "users"),
+            where("username", "==", username),
+          );
+
+          const snapshot = await getDocs(q);
+
+          if (snapshot.empty) {
+            await signOut(auth);
+            Swal.fire("Error", "Data user tidak ditemukan", "error");
+            // 🔓 ENABLE KEMBALI
+            btn.disabled = false;
+            btn.innerText = "Login";
+            return;
+          }
+
+          const userData = snapshot.docs[0].data();
+
+          // 🚫 cek status aktif
+          if (userData.aktif !== true) {
+            await signOut(auth);
+            Swal.fire("Akses Ditolak", "User tidak aktif", "error");
+            // 🔓 ENABLE KEMBALI
+            btn.disabled = false;
+            btn.innerText = "Login";
+            return;
+          }
+
+          // ✅ lolos semua → masuk dashboard
+          window.location.replace("dashboard.html");
+        } catch (err) {
+          console.error("AUTH CHECK ERROR:", err);
+          await signOut(auth);
+          Swal.fire("Error", "Terjadi kesalahan sistem", "error");
+          // 🔓 ENABLE KEMBALI
+          btn.disabled = false;
+          btn.innerText = "Login";
+        }
+      });
+    </script>
+  </body>
+</html>
