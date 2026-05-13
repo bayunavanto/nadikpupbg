@@ -44,7 +44,6 @@ async function loadAbsensi(username) {
       collection(db, "absensi"),
       where("username", "==", username),
       orderBy("createdAt", "desc"),
-      limit(10)
     );
 
     const snap = await getDocs(q);
