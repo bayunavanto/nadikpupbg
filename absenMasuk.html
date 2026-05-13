@@ -46,6 +46,13 @@
             readonly
             required
           />
+          <input
+            type="text"
+            id="uid"
+            class="form-control item"
+            readonly
+            required
+          />
         </div>
         <div class="form-group">
           <label>Ambil Foto</label>
@@ -109,6 +116,7 @@
       const interval = setInterval(() => {
         if (window.currentUser) {
           document.getElementById("nama").value = currentUser.nama;
+          document.getElementById("uid").value = currentUser.uid;
           clearInterval(interval);
         }
       }, 100);
