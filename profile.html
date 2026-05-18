@@ -37,51 +37,28 @@
     </header>
 
     <!-- MAIN -->
-    <main class="container">
-      <!-- TITLE -->
+    <main class="profile-page">
+      <!-- HEADER CARD -->
+      <div class="profile-card">
+        <div class="profile-header">
+          <img src="assets/img/nadi-logo.png" class="profile-avatar" />
 
-      <div class="page-title">
-        <h2 class="page-title">👤 Profil Pegawai</h2>
-      </div>
-
-      <!-- USER CARD GRID -->
-      <div class="user-grid">
-        <div class="avatar-box">
-          <img src="assets/img/nadi-logo.png" class="avatar" />
-        </div>
-
-        <div class="user-detail">
-          <h3 id="nama">Nama Pegawai</h3>
-          <small id="username">@username</small>
+          <div class="profile-info">
+            <h2 id="nama">Nama Pegawai</h2>
+            <p id="username">@username</p>
+          </div>
         </div>
       </div>
 
-      <div class="form-card" style="margin-top: 10px">
-        <a href="ubahpassword.html"
-          ><button class="btn-warning">Ubah Password</button></a
-        >
+      <!-- ACTION CARD -->
+      <div class="action-card">
+        <a href="ubahpassword.html">
+          <button class="btn-warning">🔑 Ubah Password</button>
+        </a>
       </div>
 
-      <!-- SUMMARY GRID -->
-      <!-- <div class="summary-grid">
-        <div class="summary-box">
-          <span class="label">Hadir</span>
-          <span id="totalHadir" class="value">0</span>
-        </div>
-
-        <div class="summary-box">
-          <span class="label">Telat</span>
-          <span id="totalTelat" class="value">0</span>
-        </div>
-
-        <div class="summary-box">
-          <span class="label">Absen Tidak Lengkap</span>
-          <span id="totalAbsen" class="value">0</span>
-        </div>
-      </div> -->
-
-      <!-- TABLE SECTION -->
-      <div class="table-section">
+      <!-- HISTORY SECTION -->
+      <div class="section-card">
         <h3>📅 Riwayat Absensi</h3>
 
         <div class="table-wrapper">
@@ -94,9 +71,9 @@
                 <th>Status</th>
               </tr>
             </thead>
-
             <tbody></tbody>
           </table>
+
           <a href="dashboard.html" class="back-btn-box">← Kembali</a>
         </div>
       </div>

@@ -37,26 +37,30 @@
     </header>
 
     <!-- MAIN -->
-    <main class="profile-page">
+    <main class="container">
       <a href="userslist.html" class="back-btn-box">← Kembali</a>
 
       <div class="page-title">
         <h2>👤 Detail User</h2>
+        <p>Informasi lengkap pengguna sistem</p>
       </div>
 
-      <div class="user-grid">
-        <div class="avatar-box">
-          <img
-            src="https://ui-avatars.com/api/?name=User"
-            class="avatar"
-            id="avatar"
-          />
-        </div>
-        <div class="user-detail">
-          <h3 id="nama">-</h3>
-          <small id="username">@username</small>
-          <br />
-          <small id="status"></small>
+      <div class="form-card">
+        <div class="user-grid">
+          <div class="avatar-box">
+            <img
+              src="https://ui-avatars.com/api/?name=User"
+              class="avatar"
+              id="avatar"
+            />
+          </div>
+
+          <div class="user-detail">
+            <h3 id="nama">-</h3>
+            <small id="username">@username</small>
+
+            <div id="status" style="margin-top: 8px"></div>
+          </div>
         </div>
       </div>
     </main>
@@ -104,8 +108,8 @@
         document.getElementById("username").innerText = "@" + d.username;
 
         document.getElementById("status").innerHTML = d.aktif
-          ? "<span style='color:green'>Aktif</span>"
-          : "<span style='color:red'>Nonaktif</span>";
+          ? "<span class='badge-active'>Aktif</span>"
+          : "<span class='badge-inactive'>Nonaktif</span>";
 
         // avatar dinamis
         document.getElementById("avatar").src =

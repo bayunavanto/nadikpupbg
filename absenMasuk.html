@@ -17,74 +17,69 @@
     <link rel="stylesheet" href="./assets/css/absen.css" />
   </head>
   <body>
-    <div class="registration-form">
-      <form id="frm" autocomplete="off">
-        <a href="absensi.html"> &larr; Kembali</a>
-        <div>
-          <img
-            src="assets/img/nadiv2.png"
-            alt="Logo Instansi"
-            width="100"
-            style="display: block; margin: 0 auto 20px"
-          />
+    <div class="absen-page">
+      <div class="absen-card">
+        <a href="absensi.html" class="back-link">&larr; Kembali</a>
+
+        <div class="header-box">
+          <img src="assets/img/nadiv2.png" width="90" />
+          <h2>Absen Masuk</h2>
+          <p>Pastikan GPS aktif dan foto jelas</p>
         </div>
-        <div style="text-align: center; margin-bottom: 25px">
-          <h3>Formulir Absensi Online</h3>
-          <small
-            ><i
-              >Harap tunggu sampai nama pegawai berhasil termuat / tampil
-              sebelum melakukan absensi</i
-            ></small
-          >
-        </div>
-        <div class="form-group">
-          <label>Nama Pegawai</label>
-          <input
-            type="text"
-            id="nama"
-            class="form-control item"
-            readonly
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label>Ambil Foto</label>
-          <input
-            class="form-control item"
-            type="file"
-            id="foto"
-            accept="image/*"
-            capture="camera"
-          />
-        </div>
-        <div class="form-group">
-          <button
-            type="submit"
-            id="btnKirim"
-            class="btn btn-block create-account"
-          >
-            Rekam Absen
+
+        <form id="frm" autocomplete="off">
+          <div class="form-group">
+            <label>Nama Pegawai</label>
+            <input type="text" id="nama" readonly class="input-box" />
+          </div>
+
+          <div class="form-group">
+            <label>Ambil Foto</label>
+            <input
+              type="file"
+              id="foto"
+              accept="image/*"
+              capture="camera"
+              class="input-box"
+            />
+          </div>
+
+          <div class="preview-box" id="previewBox" style="display: none">
+            <img
+              id="previewImg"
+              style="width: 100%; border-radius: 12px margin"
+            />
+            <small>Preview foto absensi</small>
+          </div>
+
+          <div id="statusBox" class="status-box">Siap melakukan absensi</div>
+
+          <button type="submit" id="btnKirim" class="btn-primary">
+            🚀 Rekam Absen Masuk
           </button>
-        </div>
-      </form>
-      <div class="social-media">
-        <div class="social-icons mt-3" id="result" style="display: none">
-          <h5>Data Absensi Anda:</h5>
-          <small
-            >*Dapat anda screenshot sebagai bukti dukung jika terjadi
-            kendala</small
-          >
-          <div id="resultContent"></div>
-        </div>
-        <div>
-          <small
-            >Dev by
-            <a href="https://vantolab.biz.id" target="_blank">Vanss</a></small
-          >
-        </div>
+        </form>
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+      const fotoInput = document.getElementById("foto");
+      const previewBox = document.getElementById("previewBox");
+      const previewImg = document.getElementById("previewImg");
+
+      fotoInput.addEventListener("change", function () {
+        const file = this.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+          previewImg.src = e.target.result;
+          previewBox.style.display = "block";
+        };
+
+        reader.readAsDataURL(file);
+      });
+    </script>
 
     <script type="module">
       import { db, storage } from "./assets/js/firebase.js";
@@ -190,25 +185,13 @@
       async function absenMasuk() {
         btn.disabled = true;
 
-        Swal.fire({
-          title: "Mohon tunggu...",
-          html: `
-            <div style="font-weight:600;color:#d33;margin-bottom:10px">
-                ⏳ Jangan refresh atau tinggalkan halaman
-            </div>
+        function setStatus(text, type = "loading") {
+          const el = document.getElementById("statusBox");
+          if (!el) return;
 
-            <div style="background:#eee;border-radius:10px;height:8px;overflow:hidden;margin-bottom:10px">
-                <div id="progress-bar" style="width:10%;height:100%;background:#4f46e5;"></div>
-            </div>
-
-            <div id="status-text" style="font-size:14px;color:#666">
-                📡 Mengaktifkan GPS...
-            </div>
-            `,
-          allowOutsideClick: false,
-          showConfirmButton: false,
-          didOpen: () => Swal.showLoading(),
-        });
+          el.className = "status-box " + type;
+          el.innerText = text;
+        }
 
         /* =========================
           GPS SUPPORT CHECK
@@ -223,26 +206,16 @@
         let gpsStep = 0;
 
         const gpsMessages = [
-          "Menunggu sinyal satelit...",
-          "Mencari lokasi perangkat...",
-          "Menghubungkan ke GPS...",
-          "Memperkirakan posisi...",
-          "Sedikit lagi...",
+          "📡 Mengaktifkan GPS...",
+          "📶 Mencari sinyal satelit...",
+          "📍 Menentukan lokasi...",
+          "⏳ Sedikit lagi...",
         ];
 
         const gpsInterval = setInterval(() => {
-          if (gpsDone) return;
+          if (gpsStep >= gpsMessages.length) gpsStep = 0;
 
-          const el = document.getElementById("status-text");
-          if (!el) return;
-
-          el.classList.add("fade-out");
-
-          setTimeout(() => {
-            el.innerHTML = gpsMessages[gpsStep % gpsMessages.length];
-            el.classList.remove("fade-out");
-          }, 200);
-
+          setStatus(gpsMessages[gpsStep], "loading");
           gpsStep++;
         }, 2000);
 
@@ -251,7 +224,8 @@
             gpsDone = true;
             clearInterval(gpsInterval);
             // updateLoading("📍 Lokasi ditemukan...");
-            setStep("📍 Lokasi ditemukan...", 40);
+            // setStep("📍 Lokasi ditemukan...", 40);
+            setStatus("📍 Lokasi ditemukan", "loading");
 
             try {
               if (!currentUser || !currentUser.nama || !currentUser.username) {
@@ -328,7 +302,8 @@
                 statusMasuk = "telat";
               }
 
-              setStep("📷 Mengompres foto...", 60);
+              // setStep("📷 Mengompres foto...", 60);
+              setStatus("📷 Mengompres foto...", "loading");
 
               const fotoBase64 = await compressImage(file);
 
@@ -339,7 +314,8 @@
 
               await uploadString(storageRef, fotoBase64, "data_url");
               const fotoURL = await getDownloadURL(storageRef);
-              setStep("📡 Mengirim data absensi...", 90);
+              // setStep("📡 Mengirim data absensi...", 90);
+              setStatus("📡 Mengirim data absensi...", "loading");
 
               /* =========================
                 SAVE FIRESTORE

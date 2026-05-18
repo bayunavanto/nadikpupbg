@@ -33,19 +33,15 @@
     <!-- MAIN CONTENT -->
     <main>
       <div class="page-title">
-        <div id="absenStatus" style="margin-bottom: 10px">Memuat data...</div>
+        <div class="status-card" id="absenStatus">Memuat status absensi...</div>
       </div>
 
       <div class="menu-container">
-        <a href="absenmasuk.html"
-          ><button class="menu-btn">📝 Absen masuk</button></a
+        <a href="absenmasuk.html" class="menu-btn primary">📝 Absen masuk</a>
+        <a href="absenkeluar.html" class="menu-btn secondary"
+          >📝 Absen keluar</a
         >
-        <a href="absenkeluar.html"
-          ><button class="menu-btn">📝 Absen keluar</button></a
-        >
-        <a href="dashboard.html"
-          ><button class="menu-btn">&larr; Kembali</button></a
-        >
+        <a href="dashboard.html" class="menu-btn danger">&larr; Kembali</a>
       </div>
 
       <div id="content"></div>
@@ -122,13 +118,17 @@
         if (!el) return;
 
         if (!data) {
-          el.innerHTML = `<div style="color:red;font-weight:600">❌ Belum absen hari ini</div>`;
+          el.innerHTML = `
+            <div class="title">Status Hari Ini</div>
+            <div class="bad">❌ Belum absen hari ini</div>
+          `;
         } else {
           el.innerHTML = `
-      <div style="color:green;font-weight:600">📌 Status Hari Ini</div>
-      <div>Masuk: ${data.jamMasuk || "-"} | ${data.statusMasuk || "-"}</div>
-      <div>Keluar: ${data.jamKeluar || "-"} | ${data.statusKeluar || "-"}</div>
-    `;
+            <div class="title">Status Hari Ini</div>
+            <div class="ok">📌 Sudah absen</div>
+            <div>Masuk: ${data.jamMasuk || "-"} (${data.statusMasuk || "-"})</div>
+            <div>Keluar: ${data.jamKeluar || "-"} (${data.statusKeluar || "-"})</div>
+          `;
         }
       }
 

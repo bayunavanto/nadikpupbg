@@ -37,31 +37,35 @@
     </header>
 
     <!-- MAIN -->
-    <main class="container">
+    <main>
       <div class="page-title">
         <h2>👥 Daftar User</h2>
-        <p>Monitoring user yang terdaftar</p>
+        <p>Monitoring dan manajemen user sistem NADI</p>
       </div>
 
-      <div class="table-wrapper">
-        <table id="tableUser" class="display">
-          <thead>
-            <tr>
-              <th>Nama</th>
-              <th>Username</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
+      <div class="form-card">
+        <div class="table-wrapper">
+          <table id="tableUser" class="display">
+            <thead>
+              <tr>
+                <th>Nama</th>
+                <th>Username</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
       </div>
 
-      <button
-        class="btn-secondary"
-        onclick="window.location.href = 'admin.html'"
-      >
-        ← Kembali
-      </button>
+      <div style="margin-top: 12px">
+        <button
+          class="btn-secondary"
+          onclick="window.location.href = 'admin.html'"
+        >
+          ← Kembali
+        </button>
+      </div>
     </main>
 
     <footer>
@@ -94,8 +98,8 @@
             d.nama,
             d.username,
             d.aktif
-              ? "<span style='background:#e6f7ee;color:#1a7f37;padding:4px 8px;border-radius:8px'>Aktif</span>"
-              : "<span style='background:#fdeaea;color:#b42318;padding:4px 8px;border-radius:8px'>Nonaktif</span>",
+              ? "<span class='badge-active'>Aktif</span>"
+              : "<span class='badge-inactive'>Nonaktif</span>",
           ]);
         });
 

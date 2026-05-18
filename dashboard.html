@@ -4,126 +4,153 @@
     <base target="_top" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>NADI - Navigasi Administrasi Digital Internal</title>
-    <link
-      rel="shortcut icon"
-      href="assets/img/nadiv2.png"
-      type="image/x-icon"
-    />
+
+    <title>NADI - Dashboard</title>
+
+    <link rel="shortcut icon" href="assets/img/nadiv2.png" />
+
     <link rel="stylesheet" href="./assets/css/interface.css" />
   </head>
+
   <body>
-    <!-- HEADER -->
+    <!-- ================= HEADER ================= -->
     <header>
       <div class="logo">
-        <img
-          src="assets/img/nadiv2.png"
-          alt="Logo Instansi"
-          width="85"
-          style="display: block; margin: 2 auto 20px"
-        />
-        <span
-          >NADI - Navigasi Administrasi Digital Internal <br />KPU Kab.
-          Purbalingga</span
-        >
+        <img src="assets/img/nadiv2.png" width="70" />
+        <span>
+          NADI<br />
+          <small>KPU Kab. Purbalingga</small>
+        </span>
       </div>
+
       <div class="clock" id="clock">--:--:--</div>
     </header>
 
-    <!-- MAIN CONTENT -->
+    <!-- SIDEBAR (DESKTOP ONLY) -->
+    <aside class="sidebar">
+      <div class="sidebar-title">NADI MENU</div>
+
+      <a href="dashboard.html" class="side-item active">🏠 Dashboard</a>
+      <a href="absensi.html" class="side-item">📝 Absen</a>
+      <a href="pengambilanbarangpersediaan.html" class="side-item">📦 ATK</a>
+      <a href="profile.html" class="side-item">👤 Profil</a>
+
+      <hr />
+
+      <a href="admin.html" id="sideAdmin" class="side-item">⚙️ Admin</a>
+      <button onclick="about()" class="side-item">ℹ️ Tentang</button>
+      <button onclick="logout()" class="side-item danger">🚪 Logout</button>
+    </aside>
+
+    <!-- ================= MAIN ================= -->
     <main>
-      <div class="page-title">
-        <h2>
-          <span id="greeting"
-            >NADI - Navigasi Administrasi Digital Internal</span
-          >, <span id="userInfo">Memuat data user...</span>
-        </h2>
+      <!-- GREETING / HERO -->
+      <section class="page-title">
+        <h2 id="greeting">Selamat datang</h2>
+        <p id="userInfo">Memuat data user...</p>
+      </section>
+
+      <div class="quick-info">
+        <div class="info-card">
+          <span>📅 Hari Ini</span>
+          <strong id="todayDate">-</strong>
+        </div>
+
+        <div class="info-card">
+          <span>👤 Status</span>
+          <strong>Aktif</strong>
+        </div>
+
+        <!-- <div class="info-card">
+          <span>⚡ Akses</span>
+          <strong>Normal</strong>
+        </div> -->
       </div>
 
-      <div class="menu-container">
-        <a href="absensi.html"
-          ><button class="menu-btn">📝 Absen Online</button></a
-        >
-        <a href="pengambilanbarangpersediaan.html"
-          ><button class="menu-btn">
-            📝 Pengambilan Barang Persediaan / ATK
-          </button></a
-        >
-        <a href="profile.html"
-          ><button class="menu-btn">👨‍💼 Halaman Profil</button></a
-        >
-        <a href="admin.html"
-          ><button id="btnAdmin" class="menu-btn">⚙️ Admin Panel</button></a
-        >
-        <button class="menu-btn" onclick="about()">ℹ️ Tentang</button>
-        <button class="menu-btn" onclick="logout()">Logout &#8594;</button>
-      </div>
+      <!-- QUICK MENU -->
+      <section class="menu-container">
+        <a href="absensi.html" class="menu-btn"> 📝 Absen Online </a>
 
+        <a href="pengambilanbarangpersediaan.html" class="menu-btn">
+          📦 ATK / Persediaan
+        </a>
+
+        <a href="profile.html" class="menu-btn"> 👤 Profil </a>
+
+        <a href="admin.html" id="btnAdmin" class="menu-btn"> ⚙️ Admin Panel </a>
+      </section>
+
+      <!-- SECONDARY ACTIONS -->
+      <section style="margin-top: 25px" class="menu-container">
+        <button class="menu-btn secondary" onclick="about()">ℹ️ Tentang</button>
+
+        <button class="menu-btn danger" onclick="logout()">🚪 Logout</button>
+      </section>
+
+      <!-- CONTENT AREA -->
       <div id="content"></div>
     </main>
 
-    <footer>
-      © <span id="year"></span> NADI - Navigasi Administrasi Digital Internal
-    </footer>
+    <!-- ================= FOOTER ================= -->
+    <footer>© <span id="year"></span> NADI</footer>
 
+    <!-- ================= SCRIPT ================= -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
       document.getElementById("year").textContent = new Date().getFullYear();
 
-      function soon() {
-        Swal.fire({
-          icon: "warning",
-          title: "Segera Hadir",
-          text: "Fitur ini akan segera hadir",
-        });
-      }
-
       function about() {
         Swal.fire({
           icon: "info",
           title: "Tentang NADI",
-          text: "Navigasi Administrasi Digital Internal (v.2.1) KPU Kab. Purbalingga adalah sistem layanan administrasi untuk internal pegawai KPU Kab. Purbalingga",
+          text: "Navigasi Administrasi Digital Internal KPU Kab. Purbalingga",
         });
       }
 
-      // script waktu
-      // Fungsi sapaan sesuai waktu
       function setGreeting() {
         const hour = new Date().getHours();
         let greeting = "Selamat datang";
 
-        if (hour >= 5 && hour < 11) greeting = "Selamat pagi ☀️";
-        else if (hour >= 11 && hour < 15) greeting = "Selamat siang 🌤️";
-        else if (hour >= 15 && hour < 18) greeting = "Selamat sore 🌇";
+        if (hour < 11) greeting = "Selamat pagi ☀️";
+        else if (hour < 15) greeting = "Selamat siang 🌤️";
+        else if (hour < 18) greeting = "Selamat sore 🌇";
         else greeting = "Selamat malam 🌙";
 
-        document.getElementById("greeting").textContent = greeting;
+        document.getElementById("greeting").innerText = greeting;
       }
 
-      // Fungsi update jam di kanan atas
       function updateClock() {
         const now = new Date();
-        const jam = now.getHours().toString().padStart(2, "0");
-        const menit = now.getMinutes().toString().padStart(2, "0");
-        const detik = now.getSeconds().toString().padStart(2, "0");
-        document.getElementById("clock").textContent =
-          `${jam}:${menit}:${detik}`;
+        const jam = String(now.getHours()).padStart(2, "0");
+        const menit = String(now.getMinutes()).padStart(2, "0");
+        const detik = String(now.getSeconds()).padStart(2, "0");
+
+        document.getElementById("clock").innerText = `${jam}:${menit}:${detik}`;
       }
+
       setGreeting();
       setInterval(updateClock, 1000);
       updateClock();
+
+      document.getElementById("todayDate").innerText =
+        new Date().toLocaleDateString("id-ID", {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
     </script>
 
-    <!-- script firebase -->
+    <!-- ================= FIREBASE ================= -->
     <script type="module" src="./assets/js/auth-guard.js"></script>
+
     <script type="module">
       import { auth, db } from "./assets/js/firebase.js";
       import {
         signOut,
         onAuthStateChanged,
       } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
       import {
         collection,
         query,
@@ -131,22 +158,17 @@
         getDocs,
       } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-      let currentUser = null;
-
       const btnAdmin = document.getElementById("btnAdmin");
       const userInfo = document.getElementById("userInfo");
+      const sideAdmin = document.getElementById("sideAdmin");
 
-      // default: sembunyikan admin button
       btnAdmin.style.display = "none";
+      if (sideAdmin) sideAdmin.style.display = "none";
 
       window.logout = async function () {
         await signOut(auth);
-        window.location.replace("index.html");
+        window.location.href = "index.html";
       };
-
-      function getToday() {
-        return new Date().toISOString().split("T")[0];
-      }
 
       onAuthStateChanged(auth, async (user) => {
         if (!user) {
@@ -154,38 +176,24 @@
           return;
         }
 
-        try {
-          const username = user.email.split("@")[0];
+        const username = user.email.split("@")[0];
 
-          const q = query(
-            collection(db, "users"),
-            where("username", "==", username),
-          );
+        const q = query(
+          collection(db, "users"),
+          where("username", "==", username),
+        );
 
-          const snapshot = await getDocs(q);
+        const snapshot = await getDocs(q);
 
-          if (snapshot.empty) {
-            console.error("User tidak ditemukan di Firestore");
-            return;
+        if (!snapshot.empty) {
+          const data = snapshot.docs[0].data();
+
+          userInfo.innerText = data.nama;
+
+          if (data.role === "admin") {
+            btnAdmin.style.display = "block";
+            if (sideAdmin) sideAdmin.style.display = "block";
           }
-
-          const userData = snapshot.docs[0].data();
-
-          // simpan global
-          currentUser = {
-            username: userData.username,
-            nama: userData.nama,
-          };
-
-          // tampilkan nama user
-          userInfo.innerText = currentUser.nama;
-
-          // tampilkan tombol admin kalau admin
-          if (userData.role === "admin") {
-            btnAdmin.style.display = "inline-block";
-          }
-        } catch (err) {
-          console.error("Error load user:", err);
         }
       });
     </script>

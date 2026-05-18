@@ -1,0 +1,219 @@
+/* =========================
+   AUTH LOGIN STYLE (NADI)
+========================= */
+
+:root {
+  --primary: #6666ff;
+  --primary-dark: #4f46e5;
+
+  --bg1: #eef2ff;
+  --bg2: #f8fafc;
+
+  --text: #1f2937;
+  --muted: #6b7280;
+
+  --card: #ffffff;
+
+  --radius: 18px;
+
+  --shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* RESET */
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(135deg, var(--bg1), var(--bg2));
+  color: var(--text);
+  padding: 20px;
+}
+
+/* =========================
+   LOGIN CARD WRAPPER
+========================= */
+.registration-form {
+  width: 100%;
+  max-width: 420px;
+}
+
+/* FORM CARD */
+.registration-form form {
+  background: var(--card);
+  padding: 40px 32px;
+
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+
+  text-align: center;
+
+  animation: fadeUp 0.5s ease;
+}
+
+/* LOGO */
+.registration-form img {
+  margin-bottom: 20px;
+}
+
+/* TITLE / ERROR AREA */
+.registration-form h3 {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.registration-form small {
+  color: var(--muted);
+}
+
+/* ERROR BOX */
+.error {
+  color: #b42318;
+  background: #fdeaea;
+
+  padding: 10px 12px;
+  border-radius: 10px;
+
+  font-size: 12px;
+  margin-bottom: 15px;
+
+  display: block;
+}
+
+/* =========================
+   INPUT STYLE
+========================= */
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.form-control.item {
+  width: 100%;
+  padding: 12px 14px;
+
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+
+  font-size: 14px;
+
+  outline: none;
+  transition: 0.2s ease;
+}
+
+.form-control.item:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(102, 102, 255, 0.15);
+}
+
+/* =========================
+   BUTTON LOGIN
+========================= */
+.create-account {
+  width: 100%;
+  padding: 12px 14px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: var(--primary);
+  color: white;
+
+  font-weight: 600;
+  font-size: 15px;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.create-account:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+.create-account:disabled {
+  background: #a5a5ff;
+  cursor: not-allowed;
+}
+
+/* =========================
+   FOOTER AREA
+========================= */
+.social-media {
+  text-align: center;
+  margin-top: 14px;
+
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* =========================
+   ANIMATION
+========================= */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 480px) {
+  .registration-form form {
+    padding: 30px 20px;
+  }
+
+  .form-control.item {
+    font-size: 13px;
+  }
+
+  .create-account {
+    font-size: 14px;
+  }
+}
+#errorMsg:empty {
+  display: none;
+}
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.password-wrapper input {
+  padding-right: 42px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  cursor: pointer;
+  color: #6b7280;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: 0.2s ease;
+}
+
+.toggle-password:hover {
+  color: #6666ff;
+}
