@@ -1,0 +1,1719 @@
+<!doctype html>
+<html>
+  <head>
+    <base target="_top" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>LKHP - NADI</title>
+
+    <link
+      rel="shortcut icon"
+      href="assets/img/nadiv2.png"
+      type="image/x-icon"
+    />
+
+    <!-- HugeIcons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css"
+    />
+
+    <link rel="stylesheet" href="./assets/css/interface.css" />
+
+    <style>
+      /* =========================
+         LKHP PAGE
+      ========================= */
+      .lkhp-page {
+        width: 100%;
+        max-width: 760px;
+
+        margin-top: 90px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 40px;
+
+        padding: 18px;
+      }
+
+      .lkhp-header-card {
+        position: relative;
+
+        background: var(--card);
+        border-radius: var(--radius);
+        padding: 20px;
+
+        border: 1px solid rgba(229, 231, 235, 0.9);
+        box-shadow: var(--shadow-soft);
+
+        margin-bottom: 16px;
+
+        overflow: hidden;
+      }
+
+      .lkhp-header-card::before {
+        content: "";
+
+        position: absolute;
+        top: -60px;
+        right: -50px;
+
+        width: 170px;
+        height: 170px;
+
+        border-radius: 999px;
+        background: rgba(102, 102, 255, 0.12);
+        filter: blur(8px);
+      }
+
+      .lkhp-header-content {
+        position: relative;
+        z-index: 1;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .lkhp-header-content h2 {
+        margin: 0;
+
+        color: var(--text);
+        font-size: 22px;
+        font-weight: 850;
+        letter-spacing: -0.3px;
+      }
+
+      .lkhp-header-content p {
+        margin: 6px 0 0;
+
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1.45;
+      }
+
+      .lkhp-header-icon {
+        width: 56px;
+        height: 56px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        flex-shrink: 0;
+
+        border-radius: 20px;
+
+        background: var(--primary-soft);
+        color: var(--primary);
+      }
+
+      .lkhp-header-icon .hgi {
+        font-size: 27px;
+      }
+
+      /* =========================
+         CALENDAR CARD
+      ========================= */
+      .calendar-card {
+        background: var(--card);
+        border-radius: var(--radius);
+        padding: 16px;
+
+        border: 1px solid rgba(229, 231, 235, 0.9);
+        box-shadow: var(--shadow-soft);
+
+        margin-bottom: 16px;
+      }
+
+      .calendar-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+
+        margin-bottom: 12px;
+      }
+
+      .calendar-title-wrap {
+        min-width: 0;
+      }
+
+      .calendar-title {
+        margin: 0;
+
+        color: var(--text);
+        font-size: 17px;
+        font-weight: 850;
+      }
+
+      .calendar-subtitle {
+        margin: 4px 0 0;
+
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .calendar-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .circle-btn {
+        width: 38px;
+        height: 38px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        border: none;
+        border-radius: 999px;
+
+        background: #f3f4ff;
+        color: var(--primary);
+
+        cursor: pointer;
+
+        transition:
+          transform 0.2s ease,
+          background 0.2s ease;
+      }
+
+      .circle-btn:hover {
+        transform: translateY(-1px);
+        background: var(--primary-soft);
+      }
+
+      .circle-btn .hgi {
+        font-size: 18px;
+      }
+
+      .selected-date-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+
+        margin-bottom: 12px;
+        padding: 9px 12px;
+
+        border-radius: 999px;
+
+        background: #f9f9ff;
+        color: var(--text);
+
+        border: 1px solid rgba(229, 231, 235, 0.9);
+
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .selected-date-chip .hgi {
+        color: var(--primary);
+        font-size: 17px;
+      }
+
+      .calendar-body {
+        display: block;
+      }
+
+      .calendar-card.collapsed .calendar-body {
+        display: none;
+      }
+
+      .calendar-weekdays,
+      .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 8px;
+      }
+
+      .calendar-weekdays {
+        margin-bottom: 8px;
+      }
+
+      .calendar-weekdays span {
+        text-align: center;
+
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 800;
+      }
+
+      .calendar-day {
+        position: relative;
+
+        height: 42px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        border: none;
+        border-radius: 15px;
+
+        background: #f9f9ff;
+        color: var(--text);
+
+        font-size: 13px;
+        font-weight: 750;
+
+        cursor: pointer;
+
+        transition:
+          background 0.2s ease,
+          color 0.2s ease,
+          transform 0.2s ease;
+      }
+
+      .calendar-day:hover {
+        transform: translateY(-1px);
+        background: var(--primary-soft);
+        color: var(--primary);
+      }
+
+      .calendar-day.empty {
+        background: transparent;
+        cursor: default;
+        pointer-events: none;
+      }
+
+      .calendar-day.today {
+        color: var(--primary);
+        border: 1px solid rgba(102, 102, 255, 0.24);
+      }
+
+      .calendar-day.selected {
+        background: var(--primary);
+        color: #ffffff;
+
+        box-shadow: 0 10px 22px rgba(102, 102, 255, 0.22);
+      }
+
+      /* marker tanggal sudah ada laporan */
+      .calendar-day.has-report::after {
+        content: "";
+
+        position: absolute;
+        bottom: 5px;
+        left: 50%;
+        transform: translateX(-50%);
+
+        width: 6px;
+        height: 6px;
+
+        border-radius: 999px;
+        background: #16a34a;
+      }
+
+      .calendar-day.selected.has-report::after {
+        background: #ffffff;
+      }
+
+      /* =========================
+         ACTION BAR
+      ========================= */
+      .lkhp-action-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+
+        margin-bottom: 16px;
+      }
+
+      .lkhp-mini-info {
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .add-report-btn {
+        height: 44px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+
+        padding: 0 16px;
+
+        border: none;
+        border-radius: 999px;
+
+        background: var(--primary);
+        color: #ffffff;
+
+        font-size: 14px;
+        font-weight: 800;
+
+        cursor: pointer;
+
+        box-shadow: 0 12px 24px rgba(102, 102, 255, 0.22);
+
+        transition:
+          transform 0.2s ease,
+          background 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      .add-report-btn:hover {
+        transform: translateY(-1px);
+        background: var(--primary-dark);
+        box-shadow: 0 14px 28px rgba(102, 102, 255, 0.28);
+      }
+
+      .add-report-btn .hgi {
+        font-size: 18px;
+      }
+
+      /* =========================
+         TIMELINE
+      ========================= */
+      .lkhp-list-card {
+        background: var(--card);
+        border-radius: var(--radius);
+        padding: 18px;
+
+        border: 1px solid rgba(229, 231, 235, 0.9);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .lkhp-list-header {
+        margin-bottom: 16px;
+      }
+
+      .lkhp-list-header h3 {
+        margin: 0;
+
+        color: var(--text);
+        font-size: 18px;
+        font-weight: 850;
+      }
+
+      .lkhp-list-header p {
+        margin: 4px 0 0;
+
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .lkhp-timeline {
+        position: relative;
+
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .lkhp-timeline::before {
+        content: "";
+
+        position: absolute;
+        top: 10px;
+        bottom: 10px;
+        left: 20px;
+
+        width: 2px;
+
+        border-radius: 999px;
+        background: #eef0ff;
+      }
+
+      .lkhp-item {
+        position: relative;
+
+        display: grid;
+        grid-template-columns: 42px 1fr;
+        gap: 12px;
+      }
+
+      .lkhp-dot {
+        position: relative;
+        z-index: 1;
+
+        width: 42px;
+        height: 42px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 16px;
+
+        background: var(--primary-soft);
+        color: var(--primary);
+
+        border: 4px solid #ffffff;
+        box-shadow: 0 8px 18px rgba(102, 102, 255, 0.14);
+      }
+
+      .lkhp-dot .hgi {
+        font-size: 18px;
+      }
+
+      .lkhp-content {
+        position: relative;
+
+        background: #ffffff;
+        border-radius: 22px;
+
+        padding: 15px;
+
+        border: 1px solid rgba(229, 231, 235, 0.9);
+
+        overflow: hidden;
+      }
+
+      .lkhp-content::after {
+        content: "";
+
+        position: absolute;
+        right: -30px;
+        bottom: -30px;
+
+        width: 110px;
+        height: 110px;
+
+        border-radius: 999px;
+        background: rgba(102, 102, 255, 0.08);
+        filter: blur(18px);
+      }
+
+      .lkhp-content-inner {
+        position: relative;
+        z-index: 1;
+      }
+
+      .lkhp-time {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+
+        margin-bottom: 8px;
+
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .lkhp-time .hgi {
+        color: var(--primary);
+        font-size: 15px;
+      }
+
+      .lkhp-text-box {
+        width: 100%;
+
+        padding: 13px;
+
+        border-radius: 16px;
+
+        background: #f9fafb;
+        border: 1px solid rgba(229, 231, 235, 0.9);
+      }
+
+      .lkhp-text {
+        margin: 0;
+
+        color: var(--text);
+        font-size: 14px;
+        font-weight: 650;
+        line-height: 1.55;
+        white-space: pre-wrap;
+      }
+
+      .lkhp-item-actions {
+        display: flex;
+        justify-content: flex-start;
+        gap: 10px;
+
+        margin-top: 12px;
+      }
+
+      .lkhp-action-btn {
+        height: 36px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+
+        padding: 0 12px;
+
+        border: none;
+        border-radius: 12px;
+
+        background: var(--primary-soft);
+        color: var(--primary);
+
+        font-size: 13px;
+        font-weight: 800;
+
+        cursor: pointer;
+
+        transition:
+          background 0.2s ease,
+          transform 0.2s ease;
+      }
+
+      .lkhp-action-btn:hover {
+        transform: translateY(-1px);
+        background: #e8ebff;
+      }
+
+      .lkhp-action-btn.danger {
+        background: var(--danger-soft);
+        color: var(--danger);
+      }
+
+      .lkhp-action-btn.danger:hover {
+        background: #ffe4e6;
+      }
+
+      .lkhp-action-btn .hgi {
+        font-size: 16px;
+      }
+
+      .empty-state {
+        width: 100%;
+
+        padding: 22px 16px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+
+        text-align: center;
+
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 700;
+
+        background: #f9f9ff;
+        border: 1px dashed rgba(102, 102, 255, 0.25);
+        border-radius: 22px;
+      }
+
+      .empty-state .hgi {
+        font-size: 30px;
+        color: var(--primary);
+      }
+
+      /* =========================
+         MODAL / BOTTOM SHEET
+      ========================= */
+      .sheet-overlay {
+        position: fixed;
+        inset: 0;
+
+        display: none;
+        align-items: flex-end;
+        justify-content: center;
+
+        background: rgba(17, 24, 39, 0.42);
+
+        z-index: 2000;
+      }
+
+      .sheet-overlay.show {
+        display: flex;
+      }
+
+      .sheet {
+        width: 100%;
+        max-width: 560px;
+
+        background: #ffffff;
+
+        border-radius: 28px 28px 0 0;
+        padding: 18px;
+
+        box-shadow: 0 -20px 50px rgba(17, 24, 39, 0.18);
+
+        animation: sheetUp 0.22s ease;
+      }
+
+      @keyframes sheetUp {
+        from {
+          transform: translateY(30px);
+          opacity: 0;
+        }
+
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .sheet-handle {
+        width: 48px;
+        height: 5px;
+
+        margin: 0 auto 18px;
+
+        border-radius: 999px;
+        background: #d1d5db;
+      }
+
+      .sheet-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        margin-bottom: 18px;
+      }
+
+      .sheet-title-icon {
+        width: 46px;
+        height: 46px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        flex-shrink: 0;
+
+        border-radius: 16px;
+
+        background: var(--primary-soft);
+        color: var(--primary);
+      }
+
+      .sheet-title-icon .hgi {
+        font-size: 22px;
+      }
+
+      .sheet-title h3 {
+        margin: 0;
+
+        color: var(--text);
+        font-size: 19px;
+        font-weight: 850;
+      }
+
+      .sheet-title p {
+        margin: 5px 0 0;
+
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .sheet-form-group {
+        margin-bottom: 14px;
+      }
+
+      .sheet-form-group label {
+        display: block;
+
+        margin-bottom: 7px;
+
+        color: var(--text);
+        font-size: 13px;
+        font-weight: 750;
+      }
+
+      .sheet-form-group textarea {
+        width: 100%;
+        min-height: 130px;
+
+        resize: vertical;
+
+        padding: 13px 14px;
+
+        border-radius: 18px;
+        border: 1px solid var(--border);
+
+        outline: none;
+
+        background: #f9fafb;
+        color: var(--text);
+
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      .sheet-form-group textarea:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(102, 102, 255, 0.12);
+      }
+
+      .sheet-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .sheet-btn {
+        height: 46px;
+
+        border: none;
+        border-radius: 999px;
+
+        font-size: 14px;
+        font-weight: 800;
+
+        cursor: pointer;
+
+        transition:
+          transform 0.2s ease,
+          background 0.2s ease;
+      }
+
+      .sheet-btn:active {
+        transform: scale(0.98);
+      }
+
+      .sheet-btn.cancel {
+        background: #f3f4ff;
+        color: var(--primary);
+      }
+
+      .sheet-btn.submit {
+        background: var(--primary);
+        color: #ffffff;
+      }
+
+      .sheet-btn.submit:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+      }
+
+      /* =========================
+         DELETE SHEET
+      ========================= */
+      .delete-sheet-icon {
+        width: 64px;
+        height: 64px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin: 6px auto 16px;
+
+        border-radius: 999px;
+
+        background: var(--danger-soft);
+        color: var(--danger);
+      }
+
+      .delete-sheet-icon .hgi {
+        font-size: 34px;
+      }
+
+      .delete-sheet-title {
+        text-align: center;
+
+        margin-bottom: 8px;
+
+        font-size: 20px;
+        font-weight: 850;
+        color: var(--text);
+      }
+
+      .delete-sheet-text {
+        text-align: center;
+
+        margin-bottom: 22px;
+
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.45;
+      }
+
+      .sheet-btn.delete {
+        grid-column: 1 / -1;
+
+        background: var(--danger);
+        color: #ffffff;
+      }
+
+      .sheet-btn.full-cancel {
+        grid-column: 1 / -1;
+
+        background: #f3f4f6;
+        color: #111827;
+      }
+
+      /* =========================
+         MOBILE
+      ========================= */
+      @media (max-width: 576px) {
+        .lkhp-page {
+          margin-top: 82px;
+          padding: 14px;
+        }
+
+        .lkhp-header-card {
+          padding: 18px;
+          border-radius: 24px;
+        }
+
+        .lkhp-header-content h2 {
+          font-size: 20px;
+        }
+
+        .lkhp-header-content p {
+          font-size: 12.5px;
+        }
+
+        .lkhp-header-icon {
+          width: 50px;
+          height: 50px;
+          border-radius: 18px;
+        }
+
+        .calendar-card,
+        .lkhp-list-card {
+          border-radius: 24px;
+          padding: 14px;
+        }
+
+        .calendar-grid,
+        .calendar-weekdays {
+          gap: 6px;
+        }
+
+        .calendar-day {
+          height: 38px;
+          border-radius: 13px;
+          font-size: 12px;
+        }
+
+        .lkhp-action-bar {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .add-report-btn {
+          width: 100%;
+        }
+
+        .lkhp-timeline::before {
+          left: 18px;
+        }
+
+        .lkhp-item {
+          grid-template-columns: 38px 1fr;
+          gap: 10px;
+        }
+
+        .lkhp-dot {
+          width: 38px;
+          height: 38px;
+          border-radius: 15px;
+        }
+
+        .lkhp-content {
+          border-radius: 20px;
+          padding: 14px;
+        }
+
+        .lkhp-item-actions {
+          flex-wrap: wrap;
+        }
+
+        .sheet {
+          border-radius: 26px 26px 0 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <header>
+      <div class="logo">
+        <img src="assets/img/nadiv2.png" alt="Logo NADI" />
+
+        <span>
+          NADI<br />
+          <small>KPU Kab. Purbalingga</small>
+        </span>
+      </div>
+
+      <div class="clock" id="clock">--:--:--</div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="lkhp-page">
+      <!-- HEADER CARD -->
+      <section class="lkhp-header-card">
+        <div class="lkhp-header-content">
+          <div>
+            <h2>LKHP</h2>
+            <p>Laporan Kegiatan Harian Pegawai</p>
+          </div>
+
+          <div class="lkhp-header-icon">
+            <i class="hgi hgi-stroke hgi-rounded hgi-task-01"></i>
+          </div>
+        </div>
+      </section>
+
+      <!-- CALENDAR -->
+      <section class="calendar-card" id="calendarCard">
+        <div class="calendar-top">
+          <div class="calendar-title-wrap">
+            <h3 class="calendar-title" id="calendarTitle">-</h3>
+            <p class="calendar-subtitle">Pilih tanggal laporan kegiatan</p>
+          </div>
+
+          <div class="calendar-actions">
+            <button class="circle-btn" type="button" onclick="changeMonth(-1)">
+              <i class="hgi hgi-stroke hgi-rounded hgi-arrow-left-02"></i>
+            </button>
+
+            <button class="circle-btn" type="button" onclick="changeMonth(1)">
+              <i class="hgi hgi-stroke hgi-rounded hgi-arrow-right-02"></i>
+            </button>
+
+            <button class="circle-btn" type="button" onclick="toggleCalendar()">
+              <i
+                id="calendarToggleIcon"
+                class="hgi hgi-stroke hgi-rounded hgi-arrow-up-01"
+              ></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="selected-date-chip">
+          <i class="hgi hgi-stroke hgi-rounded hgi-calendar-03"></i>
+          <span id="selectedDateText">-</span>
+        </div>
+
+        <div class="calendar-body" id="calendarBody">
+          <div class="calendar-weekdays">
+            <span>Min</span>
+            <span>Sen</span>
+            <span>Sel</span>
+            <span>Rab</span>
+            <span>Kam</span>
+            <span>Jum</span>
+            <span>Sab</span>
+          </div>
+
+          <div class="calendar-grid" id="calendarGrid"></div>
+        </div>
+      </section>
+
+      <!-- ACTION BAR -->
+      <section class="lkhp-action-bar">
+        <div class="lkhp-mini-info" id="reportCountText">Memuat laporan...</div>
+
+        <button type="button" class="add-report-btn" onclick="openSheet()">
+          <i class="hgi hgi-stroke hgi-rounded hgi-plus-sign"></i>
+          Tambah Laporan
+        </button>
+      </section>
+
+      <!-- LIST -->
+      <section class="lkhp-list-card">
+        <div class="lkhp-list-header">
+          <h3>Timeline Kegiatan</h3>
+          <p id="listDateText">-</p>
+        </div>
+
+        <div class="lkhp-timeline" id="lkhpList">
+          <div class="empty-state">
+            <i class="hgi hgi-stroke hgi-rounded hgi-task-01"></i>
+            Memuat laporan kegiatan...
+          </div>
+        </div>
+      </section>
+
+      <!-- BACK -->
+      <div class="pill-actions">
+        <a href="dashboard.html" class="pill-btn danger">
+          <i class="hgi hgi-stroke hgi-rounded hgi-arrow-left-02"></i>
+          Kembali
+        </a>
+      </div>
+    </main>
+
+    <!-- ADD / EDIT BOTTOM SHEET -->
+    <div class="sheet-overlay" id="sheetOverlay">
+      <div class="sheet">
+        <div class="sheet-handle"></div>
+
+        <div class="sheet-title">
+          <div class="sheet-title-icon">
+            <i
+              id="sheetTitleIcon"
+              class="hgi hgi-stroke hgi-rounded hgi-edit-02"
+            ></i>
+          </div>
+
+          <div>
+            <h3 id="sheetTitleText">Tambah Laporan</h3>
+            <p id="sheetDateText">-</p>
+          </div>
+        </div>
+
+        <div class="sheet-form-group">
+          <label for="kegiatanInput">Uraian kegiatan</label>
+          <textarea
+            id="kegiatanInput"
+            placeholder="Tulis kegiatan hari ini..."
+          ></textarea>
+        </div>
+
+        <div class="sheet-actions">
+          <button type="button" class="sheet-btn cancel" onclick="closeSheet()">
+            Batal
+          </button>
+
+          <button type="button" class="sheet-btn submit" id="btnSaveLkhp">
+            Simpan
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- DELETE BOTTOM SHEET -->
+    <div class="sheet-overlay" id="deleteSheetOverlay">
+      <div class="sheet">
+        <div class="sheet-handle"></div>
+
+        <div class="delete-sheet-icon">
+          <i class="hgi hgi-stroke hgi-rounded hgi-delete-02"></i>
+        </div>
+
+        <h3 class="delete-sheet-title">Hapus laporan?</h3>
+
+        <p class="delete-sheet-text">
+          Laporan yang sudah dihapus tidak bisa dikembalikan.
+        </p>
+
+        <div class="sheet-actions">
+          <button type="button" class="sheet-btn delete" id="btnConfirmDelete">
+            Ya, Hapus
+          </button>
+
+          <button
+            type="button"
+            class="sheet-btn full-cancel"
+            onclick="closeDeleteSheet()"
+          >
+            Batal
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      © <span id="year"></span> NADI - Navigasi Administrasi Digital Internal
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./assets/js/clock.js"></script>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      const monthNames = [
+        "Januari",
+        "Februari",
+        "Maret",
+        "April",
+        "Mei",
+        "Juni",
+        "Juli",
+        "Agustus",
+        "September",
+        "Oktober",
+        "November",
+        "Desember",
+      ];
+
+      window.selectedDate = getTodayJakarta();
+      window.calendarMonth = new Date(
+        window.selectedDate + "T00:00:00",
+      ).getMonth();
+      window.calendarYear = new Date(
+        window.selectedDate + "T00:00:00",
+      ).getFullYear();
+      window.reportDates = new Set();
+
+      function getTodayJakarta() {
+        return new Date().toLocaleDateString("sv-SE", {
+          timeZone: "Asia/Jakarta",
+        });
+      }
+
+      function formatDateId(dateString) {
+        const date = new Date(dateString + "T00:00:00");
+
+        return date.toLocaleDateString("id-ID", {
+          weekday: "long",
+          day: "2-digit",
+          month: "long",
+          year: "numeric",
+        });
+      }
+
+      function renderCalendar() {
+        const calendarTitle = document.getElementById("calendarTitle");
+        const selectedDateText = document.getElementById("selectedDateText");
+        const listDateText = document.getElementById("listDateText");
+        const sheetDateText = document.getElementById("sheetDateText");
+        const calendarGrid = document.getElementById("calendarGrid");
+
+        calendarTitle.innerText = `${monthNames[window.calendarMonth]} ${window.calendarYear}`;
+
+        selectedDateText.innerText = formatDateId(window.selectedDate);
+        listDateText.innerText = formatDateId(window.selectedDate);
+        sheetDateText.innerText = formatDateId(window.selectedDate);
+
+        calendarGrid.innerHTML = "";
+
+        const firstDay = new Date(
+          window.calendarYear,
+          window.calendarMonth,
+          1,
+        ).getDay();
+
+        const totalDays = new Date(
+          window.calendarYear,
+          window.calendarMonth + 1,
+          0,
+        ).getDate();
+
+        for (let i = 0; i < firstDay; i++) {
+          const empty = document.createElement("button");
+          empty.className = "calendar-day empty";
+          empty.type = "button";
+          calendarGrid.appendChild(empty);
+        }
+
+        for (let day = 1; day <= totalDays; day++) {
+          const dateString = `${window.calendarYear}-${String(
+            window.calendarMonth + 1,
+          ).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "calendar-day";
+          btn.innerText = day;
+
+          if (dateString === getTodayJakarta()) {
+            btn.classList.add("today");
+          }
+
+          if (window.reportDates.has(dateString)) {
+            btn.classList.add("has-report");
+          }
+
+          if (dateString === window.selectedDate) {
+            btn.classList.add("selected");
+          }
+
+          btn.onclick = async () => {
+            window.selectedDate = dateString;
+            renderCalendar();
+
+            if (window.loadLkhp) {
+              await window.loadLkhp();
+            }
+          };
+
+          calendarGrid.appendChild(btn);
+        }
+      }
+
+      async function changeMonth(step) {
+        window.calendarMonth += step;
+
+        if (window.calendarMonth < 0) {
+          window.calendarMonth = 11;
+          window.calendarYear--;
+        }
+
+        if (window.calendarMonth > 11) {
+          window.calendarMonth = 0;
+          window.calendarYear++;
+        }
+
+        renderCalendar();
+
+        if (window.loadMonthlyMarkers) {
+          await window.loadMonthlyMarkers();
+        }
+      }
+
+      function toggleCalendar() {
+        const card = document.getElementById("calendarCard");
+        const icon = document.getElementById("calendarToggleIcon");
+
+        card.classList.toggle("collapsed");
+
+        if (card.classList.contains("collapsed")) {
+          icon.className = "hgi hgi-stroke hgi-rounded hgi-arrow-down-01";
+        } else {
+          icon.className = "hgi hgi-stroke hgi-rounded hgi-arrow-up-01";
+        }
+      }
+
+      function openSheet() {
+        if (window.openAddSheet) {
+          window.openAddSheet();
+        }
+      }
+
+      function closeSheet() {
+        if (window.closeReportSheet) {
+          window.closeReportSheet();
+        }
+      }
+
+      function closeDeleteSheet() {
+        if (window.closeDeleteSheetHandler) {
+          window.closeDeleteSheetHandler();
+        }
+      }
+
+      document.getElementById("sheetOverlay").addEventListener("click", (e) => {
+        if (e.target.id === "sheetOverlay") closeSheet();
+      });
+
+      document
+        .getElementById("deleteSheetOverlay")
+        .addEventListener("click", (e) => {
+          if (e.target.id === "deleteSheetOverlay") closeDeleteSheet();
+        });
+
+      renderCalendar();
+    </script>
+
+    <!-- AUTH GUARD -->
+    <script type="module" src="./assets/js/auth-guard.js"></script>
+
+    <!-- FIREBASE -->
+    <script type="module">
+      import { auth, db } from "./assets/js/firebase.js";
+
+      import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+      import {
+        collection,
+        query,
+        where,
+        getDocs,
+        addDoc,
+        updateDoc,
+        deleteDoc,
+        doc,
+        Timestamp,
+        orderBy,
+      } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+      const LKHP_COLLECTION = "lkhp";
+
+      let currentUser = null;
+      let selectedReportId = null;
+      let selectedDeleteId = null;
+      let reportsCache = new Map();
+
+      const listEl = document.getElementById("lkhpList");
+      const countEl = document.getElementById("reportCountText");
+      const btnSave = document.getElementById("btnSaveLkhp");
+      const kegiatanInput = document.getElementById("kegiatanInput");
+      const sheetTitleText = document.getElementById("sheetTitleText");
+      const sheetTitleIcon = document.getElementById("sheetTitleIcon");
+      const btnConfirmDelete = document.getElementById("btnConfirmDelete");
+
+      function getMonthRangeKeys() {
+        const firstDay = new Date(window.calendarYear, window.calendarMonth, 1);
+        const lastDay = new Date(
+          window.calendarYear,
+          window.calendarMonth + 1,
+          0,
+        );
+
+        const firstKey = `${firstDay.getFullYear()}-${String(
+          firstDay.getMonth() + 1,
+        ).padStart(2, "0")}-01`;
+
+        const lastKey = `${lastDay.getFullYear()}-${String(
+          lastDay.getMonth() + 1,
+        ).padStart(2, "0")}-${String(lastDay.getDate()).padStart(2, "0")}`;
+
+        return { firstKey, lastKey };
+      }
+
+      function getCreatedTime(item) {
+        if (!item.created_at) return "-";
+
+        try {
+          if (item.created_at.toDate) {
+            return item.created_at.toDate().toLocaleTimeString("id-ID", {
+              hour: "2-digit",
+              minute: "2-digit",
+            });
+          }
+
+          return new Date(item.created_at).toLocaleTimeString("id-ID", {
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+        } catch (error) {
+          return "-";
+        }
+      }
+
+      function getCreatedDate(item) {
+        if (!item.created_at) return formatDateId(window.selectedDate);
+
+        try {
+          if (item.created_at.toDate) {
+            return item.created_at.toDate().toLocaleDateString("id-ID", {
+              day: "2-digit",
+              month: "long",
+              year: "numeric",
+            });
+          }
+
+          return new Date(item.created_at).toLocaleDateString("id-ID", {
+            day: "2-digit",
+            month: "long",
+            year: "numeric",
+          });
+        } catch (error) {
+          return formatDateId(window.selectedDate);
+        }
+      }
+
+      function escapeHtml(text) {
+        return String(text || "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      window.loadMonthlyMarkers = async function () {
+        if (!currentUser) return;
+
+        try {
+          const { firstKey, lastKey } = getMonthRangeKeys();
+
+          const q = query(
+            collection(db, LKHP_COLLECTION),
+            where("uid", "==", currentUser.uid),
+            where("date_key", ">=", firstKey),
+            where("date_key", "<=", lastKey),
+          );
+
+          const snapshot = await getDocs(q);
+
+          const dates = new Set();
+
+          snapshot.docs.forEach((docItem) => {
+            const data = docItem.data();
+
+            if (data.date_key) {
+              dates.add(data.date_key);
+            }
+          });
+
+          window.reportDates = dates;
+
+          renderCalendar();
+        } catch (error) {
+          console.error("LOAD MONTHLY MARKERS ERROR:", error);
+        }
+      };
+
+      window.loadLkhp = async function () {
+        if (!currentUser) return;
+
+        listEl.innerHTML = `
+          <div class="empty-state">
+            <i class="hgi hgi-stroke hgi-rounded hgi-task-01"></i>
+            Memuat laporan kegiatan...
+          </div>
+        `;
+
+        try {
+          const q = query(
+            collection(db, LKHP_COLLECTION),
+            where("uid", "==", currentUser.uid),
+            where("date_key", "==", window.selectedDate),
+            orderBy("created_at", "desc"),
+          );
+
+          const snapshot = await getDocs(q);
+
+          const data = snapshot.docs.map((item) => ({
+            id: item.id,
+            ...item.data(),
+          }));
+
+          reportsCache = new Map();
+
+          data.forEach((item) => {
+            reportsCache.set(item.id, item);
+          });
+
+          countEl.innerText = `${data.length} laporan pada tanggal ini`;
+
+          if (data.length === 0) {
+            listEl.innerHTML = `
+              <div class="empty-state">
+                <i class="hgi hgi-stroke hgi-rounded hgi-task-remove"></i>
+                Belum ada laporan kegiatan pada tanggal ini.
+              </div>
+            `;
+            return;
+          }
+
+          listEl.innerHTML = data
+            .map((item) => {
+              return `
+                <article class="lkhp-item">
+                  <div class="lkhp-dot">
+                    <i class="hgi hgi-stroke hgi-rounded hgi-task-01"></i>
+                  </div>
+
+                  <div class="lkhp-content">
+                    <div class="lkhp-content-inner">
+                      <div class="lkhp-time">
+                        <i class="hgi hgi-stroke hgi-rounded hgi-clock-01"></i>
+                        Dicatat pukul ${getCreatedTime(item)}
+                      </div>
+
+                      <div class="lkhp-text-box">
+                        <p class="lkhp-text">${escapeHtml(item.kegiatan || "-")}</p>
+                      </div>
+
+                      <div class="lkhp-item-actions">
+                        <button
+                          type="button"
+                          class="lkhp-action-btn"
+                          onclick="openEditSheet('${item.id}')"
+                        >
+                          <i class="hgi hgi-stroke hgi-rounded hgi-pencil-edit-02"></i>
+                          Edit
+                        </button>
+
+                        <button
+                          type="button"
+                          class="lkhp-action-btn danger"
+                          onclick="openDeleteSheet('${item.id}')"
+                        >
+                          <i class="hgi hgi-stroke hgi-rounded hgi-delete-02"></i>
+                          Hapus
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              `;
+            })
+            .join("");
+        } catch (error) {
+          console.error("LOAD LKHP ERROR:", error);
+
+          listEl.innerHTML = `
+            <div class="empty-state">
+              <i class="hgi hgi-stroke hgi-rounded hgi-alert-circle"></i>
+              Gagal memuat laporan kegiatan.
+            </div>
+          `;
+        }
+      };
+
+      window.openAddSheet = function () {
+        selectedReportId = null;
+
+        kegiatanInput.value = "";
+        sheetTitleText.innerText = "Tambah Laporan";
+        sheetTitleIcon.className = "hgi hgi-stroke hgi-rounded hgi-edit-02";
+        btnSave.innerText = "Simpan";
+
+        document.getElementById("sheetOverlay").classList.add("show");
+
+        setTimeout(() => {
+          kegiatanInput.focus();
+        }, 200);
+      };
+
+      window.openEditSheet = function (reportId) {
+        const report = reportsCache.get(reportId);
+
+        if (!report) {
+          Swal.fire("Error", "Data laporan tidak ditemukan", "error");
+          return;
+        }
+
+        selectedReportId = reportId;
+
+        kegiatanInput.value = report.kegiatan || "";
+        sheetTitleText.innerText = "Edit Laporan";
+        sheetTitleIcon.className =
+          "hgi hgi-stroke hgi-rounded hgi-pencil-edit-02";
+        btnSave.innerText = "Simpan Perubahan";
+
+        document.getElementById("sheetOverlay").classList.add("show");
+
+        setTimeout(() => {
+          kegiatanInput.focus();
+        }, 200);
+      };
+
+      window.closeReportSheet = function () {
+        selectedReportId = null;
+
+        document.getElementById("sheetOverlay").classList.remove("show");
+
+        kegiatanInput.value = "";
+        sheetTitleText.innerText = "Tambah Laporan";
+        sheetTitleIcon.className = "hgi hgi-stroke hgi-rounded hgi-edit-02";
+        btnSave.innerText = "Simpan";
+      };
+
+      btnSave.addEventListener("click", async () => {
+        if (!currentUser) return;
+
+        const kegiatan = kegiatanInput.value.trim();
+
+        if (!kegiatan) {
+          Swal.fire("Perhatian", "Kegiatan wajib diisi", "warning");
+          return;
+        }
+
+        btnSave.disabled = true;
+        btnSave.innerText = selectedReportId
+          ? "Memperbarui..."
+          : "Menyimpan...";
+
+        try {
+          if (selectedReportId) {
+            await updateDoc(doc(db, LKHP_COLLECTION, selectedReportId), {
+              kegiatan: kegiatan,
+              updated_at: Timestamp.now(),
+            });
+
+            window.closeReportSheet();
+
+            Swal.fire({
+              icon: "success",
+              title: "Berhasil",
+              text: "Laporan berhasil diperbarui",
+              timer: 1600,
+              showConfirmButton: false,
+            });
+          } else {
+            await addDoc(collection(db, LKHP_COLLECTION), {
+              uid: currentUser.uid,
+              nama: currentUser.nama,
+              date_key: window.selectedDate,
+              kegiatan: kegiatan,
+              created_at: Timestamp.now(),
+              updated_at: Timestamp.now(),
+            });
+
+            window.closeReportSheet();
+
+            Swal.fire({
+              icon: "success",
+              title: "Berhasil",
+              text: "Laporan berhasil disimpan",
+              timer: 1600,
+              showConfirmButton: false,
+            });
+          }
+
+          await window.loadLkhp();
+          await window.loadMonthlyMarkers();
+        } catch (error) {
+          console.error("SAVE / UPDATE LKHP ERROR:", error);
+
+          Swal.fire(
+            "Error",
+            selectedReportId
+              ? "Gagal memperbarui laporan"
+              : "Gagal menyimpan laporan",
+            "error",
+          );
+        } finally {
+          btnSave.disabled = false;
+          btnSave.innerText = selectedReportId ? "Simpan Perubahan" : "Simpan";
+        }
+      });
+
+      window.openDeleteSheet = function (reportId) {
+        selectedDeleteId = reportId;
+
+        document.getElementById("deleteSheetOverlay").classList.add("show");
+      };
+
+      window.closeDeleteSheetHandler = function () {
+        selectedDeleteId = null;
+
+        document.getElementById("deleteSheetOverlay").classList.remove("show");
+
+        btnConfirmDelete.disabled = false;
+        btnConfirmDelete.innerText = "Ya, Hapus";
+      };
+
+      btnConfirmDelete.addEventListener("click", async () => {
+        if (!selectedDeleteId) return;
+
+        btnConfirmDelete.disabled = true;
+        btnConfirmDelete.innerText = "Menghapus...";
+
+        try {
+          await deleteDoc(doc(db, LKHP_COLLECTION, selectedDeleteId));
+
+          window.closeDeleteSheetHandler();
+
+          Swal.fire({
+            icon: "success",
+            title: "Dihapus",
+            text: "Laporan berhasil dihapus",
+            timer: 1400,
+            showConfirmButton: false,
+          });
+
+          await window.loadLkhp();
+          await window.loadMonthlyMarkers();
+        } catch (error) {
+          console.error("DELETE LKHP ERROR:", error);
+
+          Swal.fire("Error", "Gagal menghapus laporan", "error");
+
+          btnConfirmDelete.disabled = false;
+          btnConfirmDelete.innerText = "Ya, Hapus";
+        }
+      });
+
+      onAuthStateChanged(auth, async (user) => {
+        if (!user) {
+          window.location.href = "index.html";
+          return;
+        }
+
+        currentUser = {
+          uid: user.uid,
+          username: user.email.split("@")[0],
+          nama: user.displayName || user.email.split("@")[0],
+        };
+
+        await window.loadMonthlyMarkers();
+        await window.loadLkhp();
+      });
+    </script>
+  </body>
+</html>

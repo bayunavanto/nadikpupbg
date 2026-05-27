@@ -4,32 +4,455 @@
     <base target="_top" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Profil - NADI</title>
+
+    <title>Download Absensi - NADI</title>
 
     <link
       rel="shortcut icon"
       href="assets/img/nadiv2.png"
       type="image/x-icon"
     />
-    <link rel="stylesheet" href="./assets/css/interface.css" />
+
+    <!-- HugeIcons -->
     <link
       rel="stylesheet"
-      href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css"
+      href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css"
     />
+
+    <link rel="stylesheet" href="./assets/css/interface.css" />
+
+    <style>
+      /* =========================
+         DOWNLOAD ABSEN PAGE
+      ========================= */
+      .download-absen-page {
+        width: 100%;
+        max-width: 900px;
+
+        margin-top: 90px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 40px;
+
+        padding: 18px;
+      }
+
+      .download-absen-hero {
+        position: relative;
+
+        background: rgba(255, 255, 255, 0.96);
+        border-radius: 28px;
+        padding: 20px;
+
+        border: 1px solid rgba(229, 231, 235, 0.9);
+        box-shadow: var(--shadow-soft);
+
+        margin-bottom: 18px;
+
+        overflow: hidden;
+      }
+
+      .download-absen-hero::before {
+        content: "";
+
+        position: absolute;
+        top: -60px;
+        right: -50px;
+
+        width: 170px;
+        height: 170px;
+
+        border-radius: 999px;
+        background: rgba(102, 102, 255, 0.12);
+        filter: blur(8px);
+      }
+
+      .download-absen-hero::after {
+        content: "";
+
+        position: absolute;
+        bottom: -70px;
+        left: 18%;
+
+        width: 150px;
+        height: 150px;
+
+        border-radius: 999px;
+        background: rgba(110, 231, 183, 0.14);
+        filter: blur(14px);
+      }
+
+      .download-absen-hero-content {
+        position: relative;
+        z-index: 1;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .download-absen-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+
+        margin-bottom: 10px;
+        padding: 7px 11px;
+
+        border-radius: 999px;
+
+        background: var(--primary-soft);
+        color: var(--primary);
+
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .download-absen-badge .hgi {
+        font-size: 16px;
+      }
+
+      .download-absen-hero h2 {
+        margin: 0;
+
+        color: var(--text);
+        font-size: 24px;
+        font-weight: 850;
+        letter-spacing: -0.3px;
+      }
+
+      .download-absen-hero p {
+        margin: 6px 0 0;
+
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1.45;
+      }
+
+      .download-absen-icon {
+        width: 60px;
+        height: 60px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        flex-shrink: 0;
+
+        border-radius: 22px;
+
+        background: var(--primary-soft);
+        color: var(--primary);
+      }
+
+      .download-absen-icon .hgi {
+        font-size: 30px;
+      }
+
+      .download-absen-card {
+        background: rgba(255, 255, 255, 0.96);
+
+        border-radius: 26px;
+        padding: 18px;
+
+        border: 1px solid rgba(229, 231, 235, 0.9);
+        box-shadow: var(--shadow-soft);
+
+        margin-bottom: 18px;
+      }
+
+      .download-section-title {
+        margin-bottom: 16px;
+      }
+
+      .download-section-title h3 {
+        margin: 0;
+
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+
+        color: var(--text);
+        font-size: 18px;
+        font-weight: 850;
+      }
+
+      .download-section-title h3 .hgi {
+        width: 36px;
+        height: 36px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 14px;
+
+        background: var(--primary-soft);
+        color: var(--primary);
+
+        font-size: 18px;
+      }
+
+      .download-section-title p {
+        margin: 5px 0 0;
+
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1.45;
+      }
+
+      .download-form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+
+        margin-bottom: 18px;
+      }
+
+      .download-form-group {
+        min-width: 0;
+      }
+
+      .download-form-group.full {
+        grid-column: 1 / -1;
+      }
+
+      .download-form-group label {
+        display: block;
+
+        margin-bottom: 7px;
+
+        color: var(--text);
+        font-size: 13px;
+        font-weight: 750;
+      }
+
+      .download-input-wrap {
+        position: relative;
+      }
+
+      .download-input-icon {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+
+        color: var(--primary);
+        pointer-events: none;
+      }
+
+      .download-input-icon .hgi {
+        font-size: 20px;
+      }
+
+      .download-absen-card input,
+      .download-absen-card select {
+        width: 100%;
+        min-height: 52px;
+
+        padding: 0 14px 0 48px;
+
+        border-radius: 18px;
+        border: 1px solid var(--border);
+
+        outline: none;
+
+        background: #f9fafb;
+        color: var(--text);
+
+        font-size: 14px;
+        font-weight: 600;
+
+        transition:
+          border-color 0.2s ease,
+          box-shadow 0.2s ease,
+          background 0.2s ease;
+      }
+
+      .download-absen-card select {
+        appearance: none;
+        -webkit-appearance: none;
+
+        padding-right: 44px;
+
+        cursor: pointer;
+      }
+
+      .download-absen-card input:focus,
+      .download-absen-card select:focus {
+        background: #ffffff;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(102, 102, 255, 0.12);
+      }
+
+      .download-select-arrow {
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+
+        color: var(--muted);
+        pointer-events: none;
+      }
+
+      .download-select-arrow .hgi {
+        font-size: 18px;
+      }
+
+      .download-info-card {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+
+        padding: 14px;
+
+        border-radius: 20px;
+
+        background: #f9f9ff;
+        border: 1px solid rgba(229, 231, 235, 0.85);
+
+        margin-bottom: 18px;
+      }
+
+      .download-info-icon {
+        width: 42px;
+        height: 42px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        flex-shrink: 0;
+
+        border-radius: 16px;
+
+        background: var(--primary-soft);
+        color: var(--primary);
+      }
+
+      .download-info-icon .hgi {
+        font-size: 20px;
+      }
+
+      .download-info-card strong {
+        display: block;
+
+        color: var(--text);
+        font-size: 14px;
+        font-weight: 850;
+
+        margin-bottom: 4px;
+      }
+
+      .download-info-card small {
+        display: block;
+
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1.45;
+      }
+
+      .download-submit-btn {
+        width: 100%;
+        height: 52px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+
+        border: none;
+        border-radius: 18px;
+
+        background: var(--primary);
+        color: #ffffff;
+
+        font-size: 15px;
+        font-weight: 850;
+
+        cursor: pointer;
+
+        box-shadow: 0 12px 24px rgba(102, 102, 255, 0.22);
+
+        transition:
+          background 0.2s ease,
+          transform 0.2s ease,
+          opacity 0.2s ease;
+      }
+
+      .download-submit-btn:hover {
+        transform: translateY(-1px);
+        background: var(--primary-dark);
+      }
+
+      .download-submit-btn:active {
+        transform: scale(0.98);
+      }
+
+      .download-submit-btn:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .download-submit-btn .hgi {
+        font-size: 20px;
+      }
+
+      .download-hidden-select {
+        display: none !important;
+      }
+
+      @media (max-width: 576px) {
+        .download-absen-page {
+          margin-top: 82px;
+          padding: 14px;
+        }
+
+        .download-absen-hero {
+          padding: 18px;
+          border-radius: 24px;
+        }
+
+        .download-absen-hero h2 {
+          font-size: 20px;
+        }
+
+        .download-absen-hero p {
+          font-size: 12.5px;
+        }
+
+        .download-absen-icon {
+          width: 52px;
+          height: 52px;
+          border-radius: 19px;
+        }
+
+        .download-absen-card {
+          border-radius: 24px;
+          padding: 14px;
+        }
+
+        .download-form-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
   </head>
 
   <body>
-    <!-- HEADER (SAMA PERSIS DENGAN DASHBOARD) -->
+    <!-- HEADER -->
     <header>
       <div class="logo">
-        <img
-          src="assets/img/nadiv2.png"
-          width="85"
-          style="display: block; margin: 2 auto 20px"
-        />
+        <img src="assets/img/nadiv2.png" alt="Logo NADI" />
+
         <span>
-          NADI - Navigasi Administrasi Digital Internal <br />
-          KPU Kab. Purbalingga
+          NADI<br />
+          <small>KPU Kab. Purbalingga</small>
         </span>
       </div>
 
@@ -37,37 +460,110 @@
     </header>
 
     <!-- MAIN -->
-    <main class="container">
-      <div class="page-title">
-        <h2>⬇️ Download Absensi</h2>
-        <p>Download data absensi berdasarkan rentang tanggal</p>
-      </div>
+    <main class="download-absen-page">
+      <!-- HERO -->
+      <section class="download-absen-hero">
+        <div class="download-absen-hero-content">
+          <div>
+            <span class="download-absen-badge">
+              <i class="hgi hgi-stroke hgi-rounded hgi-shield-user"></i>
+              Admin Area
+            </span>
 
-      <div class="form-card">
-        <div class="form-group">
-          <label>Tanggal Mulai</label>
-          <input type="date" id="startDate" />
+            <h2>Download Absensi</h2>
+            <p>
+              Unduh data absensi pegawai berdasarkan rentang tanggal untuk
+              kebutuhan monitoring dan rekap administrasi.
+            </p>
+          </div>
+
+          <div class="download-absen-icon">
+            <i class="hgi hgi-stroke hgi-rounded hgi-download-04"></i>
+          </div>
         </div>
-        <div class="form-group">
-          <label>Tanggal Akhir</label>
-          <input type="date" id="endDate" />
+      </section>
+
+      <!-- FORM -->
+      <section class="download-absen-card">
+        <div class="download-section-title">
+          <h3>
+            <i class="hgi hgi-stroke hgi-rounded hgi-filter"></i>
+            Filter Absensi
+          </h3>
+          <p>Pilih rentang tanggal data absensi yang ingin diunduh.</p>
         </div>
 
-        <div class="form-group">
-          <!-- <label>Pilih Pegawai (Opsional)</label> -->
-          <select id="username" class="custom-select" style="display: none">
-            <option value="">-- Semua Pegawai --</option>
-          </select>
+        <div class="download-form-grid">
+          <div class="download-form-group">
+            <label for="startDate">Tanggal Mulai</label>
+
+            <div class="download-input-wrap">
+              <span class="download-input-icon">
+                <i class="hgi hgi-stroke hgi-rounded hgi-calendar-03"></i>
+              </span>
+
+              <input type="date" id="startDate" />
+            </div>
+          </div>
+
+          <div class="download-form-group">
+            <label for="endDate">Tanggal Akhir</label>
+
+            <div class="download-input-wrap">
+              <span class="download-input-icon">
+                <i class="hgi hgi-stroke hgi-rounded hgi-calendar-03"></i>
+              </span>
+
+              <input type="date" id="endDate" />
+            </div>
+          </div>
+
+          <!-- Tetap dipertahankan untuk kompatibilitas download-absen.js -->
+          <div class="download-form-group full download-hidden-select">
+            <label for="username">Pegawai</label>
+
+            <div class="download-input-wrap">
+              <span class="download-input-icon">
+                <i class="hgi hgi-stroke hgi-rounded hgi-user"></i>
+              </span>
+
+              <select id="username" class="custom-select">
+                <option value="">-- Semua Pegawai --</option>
+              </select>
+
+              <span class="download-select-arrow">
+                <i class="hgi hgi-stroke hgi-rounded hgi-arrow-down-01"></i>
+              </span>
+            </div>
+          </div>
         </div>
 
-        <button id="btnDownload" class="btn-primary">⬇️ Download CSV</button>
+        <div class="download-info-card">
+          <span class="download-info-icon">
+            <i class="hgi hgi-stroke hgi-rounded hgi-information-circle"></i>
+          </span>
 
-        <button
-          class="btn-secondary"
-          onclick="window.location.href = 'admin.html'"
-        >
-          ← Kembali
+          <div>
+            <strong>Format unduhan CSV</strong>
+            <small>
+              File akan dibuat berdasarkan tanggal mulai dan tanggal akhir yang
+              dipilih.
+            </small>
+          </div>
+        </div>
+
+        <button id="btnDownload" class="download-submit-btn">
+          <i class="hgi hgi-stroke hgi-rounded hgi-file-download"></i>
+          Download CSV
         </button>
+      </section>
+
+      <!-- BACK -->
+      <div class="pill-actions">
+        <a href="admin.html" class="pill-btn danger">
+          <i class="hgi hgi-stroke hgi-rounded hgi-arrow-left-02"></i>
+          Kembali
+        </a>
       </div>
     </main>
 
@@ -76,13 +572,19 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
     <script src="./assets/js/clock.js"></script>
 
-    <!-- nanti script profil kita taruh di sini -->
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+
+    <!-- AUTH GUARD -->
     <script type="module" src="./assets/js/auth-guard.js"></script>
+
+    <!-- DOWNLOAD ABSEN LOGIC -->
     <script type="module" src="./assets/js/download-absen.js"></script>
+
+    <!-- ADMIN PROTECT -->
     <script type="module">
       import "./assets/js/admin-protect.js";
     </script>

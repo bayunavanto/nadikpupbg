@@ -1,0 +1,356 @@
+<!doctype html>
+<html>
+  <head>
+    <base target="_top" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Edit Profil - NADI</title>
+
+    <link
+      rel="shortcut icon"
+      href="assets/img/nadiv2.png"
+      type="image/x-icon"
+    />
+
+    <!-- HugeIcons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css"
+    />
+
+    <link rel="stylesheet" href="./assets/css/interface.css" />
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <header>
+      <div class="logo">
+        <img src="assets/img/nadiv2.png" alt="Logo NADI" />
+
+        <span>
+          NADI<br />
+          <small>KPU Kab. Purbalingga</small>
+        </span>
+      </div>
+
+      <div class="clock" id="clock">--:--:--</div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="edit-profile-page">
+      <!-- HERO -->
+      <section class="edit-profile-hero">
+        <div class="edit-profile-hero-content">
+          <div class="edit-profile-hero-icon">
+            <i class="hgi hgi-stroke hgi-rounded hgi-pencil-edit-02"></i>
+          </div>
+
+          <div>
+            <h2>Edit Profil</h2>
+            <p>Lengkapi dan perbarui data pribadi pengguna NADI.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- LOADING -->
+      <section class="edit-loading-card" id="loadingCard">
+        <div class="mini-loader"></div>
+        Memuat data profil...
+      </section>
+
+      <!-- FORM -->
+      <section class="edit-profile-card" id="formCard" style="display: none">
+        <form id="editProfileForm">
+          <!-- NIP -->
+          <div class="edit-form-group">
+            <label for="nipInput">NIP</label>
+
+            <div class="edit-input-wrap">
+              <span class="edit-input-icon">
+                <i class="hgi hgi-stroke hgi-rounded hgi-id"></i>
+              </span>
+
+              <input
+                type="text"
+                id="nipInput"
+                placeholder="Masukkan NIP"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+
+          <!-- UNIT KERJA -->
+          <div class="edit-form-group">
+            <label for="unitKerjaSelect">Unit Kerja</label>
+
+            <div class="edit-input-wrap">
+              <span class="edit-input-icon">
+                <i class="hgi hgi-stroke hgi-rounded hgi-building-03"></i>
+              </span>
+
+              <select id="unitKerjaSelect">
+                <option value="">Pilih unit kerja</option>
+                <option value="Keuangan Umum dan Logistik">
+                  Keuangan Umum dan Logistik
+                </option>
+                <option value="Teknis Penyelenggaraan Pemilu dan Hukum">
+                  Teknis Penyelenggaraan Pemilu dan Hukum
+                </option>
+                <option value="Perencanaan Data dan Informasi">
+                  Perencanaan Data dan Informasi
+                </option>
+                <option
+                  value="Partisipasi Hubungan Masyarakat dan Sumber Daya Manusia"
+                >
+                  Partisipasi Hubungan Masyarakat dan Sumber Daya Manusia
+                </option>
+              </select>
+
+              <span class="edit-select-arrow">
+                <i class="hgi hgi-stroke hgi-rounded hgi-arrow-down-01"></i>
+              </span>
+            </div>
+          </div>
+
+          <!-- JENIS KELAMIN -->
+          <div class="edit-form-group">
+            <label for="jenisKelaminSelect">Jenis Kelamin</label>
+
+            <div class="edit-input-wrap">
+              <span class="edit-input-icon">
+                <i class="hgi hgi-stroke hgi-rounded hgi-user-group"></i>
+              </span>
+
+              <select id="jenisKelaminSelect">
+                <option value="">Pilih jenis kelamin</option>
+                <option value="Laki-laki">Laki-laki</option>
+                <option value="Perempuan">Perempuan</option>
+              </select>
+
+              <span class="edit-select-arrow">
+                <i class="hgi hgi-stroke hgi-rounded hgi-arrow-down-01"></i>
+              </span>
+            </div>
+          </div>
+
+          <!-- TANGGAL LAHIR -->
+          <div class="edit-form-group">
+            <label for="tanggalLahirInput">Tanggal Lahir</label>
+
+            <div class="edit-input-wrap">
+              <span class="edit-input-icon">
+                <i class="hgi hgi-stroke hgi-rounded hgi-birthday-cake"></i>
+              </span>
+
+              <input type="date" id="tanggalLahirInput" />
+
+              <span class="edit-select-arrow">
+                <i class="hgi hgi-stroke hgi-rounded hgi-calendar-03"></i>
+              </span>
+            </div>
+
+            <div class="edit-helper-text">
+              Data akan disimpan dalam format dd-mm-yyyy.
+            </div>
+          </div>
+
+          <!-- EMAIL USER -->
+          <div class="edit-form-group">
+            <label for="emailUserInput">Email User</label>
+
+            <div class="edit-input-wrap">
+              <span class="edit-input-icon">
+                <i class="hgi hgi-stroke hgi-rounded hgi-mail-01"></i>
+              </span>
+
+              <input
+                type="email"
+                id="emailUserInput"
+                placeholder="Masukkan email user"
+                autocomplete="email"
+              />
+            </div>
+          </div>
+
+          <button type="submit" class="edit-submit-btn" id="btnSaveProfile">
+            <i class="hgi hgi-stroke hgi-rounded hgi-floppy-disk"></i>
+            Simpan Perubahan
+          </button>
+        </form>
+      </section>
+
+      <!-- BACK -->
+      <div class="pill-actions">
+        <a href="pengaturan.html" class="pill-btn danger">
+          <i class="hgi hgi-stroke hgi-rounded hgi-arrow-left-02"></i>
+          Kembali
+        </a>
+      </div>
+
+      <div id="content"></div>
+    </main>
+
+    <footer>
+      © <span id="year"></span> NADI - Navigasi Administrasi Digital Internal
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./assets/js/clock.js"></script>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      function formatDateToInput(value) {
+        if (!value) return "";
+
+        // dari Flutter: dd-mm-yyyy
+        if (/^\d{2}-\d{2}-\d{4}$/.test(value)) {
+          const [day, month, year] = value.split("-");
+          return `${year}-${month}-${day}`;
+        }
+
+        // kalau ternyata data lama format yyyy-mm-dd
+        if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+          return value;
+        }
+
+        return "";
+      }
+
+      function formatDateToFirestore(value) {
+        if (!value) return "";
+
+        // input date web: yyyy-mm-dd -> simpan dd-mm-yyyy
+        const [year, month, day] = value.split("-");
+        return `${day}-${month}-${year}`;
+      }
+    </script>
+
+    <!-- AUTH GUARD -->
+    <script type="module" src="./assets/js/auth-guard.js"></script>
+
+    <!-- FIREBASE EDIT PROFILE -->
+    <script type="module">
+      import { auth, db } from "./assets/js/firebase.js";
+
+      import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+      import {
+        doc,
+        getDoc,
+        updateDoc,
+        serverTimestamp,
+      } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+      const loadingCard = document.getElementById("loadingCard");
+      const formCard = document.getElementById("formCard");
+      const form = document.getElementById("editProfileForm");
+
+      const nipInput = document.getElementById("nipInput");
+      const unitKerjaSelect = document.getElementById("unitKerjaSelect");
+      const jenisKelaminSelect = document.getElementById("jenisKelaminSelect");
+      const tanggalLahirInput = document.getElementById("tanggalLahirInput");
+      const emailUserInput = document.getElementById("emailUserInput");
+      const btnSaveProfile = document.getElementById("btnSaveProfile");
+
+      let currentUser = null;
+
+      function showLoading(isLoading) {
+        loadingCard.style.display = isLoading ? "flex" : "none";
+        formCard.style.display = isLoading ? "none" : "block";
+      }
+
+      function setSaving(isSaving) {
+        btnSaveProfile.disabled = isSaving;
+
+        if (isSaving) {
+          btnSaveProfile.innerHTML = `
+            <span class="mini-loader" style="border-top-color: #ffffff"></span>
+            Menyimpan...
+          `;
+        } else {
+          btnSaveProfile.innerHTML = `
+            <i class="hgi hgi-stroke hgi-rounded hgi-floppy-disk"></i>
+            Simpan Perubahan
+          `;
+        }
+      }
+
+      async function loadProfile(user) {
+        showLoading(true);
+
+        try {
+          const ref = doc(db, "users", user.uid);
+          const snapshot = await getDoc(ref);
+
+          if (!snapshot.exists()) {
+            Swal.fire("Error", "Data profil tidak ditemukan", "error");
+            showLoading(false);
+            return;
+          }
+
+          const data = snapshot.data();
+
+          nipInput.value = data.nip || "";
+          unitKerjaSelect.value = data.unitKerja || "";
+          jenisKelaminSelect.value = data.jenisKelamin || "";
+          tanggalLahirInput.value = formatDateToInput(data.tanggalLahir || "");
+          emailUserInput.value = data.emailUser || "";
+        } catch (error) {
+          console.error("LOAD EDIT PROFILE ERROR:", error);
+          Swal.fire("Error", "Gagal memuat data profil", "error");
+        } finally {
+          showLoading(false);
+        }
+      }
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        if (!currentUser) return;
+
+        setSaving(true);
+
+        try {
+          const ref = doc(db, "users", currentUser.uid);
+
+          await updateDoc(ref, {
+            nip: nipInput.value.trim(),
+            unitKerja: unitKerjaSelect.value,
+            jenisKelamin: jenisKelaminSelect.value,
+            tanggalLahir: formatDateToFirestore(tanggalLahirInput.value),
+            emailUser: emailUserInput.value.trim(),
+            updatedAt: serverTimestamp(),
+          });
+
+          Swal.fire({
+            icon: "success",
+            title: "Berhasil",
+            text: "Profil berhasil diperbarui",
+            timer: 1600,
+            showConfirmButton: false,
+          }).then(() => {
+            window.location.href = "profile.html";
+          });
+        } catch (error) {
+          console.error("SAVE EDIT PROFILE ERROR:", error);
+          Swal.fire("Error", "Gagal menyimpan profil", "error");
+        } finally {
+          setSaving(false);
+        }
+      });
+
+      onAuthStateChanged(auth, async (user) => {
+        if (!user) {
+          window.location.href = "index.html";
+          return;
+        }
+
+        currentUser = user;
+
+        await loadProfile(user);
+      });
+    </script>
+  </body>
+</html>

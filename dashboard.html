@@ -9,6 +9,12 @@
 
     <link rel="shortcut icon" href="assets/img/nadiv2.png" />
 
+    <!-- HugeIcons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css"
+    />
+
     <link rel="stylesheet" href="./assets/css/interface.css" />
   </head>
 
@@ -28,18 +34,45 @@
 
     <!-- SIDEBAR (DESKTOP ONLY) -->
     <aside class="sidebar">
+      &nbsp;&nbsp;&nbsp;
       <div class="sidebar-title">NADI MENU</div>
 
-      <a href="dashboard.html" class="side-item active">🏠 Dashboard</a>
-      <a href="absensi.html" class="side-item">📝 Absen</a>
-      <a href="pengambilanbarangpersediaan.html" class="side-item">📦 ATK</a>
-      <a href="profile.html" class="side-item">👤 Profil</a>
+      <a href="dashboard.html" class="side-item active">
+        <i class="hgi hgi-stroke hgi-rounded hgi-home-01"></i>
+        Dashboard
+      </a>
+
+      <a href="absensi.html" class="side-item">
+        <i class="hgi hgi-stroke hgi-rounded hgi-checkmark-square-03"></i>
+        Absen
+      </a>
+
+      <a href="pengambilanbarangpersediaan.html" class="side-item">
+        <i class="hgi hgi-stroke hgi-rounded hgi-package"></i>
+        ATK
+      </a>
+
+      <a href="profile.html" class="side-item">
+        <i class="hgi hgi-stroke hgi-rounded hgi-user"></i>
+        Profil
+      </a>
 
       <hr />
 
-      <a href="admin.html" id="sideAdmin" class="side-item">⚙️ Admin</a>
-      <button onclick="about()" class="side-item">ℹ️ Tentang</button>
-      <button onclick="logout()" class="side-item danger">🚪 Logout</button>
+      <a href="admin.html" id="sideAdmin" class="side-item">
+        <i class="hgi hgi-stroke hgi-rounded hgi-settings-02"></i>
+        Admin
+      </a>
+
+      <button onclick="about()" class="side-item">
+        <i class="hgi hgi-stroke hgi-rounded hgi-information-circle"></i>
+        Tentang
+      </button>
+
+      <button onclick="logout()" class="side-item danger">
+        <i class="hgi hgi-stroke hgi-rounded hgi-logout-03"></i>
+        Logout
+      </button>
     </aside>
 
     <!-- ================= MAIN ================= -->
@@ -52,12 +85,18 @@
 
       <div class="quick-info">
         <div class="info-card">
-          <span>📅 Hari Ini</span>
+          <span>
+            <i class="hgi hgi-stroke hgi-rounded hgi-calendar-03"></i>
+            Hari Ini
+          </span>
           <strong id="todayDate">-</strong>
         </div>
 
         <div class="info-card">
-          <span>👤 Status</span>
+          <span>
+            <i class="hgi hgi-stroke hgi-rounded hgi-checkmark-circle-02"></i>
+            Status
+          </span>
           <strong>Aktif</strong>
         </div>
 
@@ -69,27 +108,128 @@
 
       <!-- QUICK MENU -->
       <section class="menu-container">
-        <a href="absensi.html" class="menu-btn"> 📝 Absen Online </a>
-
-        <a href="pengambilanbarangpersediaan.html" class="menu-btn">
-          📦 ATK / Persediaan
+        <a href="absensi.html" class="menu-btn">
+          <i class="hgi hgi-stroke hgi-rounded hgi-checkmark-square-03"></i>
+          Absen Online
         </a>
 
-        <a href="profile.html" class="menu-btn"> 👤 Profil </a>
+        <a href="pengambilanbarangpersediaan.html" class="menu-btn">
+          <i class="hgi hgi-stroke hgi-rounded hgi-package"></i>
+          ATK / Persediaan
+        </a>
 
-        <a href="admin.html" id="btnAdmin" class="menu-btn"> ⚙️ Admin Panel </a>
+        <a href="profile.html" class="menu-btn">
+          <i class="hgi hgi-stroke hgi-rounded hgi-user"></i>
+          Profil
+        </a>
+
+        <a href="admin.html" id="btnAdmin" class="menu-btn">
+          <i class="hgi hgi-stroke hgi-rounded hgi-settings-02"></i>
+          Admin Panel
+        </a>
+      </section>
+      <!-- MENU LAINNYA -->
+      <section class="dashboard-section-title">
+        <h3>Layanan Lainnya</h3>
+        <p>Akses cepat ke layanan pendukung NADI.</p>
+      </section>
+
+      <section class="menu-container menu-container-secondary">
+        <a href="lkhp.html" class="menu-btn">
+          <i class="hgi hgi-stroke hgi-rounded hgi-task-01"></i>
+          LKHP
+        </a>
+
+        <a href="nosurat.html" class="menu-btn">
+          <i class="hgi hgi-stroke hgi-rounded hgi-file-01"></i>
+          No Surat
+        </a>
+
+        <a href="pengaturan.html" class="menu-btn">
+          <i class="hgi hgi-stroke hgi-rounded hgi-settings-02"></i>
+          Pengaturan
+        </a>
       </section>
 
       <!-- SECONDARY ACTIONS -->
-      <section style="margin-top: 25px" class="menu-container">
-        <button class="menu-btn secondary" onclick="about()">ℹ️ Tentang</button>
+      <section class="pill-actions">
+        <button type="button" class="pill-btn" onclick="about()">
+          <i class="hgi hgi-stroke hgi-rounded hgi-information-circle"></i>
+          Tentang
+        </button>
 
-        <button class="menu-btn danger" onclick="logout()">🚪 Logout</button>
+        <button type="button" class="pill-btn danger" onclick="logout()">
+          <i class="hgi hgi-stroke hgi-rounded hgi-logout-03"></i>
+          Logout
+        </button>
       </section>
 
       <!-- CONTENT AREA -->
       <div id="content"></div>
     </main>
+
+    <!-- ABOUT BOTTOM SHEET -->
+    <div class="bottom-sheet-overlay" id="aboutSheetOverlay">
+      <div class="bottom-sheet">
+        <div class="sheet-handle"></div>
+
+        <div class="sheet-icon primary">
+          <i class="hgi hgi-stroke hgi-rounded hgi-information-circle"></i>
+        </div>
+
+        <h3>Tentang NADI</h3>
+
+        <p>
+          NADI adalah Navigasi Administrasi Digital Internal KPU Kabupaten
+          Purbalingga untuk mendukung layanan administrasi, absensi, LKHP,
+          persediaan, dan kebutuhan internal lainnya.
+        </p>
+
+        <button
+          type="button"
+          class="sheet-main-btn"
+          onclick="closeAboutSheet()"
+        >
+          Mengerti
+        </button>
+      </div>
+    </div>
+
+    <!-- LOGOUT CONFIRM BOTTOM SHEET -->
+    <div class="bottom-sheet-overlay" id="logoutSheetOverlay">
+      <div class="bottom-sheet">
+        <div class="sheet-handle"></div>
+
+        <div class="sheet-icon danger">
+          <i class="hgi hgi-stroke hgi-rounded hgi-logout-03"></i>
+        </div>
+
+        <h3>Keluar dari akun?</h3>
+
+        <p>
+          Kamu akan keluar dari sesi NADI saat ini. Pastikan pekerjaan yang
+          belum selesai sudah disimpan.
+        </p>
+
+        <div class="sheet-actions">
+          <button
+            type="button"
+            class="sheet-secondary-btn"
+            onclick="closeLogoutSheet()"
+          >
+            Batal
+          </button>
+
+          <button
+            type="button"
+            class="sheet-danger-btn"
+            onclick="confirmLogout()"
+          >
+            Ya, Logout
+          </button>
+        </div>
+      </div>
+    </div>
 
     <!-- ================= FOOTER ================= -->
     <footer>© <span id="year"></span> NADI</footer>
@@ -101,12 +241,33 @@
       document.getElementById("year").textContent = new Date().getFullYear();
 
       function about() {
-        Swal.fire({
-          icon: "info",
-          title: "Tentang NADI",
-          text: "Navigasi Administrasi Digital Internal KPU Kab. Purbalingga",
-        });
+        document.getElementById("aboutSheetOverlay").classList.add("show");
       }
+
+      function closeAboutSheet() {
+        document.getElementById("aboutSheetOverlay").classList.remove("show");
+      }
+
+      function logout() {
+        document.getElementById("logoutSheetOverlay").classList.add("show");
+      }
+
+      function closeLogoutSheet() {
+        document.getElementById("logoutSheetOverlay").classList.remove("show");
+      }
+
+      document.addEventListener("click", function (event) {
+        const aboutOverlay = document.getElementById("aboutSheetOverlay");
+        const logoutOverlay = document.getElementById("logoutSheetOverlay");
+
+        if (event.target === aboutOverlay) {
+          closeAboutSheet();
+        }
+
+        if (event.target === logoutOverlay) {
+          closeLogoutSheet();
+        }
+      });
 
       function setGreeting() {
         const hour = new Date().getHours();
@@ -165,7 +326,7 @@
       btnAdmin.style.display = "none";
       if (sideAdmin) sideAdmin.style.display = "none";
 
-      window.logout = async function () {
+      window.confirmLogout = async function () {
         await signOut(auth);
         window.location.href = "index.html";
       };

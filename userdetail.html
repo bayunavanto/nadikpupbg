@@ -4,32 +4,545 @@
     <base target="_top" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Profil - NADI</title>
+
+    <title>Detail User - NADI</title>
 
     <link
       rel="shortcut icon"
       href="assets/img/nadiv2.png"
       type="image/x-icon"
     />
-    <link rel="stylesheet" href="./assets/css/interface.css" />
+
+    <!-- HugeIcons -->
     <link
       rel="stylesheet"
-      href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css"
+      href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css"
     />
+
+    <link rel="stylesheet" href="./assets/css/interface.css" />
+
+    <style>
+      /* =========================
+         USER DETAIL PAGE
+      ========================= */
+      .user-detail-page {
+        width: 100%;
+        max-width: 760px;
+
+        margin-top: 90px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 40px;
+
+        padding: 18px;
+      }
+
+      .user-detail-hero {
+        position: relative;
+
+        background: rgba(255, 255, 255, 0.96);
+        border-radius: 28px;
+        padding: 20px;
+
+        border: 1px solid rgba(229, 231, 235, 0.9);
+        box-shadow: var(--shadow-soft);
+
+        margin-bottom: 18px;
+
+        overflow: hidden;
+      }
+
+      .user-detail-hero::before {
+        content: "";
+
+        position: absolute;
+        top: -60px;
+        right: -50px;
+
+        width: 170px;
+        height: 170px;
+
+        border-radius: 999px;
+        background: rgba(102, 102, 255, 0.12);
+        filter: blur(8px);
+      }
+
+      .user-detail-hero::after {
+        content: "";
+
+        position: absolute;
+        bottom: -70px;
+        left: 18%;
+
+        width: 150px;
+        height: 150px;
+
+        border-radius: 999px;
+        background: rgba(110, 231, 183, 0.14);
+        filter: blur(14px);
+      }
+
+      .user-detail-hero-content {
+        position: relative;
+        z-index: 1;
+
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .user-avatar-large {
+        width: 82px;
+        height: 82px;
+
+        flex-shrink: 0;
+
+        border-radius: 26px;
+
+        object-fit: cover;
+
+        border: 4px solid #ffffff;
+        box-shadow: 0 10px 24px rgba(17, 24, 39, 0.08);
+      }
+
+      .user-main-info {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .admin-badge {
+        width: fit-content;
+
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+
+        margin-bottom: 8px;
+        padding: 6px 10px;
+
+        border-radius: 999px;
+
+        background: var(--primary-soft);
+        color: var(--primary);
+
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .admin-badge .hgi {
+        font-size: 15px;
+      }
+
+      .user-main-info h2 {
+        margin: 0;
+
+        color: var(--text);
+        font-size: 22px;
+        font-weight: 850;
+        letter-spacing: -0.3px;
+        line-height: 1.25;
+      }
+
+      .user-main-info p {
+        margin: 5px 0 0;
+
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .user-status-wrap {
+        margin-top: 10px;
+      }
+
+      .detail-section-heading {
+        margin: 22px 0 12px;
+      }
+
+      .detail-section-heading h3 {
+        margin: 0;
+
+        color: var(--text);
+        font-size: 20px;
+        font-weight: 850;
+        letter-spacing: -0.3px;
+      }
+
+      .detail-section-heading p {
+        margin: 4px 0 0;
+
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .detail-list-card {
+        background: rgba(255, 255, 255, 0.96);
+
+        border-radius: 26px;
+        padding: 18px;
+
+        border: 1px solid rgba(229, 231, 235, 0.9);
+        box-shadow: var(--shadow-soft);
+
+        margin-bottom: 18px;
+      }
+
+      .detail-list-item {
+        min-height: 68px;
+
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .detail-list-icon {
+        width: 52px;
+        height: 52px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        flex-shrink: 0;
+
+        border-radius: 17px;
+
+        background: #f1f3fb;
+        color: var(--primary);
+      }
+
+      .detail-list-icon .hgi {
+        font-size: 24px;
+      }
+
+      .detail-list-content {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .detail-list-content small {
+        display: block;
+
+        margin-bottom: 5px;
+
+        color: #7b8494;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .detail-list-content strong {
+        display: block;
+
+        color: var(--text);
+        font-size: 15px;
+        font-weight: 800;
+        line-height: 1.35;
+
+        word-break: break-word;
+      }
+
+      .detail-divider {
+        height: 1px;
+        margin: 12px 0 12px 66px;
+
+        background: rgba(17, 24, 39, 0.1);
+      }
+
+      .admin-action-card {
+        background: rgba(255, 255, 255, 0.96);
+
+        border-radius: 26px;
+        padding: 14px;
+
+        border: 1px solid rgba(229, 231, 235, 0.9);
+        box-shadow: var(--shadow-soft);
+
+        margin-bottom: 18px;
+      }
+
+      .user-action-btn {
+        width: 100%;
+
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        padding: 14px;
+
+        border: none;
+        border-radius: 22px;
+
+        text-align: left;
+
+        background: #f9f9ff;
+        color: var(--text);
+
+        cursor: pointer;
+
+        transition:
+          transform 0.2s ease,
+          background 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      .user-action-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .user-action-icon {
+        width: 46px;
+        height: 46px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        flex-shrink: 0;
+
+        border-radius: 17px;
+
+        background: var(--danger-soft);
+        color: var(--danger);
+      }
+
+      .user-action-icon.success {
+        background: var(--success-soft);
+        color: var(--success);
+      }
+
+      .user-action-icon .hgi {
+        font-size: 23px;
+      }
+
+      .user-action-content {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .user-action-content strong {
+        display: block;
+
+        color: var(--text);
+        font-size: 14px;
+        font-weight: 850;
+      }
+
+      .user-action-content small {
+        display: block;
+
+        margin-top: 4px;
+
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1.4;
+      }
+
+      .user-action-arrow {
+        color: var(--muted);
+        font-size: 18px;
+      }
+
+      /* =========================
+         BOTTOM SHEET CONFIRM
+      ========================= */
+      .user-sheet-overlay {
+        position: fixed;
+        inset: 0;
+
+        display: none;
+        align-items: flex-end;
+        justify-content: center;
+
+        background: rgba(17, 24, 39, 0.42);
+
+        z-index: 3000;
+      }
+
+      .user-sheet-overlay.show {
+        display: flex;
+      }
+
+      .user-sheet {
+        width: 100%;
+        max-width: 520px;
+
+        background: #ffffff;
+
+        border-radius: 28px 28px 0 0;
+        padding: 18px 20px 22px;
+
+        box-shadow: 0 -20px 50px rgba(17, 24, 39, 0.18);
+
+        animation: userSheetUp 0.22s ease;
+      }
+
+      @keyframes userSheetUp {
+        from {
+          opacity: 0;
+          transform: translateY(28px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .sheet-handle {
+        width: 46px;
+        height: 5px;
+
+        margin: 0 auto 20px;
+
+        border-radius: 999px;
+        background: #d1d5db;
+      }
+
+      .confirm-icon {
+        width: 64px;
+        height: 64px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin: 0 auto 16px;
+
+        border-radius: 999px;
+
+        background: var(--danger-soft);
+        color: var(--danger);
+      }
+
+      .confirm-icon.success {
+        background: var(--success-soft);
+        color: var(--success);
+      }
+
+      .confirm-icon .hgi {
+        font-size: 32px;
+      }
+
+      .user-sheet h3 {
+        margin: 0;
+
+        text-align: center;
+
+        color: var(--text);
+        font-size: 20px;
+        font-weight: 850;
+      }
+
+      .user-sheet p {
+        margin: 9px 0 22px;
+
+        text-align: center;
+
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.5;
+      }
+
+      .confirm-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .confirm-btn {
+        height: 48px;
+
+        border: none;
+        border-radius: 16px;
+
+        font-size: 14px;
+        font-weight: 800;
+
+        cursor: pointer;
+
+        transition:
+          transform 0.2s ease,
+          background 0.2s ease,
+          opacity 0.2s ease;
+      }
+
+      .confirm-btn:active {
+        transform: scale(0.98);
+      }
+
+      .confirm-btn.cancel {
+        background: #f3f4ff;
+        color: var(--primary);
+      }
+
+      .confirm-btn.danger {
+        background: var(--danger);
+        color: #ffffff;
+      }
+
+      .confirm-btn.success {
+        background: var(--success);
+        color: #ffffff;
+      }
+
+      .confirm-btn:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+      }
+
+      @media (max-width: 576px) {
+        .user-detail-page {
+          margin-top: 82px;
+          padding: 14px;
+        }
+
+        .user-detail-hero {
+          padding: 18px;
+          border-radius: 24px;
+        }
+
+        .user-avatar-large {
+          width: 72px;
+          height: 72px;
+          border-radius: 22px;
+        }
+
+        .user-main-info h2 {
+          font-size: 18px;
+        }
+
+        .detail-list-card,
+        .admin-action-card {
+          border-radius: 24px;
+          padding: 14px;
+        }
+
+        .detail-list-icon {
+          width: 48px;
+          height: 48px;
+          border-radius: 16px;
+        }
+
+        .detail-divider {
+          margin-left: 62px;
+        }
+      }
+    </style>
   </head>
 
   <body>
-    <!-- HEADER (SAMA PERSIS DENGAN DASHBOARD) -->
+    <!-- HEADER -->
     <header>
       <div class="logo">
-        <img
-          src="assets/img/nadiv2.png"
-          width="85"
-          style="display: block; margin: 2 auto 20px"
-        />
+        <img src="assets/img/nadiv2.png" alt="Logo NADI" />
+
         <span>
-          NADI - Navigasi Administrasi Digital Internal <br />
-          KPU Kab. Purbalingga
+          NADI<br />
+          <small>KPU Kab. Purbalingga</small>
         </span>
       </div>
 
@@ -37,87 +550,490 @@
     </header>
 
     <!-- MAIN -->
-    <main class="container">
-      <a href="userslist.html" class="back-btn-box">← Kembali</a>
+    <main class="user-detail-page">
+      <!-- HERO -->
+      <section class="user-detail-hero">
+        <div class="user-detail-hero-content">
+          <img
+            src="https://ui-avatars.com/api/?name=User"
+            class="user-avatar-large"
+            id="avatar"
+            alt="Avatar User"
+          />
 
-      <div class="page-title">
-        <h2>👤 Detail User</h2>
-        <p>Informasi lengkap pengguna sistem</p>
-      </div>
+          <div class="user-main-info">
+            <span class="admin-badge">
+              <i class="hgi hgi-stroke hgi-rounded hgi-user-circle"></i>
+              Detail User
+            </span>
 
-      <div class="form-card">
-        <div class="user-grid">
-          <div class="avatar-box">
-            <img
-              src="https://ui-avatars.com/api/?name=User"
-              class="avatar"
-              id="avatar"
-            />
-          </div>
+            <h2 id="nama">-</h2>
+            <p id="username">@username</p>
 
-          <div class="user-detail">
-            <h3 id="nama">-</h3>
-            <small id="username">@username</small>
-
-            <div id="status" style="margin-top: 8px"></div>
+            <div id="status" class="user-status-wrap"></div>
           </div>
         </div>
+      </section>
+
+      <!-- INFO AKUN -->
+      <div class="detail-section-heading">
+        <h3>Info Akun</h3>
+        <p>Informasi akun pengguna yang terdaftar di NADI.</p>
+      </div>
+
+      <section class="detail-list-card">
+        <div class="detail-list-item">
+          <span class="detail-list-icon">
+            <i class="hgi hgi-stroke hgi-rounded hgi-user"></i>
+          </span>
+
+          <div class="detail-list-content">
+            <small>Nama</small>
+            <strong id="detailNama">-</strong>
+          </div>
+        </div>
+
+        <div class="detail-divider"></div>
+
+        <div class="detail-list-item">
+          <span class="detail-list-icon">
+            <i class="hgi hgi-stroke hgi-rounded hgi-id"></i>
+          </span>
+
+          <div class="detail-list-content">
+            <small>Username</small>
+            <strong id="detailUsername">-</strong>
+          </div>
+        </div>
+
+        <div class="detail-divider"></div>
+
+        <div class="detail-list-item">
+          <span class="detail-list-icon">
+            <i class="hgi hgi-stroke hgi-rounded hgi-mail-01"></i>
+          </span>
+
+          <div class="detail-list-content">
+            <small>Email System</small>
+            <strong id="detailEmailSystem">-</strong>
+          </div>
+        </div>
+
+        <div class="detail-divider"></div>
+
+        <div class="detail-list-item">
+          <span class="detail-list-icon">
+            <i class="hgi hgi-stroke hgi-rounded hgi-user-star-01"></i>
+          </span>
+
+          <div class="detail-list-content">
+            <small>Role</small>
+            <strong id="detailRole">-</strong>
+          </div>
+        </div>
+      </section>
+
+      <!-- INFO PRIBADI -->
+      <div class="detail-section-heading">
+        <h3>Info Pribadi</h3>
+        <p>Data pribadi yang terhubung dengan akun pengguna.</p>
+      </div>
+
+      <section class="detail-list-card">
+        <div class="detail-list-item">
+          <span class="detail-list-icon">
+            <i class="hgi hgi-stroke hgi-rounded hgi-id"></i>
+          </span>
+
+          <div class="detail-list-content">
+            <small>NIP</small>
+            <strong id="detailNip">-</strong>
+          </div>
+        </div>
+
+        <div class="detail-divider"></div>
+
+        <div class="detail-list-item">
+          <span class="detail-list-icon">
+            <i class="hgi hgi-stroke hgi-rounded hgi-building-03"></i>
+          </span>
+
+          <div class="detail-list-content">
+            <small>Unit Kerja</small>
+            <strong id="detailUnitKerja">-</strong>
+          </div>
+        </div>
+
+        <div class="detail-divider"></div>
+
+        <div class="detail-list-item">
+          <span class="detail-list-icon">
+            <i class="hgi hgi-stroke hgi-rounded hgi-user-group"></i>
+          </span>
+
+          <div class="detail-list-content">
+            <small>Jenis Kelamin</small>
+            <strong id="detailJenisKelamin">-</strong>
+          </div>
+        </div>
+
+        <div class="detail-divider"></div>
+
+        <div class="detail-list-item">
+          <span class="detail-list-icon">
+            <i class="hgi hgi-stroke hgi-rounded hgi-birthday-cake"></i>
+          </span>
+
+          <div class="detail-list-content">
+            <small>Tanggal Lahir</small>
+            <strong id="detailTanggalLahir">-</strong>
+          </div>
+        </div>
+
+        <div class="detail-divider"></div>
+
+        <div class="detail-list-item">
+          <span class="detail-list-icon">
+            <i class="hgi hgi-stroke hgi-rounded hgi-mail-02"></i>
+          </span>
+
+          <div class="detail-list-content">
+            <small>Email User</small>
+            <strong id="detailEmailUser">-</strong>
+          </div>
+        </div>
+      </section>
+
+      <!-- ADMIN ACTION -->
+      <div class="detail-section-heading">
+        <h3>Aksi Admin</h3>
+        <p>Kelola status akses pengguna ke sistem NADI.</p>
+      </div>
+
+      <section class="admin-action-card">
+        <button type="button" class="user-action-btn" id="toggleActiveBtn">
+          <span class="user-action-icon" id="toggleActiveIcon">
+            <i class="hgi hgi-stroke hgi-rounded hgi-user-block-01"></i>
+          </span>
+
+          <span class="user-action-content">
+            <strong id="toggleActiveTitle">Nonaktifkan User</strong>
+            <small id="toggleActiveSubtitle">
+              User tidak dapat menggunakan sistem NADI.
+            </small>
+          </span>
+
+          <i
+            class="hgi hgi-stroke hgi-rounded hgi-arrow-right-02 user-action-arrow"
+          ></i>
+        </button>
+      </section>
+
+      <!-- BACK -->
+      <div class="pill-actions">
+        <a href="userslist.html" class="pill-btn danger">
+          <i class="hgi hgi-stroke hgi-rounded hgi-arrow-left-02"></i>
+          Kembali
+        </a>
       </div>
     </main>
+
+    <!-- CONFIRM SHEET -->
+    <div class="user-sheet-overlay" id="confirmSheetOverlay">
+      <div class="user-sheet">
+        <div class="sheet-handle"></div>
+
+        <div class="confirm-icon" id="confirmIcon">
+          <i class="hgi hgi-stroke hgi-rounded hgi-user-block-01"></i>
+        </div>
+
+        <h3 id="confirmTitle">Nonaktifkan user?</h3>
+
+        <p id="confirmText">
+          User tidak akan dapat menggunakan sistem NADI sampai diaktifkan
+          kembali.
+        </p>
+
+        <div class="confirm-actions">
+          <button
+            type="button"
+            class="confirm-btn cancel"
+            onclick="closeConfirmSheet()"
+          >
+            Batal
+          </button>
+
+          <button
+            type="button"
+            class="confirm-btn danger"
+            id="confirmActionBtn"
+          >
+            Ya, Nonaktifkan
+          </button>
+        </div>
+      </div>
+    </div>
 
     <footer>
       © <span id="year"></span> NADI - Navigasi Administrasi Digital Internal
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
     <script src="./assets/js/clock.js"></script>
 
-    <!-- nanti script profil kita taruh di sini -->
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      function setText(id, value) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.innerText = value && String(value).trim() !== "" ? value : "-";
+      }
+
+      function formatRole(value) {
+        if (!value) return "-";
+        const role = String(value).trim();
+        return role.charAt(0).toUpperCase() + role.slice(1);
+      }
+
+      function closeConfirmSheet() {
+        document.getElementById("confirmSheetOverlay").classList.remove("show");
+      }
+
+      document
+        .getElementById("confirmSheetOverlay")
+        .addEventListener("click", function (event) {
+          if (event.target.id === "confirmSheetOverlay") {
+            closeConfirmSheet();
+          }
+        });
+    </script>
+
+    <!-- AUTH GUARD -->
     <script type="module" src="./assets/js/auth-guard.js"></script>
+
+    <!-- USER DETAIL -->
     <script type="module">
       import { db } from "./assets/js/firebase.js";
+
       import {
         collection,
         query,
         where,
         getDocs,
+        doc,
+        updateDoc,
+        serverTimestamp,
       } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-      // ambil username dari URL
+      let currentDocId = null;
+      let currentUserData = null;
+
       const params = new URLSearchParams(window.location.search);
       const username = params.get("username");
 
+      const toggleActiveBtn = document.getElementById("toggleActiveBtn");
+      const toggleActiveIcon = document.getElementById("toggleActiveIcon");
+      const toggleActiveTitle = document.getElementById("toggleActiveTitle");
+      const toggleActiveSubtitle = document.getElementById(
+        "toggleActiveSubtitle",
+      );
+
+      const confirmSheetOverlay = document.getElementById(
+        "confirmSheetOverlay",
+      );
+      const confirmIcon = document.getElementById("confirmIcon");
+      const confirmTitle = document.getElementById("confirmTitle");
+      const confirmText = document.getElementById("confirmText");
+      const confirmActionBtn = document.getElementById("confirmActionBtn");
+
+      function renderStatus(isActive) {
+        document.getElementById("status").innerHTML = isActive
+          ? "<span class='badge-active'>Aktif</span>"
+          : "<span class='badge-inactive'>Nonaktif</span>";
+      }
+
+      function renderActionButton(isActive) {
+        if (isActive) {
+          toggleActiveIcon.className = "user-action-icon";
+          toggleActiveIcon.innerHTML =
+            '<i class="hgi hgi-stroke hgi-rounded hgi-user-block-01"></i>';
+
+          toggleActiveTitle.innerText = "Nonaktifkan User";
+          toggleActiveSubtitle.innerText =
+            "User tidak dapat menggunakan sistem NADI.";
+        } else {
+          toggleActiveIcon.className = "user-action-icon success";
+          toggleActiveIcon.innerHTML =
+            '<i class="hgi hgi-stroke hgi-rounded hgi-user-check-01"></i>';
+
+          toggleActiveTitle.innerText = "Aktifkan User";
+          toggleActiveSubtitle.innerText =
+            "User dapat kembali menggunakan sistem NADI.";
+        }
+      }
+
+      function openConfirmSheet() {
+        if (!currentUserData) return;
+
+        const isActive = currentUserData.aktif === true;
+
+        if (isActive) {
+          confirmIcon.className = "confirm-icon";
+          confirmIcon.innerHTML =
+            '<i class="hgi hgi-stroke hgi-rounded hgi-user-block-01"></i>';
+
+          confirmTitle.innerText = "Nonaktifkan user?";
+          confirmText.innerText =
+            "User tidak akan dapat menggunakan sistem NADI sampai diaktifkan kembali.";
+
+          confirmActionBtn.className = "confirm-btn danger";
+          confirmActionBtn.innerText = "Ya, Nonaktifkan";
+        } else {
+          confirmIcon.className = "confirm-icon success";
+          confirmIcon.innerHTML =
+            '<i class="hgi hgi-stroke hgi-rounded hgi-user-check-01"></i>';
+
+          confirmTitle.innerText = "Aktifkan user?";
+          confirmText.innerText =
+            "User akan dapat kembali menggunakan sistem NADI.";
+
+          confirmActionBtn.className = "confirm-btn success";
+          confirmActionBtn.innerText = "Ya, Aktifkan";
+        }
+
+        confirmSheetOverlay.classList.add("show");
+      }
+
+      async function toggleUserStatus() {
+        if (!currentDocId || !currentUserData) return;
+
+        const currentActive = currentUserData.aktif === true;
+        const nextActive = !currentActive;
+
+        confirmActionBtn.disabled = true;
+        confirmActionBtn.innerText = nextActive
+          ? "Mengaktifkan..."
+          : "Menonaktifkan...";
+
+        try {
+          await updateDoc(doc(db, "users", currentDocId), {
+            aktif: nextActive,
+            updatedAt: serverTimestamp(),
+          });
+
+          currentUserData.aktif = nextActive;
+
+          renderStatus(nextActive);
+          renderActionButton(nextActive);
+          closeConfirmSheet();
+
+          Swal.fire({
+            icon: "success",
+            title: "Berhasil",
+            text: nextActive
+              ? "User berhasil diaktifkan"
+              : "User berhasil dinonaktifkan",
+            timer: 1500,
+            showConfirmButton: false,
+          });
+        } catch (error) {
+          console.error("TOGGLE USER STATUS ERROR:", error);
+
+          Swal.fire("Error", "Gagal mengubah status user", "error");
+        } finally {
+          confirmActionBtn.disabled = false;
+        }
+      }
+
       async function loadUser() {
-        const q = query(
-          collection(db, "users"),
-          where("username", "==", username),
-        );
-
-        const snapshot = await getDocs(q);
-
-        if (snapshot.empty) {
-          alert("User tidak ditemukan");
+        if (!username) {
+          Swal.fire("Error", "Username tidak ditemukan di URL", "error").then(
+            () => {
+              window.location.href = "userslist.html";
+            },
+          );
           return;
         }
 
-        const d = snapshot.docs[0].data();
+        try {
+          const q = query(
+            collection(db, "users"),
+            where("username", "==", username),
+          );
 
-        document.getElementById("nama").innerText = d.nama;
-        document.getElementById("username").innerText = "@" + d.username;
+          const snapshot = await getDocs(q);
 
-        document.getElementById("status").innerHTML = d.aktif
-          ? "<span class='badge-active'>Aktif</span>"
-          : "<span class='badge-inactive'>Nonaktif</span>";
+          if (snapshot.empty) {
+            Swal.fire("Error", "User tidak ditemukan", "error").then(() => {
+              window.location.href = "userslist.html";
+            });
+            return;
+          }
 
-        // avatar dinamis
-        document.getElementById("avatar").src =
-          `https://ui-avatars.com/api/?name=${encodeURIComponent(d.nama)}`;
+          const docSnap = snapshot.docs[0];
+          const d = docSnap.data();
+
+          currentDocId = docSnap.id;
+          currentUserData = d;
+
+          const nama = d.nama || "-";
+          const safeUsername = d.username || username || "-";
+          const emailSystem =
+            d.emailSystem || d.email_system || d.emailLogin || d.email || "-";
+
+          document.getElementById("nama").innerText = nama;
+          document.getElementById("username").innerText = "@" + safeUsername;
+
+          setText("detailNama", nama);
+          setText("detailUsername", safeUsername);
+          setText("detailEmailSystem", emailSystem);
+          setText("detailRole", formatRole(d.role || "pegawai"));
+
+          setText("detailNip", d.nip || d.NIP || "-");
+          setText(
+            "detailUnitKerja",
+            d.unitKerja || d.unit_kerja || d.unit || d.satker || "-",
+          );
+          setText(
+            "detailJenisKelamin",
+            d.jenisKelamin || d.jenis_kelamin || d.gender || "-",
+          );
+          setText(
+            "detailTanggalLahir",
+            d.tanggalLahir ||
+              d.tanggal_lahir ||
+              d.tglLahir ||
+              d.tgl_lahir ||
+              "-",
+          );
+          setText(
+            "detailEmailUser",
+            d.emailUser ||
+              d.email_user ||
+              d.emailPribadi ||
+              d.email_pribadi ||
+              "-",
+          );
+
+          renderStatus(d.aktif === true);
+          renderActionButton(d.aktif === true);
+
+          document.getElementById("avatar").src =
+            `https://ui-avatars.com/api/?name=${encodeURIComponent(nama)}&background=6666ff&color=ffffff`;
+        } catch (error) {
+          console.error("LOAD USER DETAIL ERROR:", error);
+          Swal.fire("Error", "Gagal memuat detail user", "error");
+        }
       }
+
+      toggleActiveBtn.addEventListener("click", openConfirmSheet);
+      confirmActionBtn.addEventListener("click", toggleUserStatus);
 
       loadUser();
     </script>
+
+    <!-- ADMIN PROTECT -->
     <script type="module">
       import "./assets/js/admin-protect.js";
     </script>

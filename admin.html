@@ -4,32 +4,246 @@
     <base target="_top" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Profil - NADI</title>
+
+    <title>Admin Panel - NADI</title>
 
     <link
       rel="shortcut icon"
       href="assets/img/nadiv2.png"
       type="image/x-icon"
     />
-    <link rel="stylesheet" href="./assets/css/interface.css" />
+
+    <!-- HugeIcons -->
     <link
       rel="stylesheet"
-      href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css"
+      href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css"
     />
+
+    <link rel="stylesheet" href="./assets/css/interface.css" />
+
+    <style>
+      /* =========================
+         ADMIN PAGE
+      ========================= */
+      .admin-page {
+        width: 100%;
+        max-width: 900px;
+
+        margin-top: 90px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 40px;
+
+        padding: 18px;
+      }
+
+      .admin-hero {
+        position: relative;
+
+        background: rgba(255, 255, 255, 0.96);
+        border-radius: 28px;
+        padding: 20px;
+
+        border: 1px solid rgba(229, 231, 235, 0.9);
+        box-shadow: var(--shadow-soft);
+
+        margin-bottom: 18px;
+
+        overflow: hidden;
+      }
+
+      .admin-hero::before {
+        content: "";
+
+        position: absolute;
+        top: -60px;
+        right: -50px;
+
+        width: 170px;
+        height: 170px;
+
+        border-radius: 999px;
+        background: rgba(102, 102, 255, 0.12);
+        filter: blur(8px);
+      }
+
+      .admin-hero::after {
+        content: "";
+
+        position: absolute;
+        bottom: -70px;
+        left: 20%;
+
+        width: 150px;
+        height: 150px;
+
+        border-radius: 999px;
+        background: rgba(110, 231, 183, 0.14);
+        filter: blur(14px);
+      }
+
+      .admin-hero-content {
+        position: relative;
+        z-index: 1;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .admin-hero h2 {
+        margin: 0;
+
+        color: var(--text);
+        font-size: 24px;
+        font-weight: 850;
+        letter-spacing: -0.3px;
+      }
+
+      .admin-hero p {
+        margin: 6px 0 0;
+
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1.45;
+      }
+
+      .admin-hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+
+        margin-bottom: 10px;
+        padding: 7px 11px;
+
+        border-radius: 999px;
+
+        background: var(--primary-soft);
+        color: var(--primary);
+
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .admin-hero-badge .hgi {
+        font-size: 16px;
+      }
+
+      .admin-hero-icon {
+        width: 60px;
+        height: 60px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        flex-shrink: 0;
+
+        border-radius: 22px;
+
+        background: var(--primary-soft);
+        color: var(--primary);
+      }
+
+      .admin-hero-icon .hgi {
+        font-size: 30px;
+      }
+
+      .admin-section-title {
+        margin: 22px 0 12px;
+      }
+
+      .admin-section-title h3 {
+        margin: 0;
+
+        color: var(--text);
+        font-size: 18px;
+        font-weight: 850;
+      }
+
+      .admin-section-title p {
+        margin: 4px 0 0;
+
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .admin-menu {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-auto-rows: 155px;
+      }
+
+      .admin-menu .menu-btn:nth-child(1),
+      .admin-menu .menu-btn:nth-child(4) {
+        grid-column: auto;
+        grid-row: auto;
+      }
+
+      .admin-menu .menu-btn {
+        min-height: 155px;
+      }
+
+      .admin-menu .menu-btn:nth-child(1)::before {
+        background: rgba(110, 231, 183, 0.22);
+      }
+
+      .admin-menu .menu-btn:nth-child(2)::before {
+        background: rgba(102, 102, 255, 0.18);
+      }
+
+      .admin-menu .menu-btn:nth-child(3)::before {
+        background: rgba(255, 214, 102, 0.24);
+      }
+
+      @media (max-width: 576px) {
+        .admin-page {
+          margin-top: 82px;
+          padding: 14px;
+        }
+
+        .admin-hero {
+          padding: 18px;
+          border-radius: 24px;
+        }
+
+        .admin-hero h2 {
+          font-size: 20px;
+        }
+
+        .admin-hero p {
+          font-size: 12.5px;
+        }
+
+        .admin-hero-icon {
+          width: 52px;
+          height: 52px;
+          border-radius: 19px;
+        }
+
+        .admin-menu {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          grid-auto-rows: 132px;
+        }
+
+        .admin-menu .menu-btn {
+          min-height: 132px;
+        }
+      }
+    </style>
   </head>
 
   <body>
-    <!-- HEADER (SAMA PERSIS DENGAN DASHBOARD) -->
+    <!-- HEADER -->
     <header>
       <div class="logo">
-        <img
-          src="assets/img/nadiv2.png"
-          width="85"
-          style="display: block; margin: 2 auto 20px"
-        />
+        <img src="assets/img/nadiv2.png" alt="Logo NADI" />
+
         <span>
-          NADI - Navigasi Administrasi Digital Internal <br />
-          KPU Kab. Purbalingga
+          NADI<br />
+          <small>KPU Kab. Purbalingga</small>
         </span>
       </div>
 
@@ -37,34 +251,79 @@
     </header>
 
     <!-- MAIN -->
-    <main>
-      <div class="page-title">
-        <h2>🗃️ Halaman Admin</h2>
-        <p>Panel pengelolaan sistem NADI</p>
+    <main class="admin-page">
+      <!-- HERO -->
+      <section class="admin-hero">
+        <div class="admin-hero-content">
+          <div>
+            <span class="admin-hero-badge">
+              <i class="hgi hgi-stroke hgi-rounded hgi-shield-user"></i>
+              Admin Area
+            </span>
+
+            <h2>Halaman Admin</h2>
+            <p>Panel pengelolaan sistem NADI untuk data user dan absensi.</p>
+          </div>
+
+          <div class="admin-hero-icon">
+            <i class="hgi hgi-stroke hgi-rounded hgi-dashboard-square-03"></i>
+          </div>
+        </div>
+      </section>
+
+      <!-- MENU ADMIN -->
+      <section class="admin-section-title">
+        <h3>Menu Admin</h3>
+        <p>Pilih fitur pengelolaan yang ingin digunakan.</p>
+      </section>
+
+      <section class="menu-container admin-menu">
+        <a href="adduser.html" class="menu-btn">
+          <i class="hgi hgi-stroke hgi-rounded hgi-user-add-01"></i>
+          Tambah User
+        </a>
+
+        <a href="userslist.html" class="menu-btn">
+          <i class="hgi hgi-stroke hgi-rounded hgi-user-group"></i>
+          Daftar User
+        </a>
+
+        <a href="downloadabsen.html" class="menu-btn">
+          <i class="hgi hgi-stroke hgi-rounded hgi-download-04"></i>
+          Download Absensi
+        </a>
+
+        <a href="downloadlkhp.html" class="menu-btn">
+          <i class="hgi hgi-stroke hgi-rounded hgi-file-download"></i>
+          Download LKHP
+        </a>
+      </section>
+
+      <!-- BACK -->
+      <div class="pill-actions">
+        <a href="dashboard.html" class="pill-btn danger">
+          <i class="hgi hgi-stroke hgi-rounded hgi-arrow-left-02"></i>
+          Kembali
+        </a>
       </div>
 
-      <div class="menu-container">
-        <a href="adduser.html" class="menu-btn">➕ Tambah User</a>
-
-        <a href="userslist.html" class="menu-btn">👥 Daftar User</a>
-
-        <a href="downloadabsen.html" class="menu-btn">⬇️ Download Absensi</a>
-
-        <a href="dashboard.html" class="menu-btn danger">← Kembali</a>
-      </div>
+      <div id="content"></div>
     </main>
 
     <footer>
       © <span id="year"></span> NADI - Navigasi Administrasi Digital Internal
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
     <script src="./assets/js/clock.js"></script>
 
-    <!-- nanti script profil kita taruh di sini -->
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+
+    <!-- AUTH GUARD -->
     <script type="module" src="./assets/js/auth-guard.js"></script>
+
+    <!-- ADMIN PROTECT -->
     <script type="module">
       import "./assets/js/admin-protect.js";
     </script>

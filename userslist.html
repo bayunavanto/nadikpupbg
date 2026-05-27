@@ -4,14 +4,23 @@
     <base target="_top" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Profil - NADI</title>
+
+    <title>Daftar User - NADI</title>
 
     <link
       rel="shortcut icon"
       href="assets/img/nadiv2.png"
       type="image/x-icon"
     />
+
+    <!-- HugeIcons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css"
+    />
+
     <link rel="stylesheet" href="./assets/css/interface.css" />
+
     <link
       rel="stylesheet"
       href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css"
@@ -19,17 +28,14 @@
   </head>
 
   <body>
-    <!-- HEADER (SAMA PERSIS DENGAN DASHBOARD) -->
+    <!-- HEADER -->
     <header>
       <div class="logo">
-        <img
-          src="assets/img/nadiv2.png"
-          width="85"
-          style="display: block; margin: 2 auto 20px"
-        />
+        <img src="assets/img/nadiv2.png" alt="Logo NADI" />
+
         <span>
-          NADI - Navigasi Administrasi Digital Internal <br />
-          KPU Kab. Purbalingga
+          NADI<br />
+          <small>KPU Kab. Purbalingga</small>
         </span>
       </div>
 
@@ -37,13 +43,43 @@
     </header>
 
     <!-- MAIN -->
-    <main>
-      <div class="page-title">
-        <h2>👥 Daftar User</h2>
-        <p>Monitoring dan manajemen user sistem NADI</p>
-      </div>
+    <main class="users-page">
+      <!-- HERO -->
+      <section class="users-hero">
+        <div class="users-hero-content">
+          <div>
+            <span class="users-hero-badge">
+              <i class="hgi hgi-stroke hgi-rounded hgi-shield-user"></i>
+              Admin Area
+            </span>
 
-      <div class="form-card">
+            <h2>Daftar User</h2>
+            <p>Monitoring dan manajemen user yang terdaftar di sistem NADI.</p>
+          </div>
+
+          <div class="users-hero-icon">
+            <i class="hgi hgi-stroke hgi-rounded hgi-user-group"></i>
+          </div>
+        </div>
+      </section>
+
+      <!-- TABLE -->
+      <section class="users-table-card">
+        <div class="users-table-header">
+          <div>
+            <h3>
+              <i class="hgi hgi-stroke hgi-rounded hgi-user-multiple"></i>
+              Data User
+            </h3>
+            <p>Klik salah satu baris untuk melihat detail user.</p>
+          </div>
+
+          <div class="users-count-chip">
+            <i class="hgi hgi-stroke hgi-rounded hgi-user-group"></i>
+            <span id="userCount">0 User</span>
+          </div>
+        </div>
+
         <div class="table-wrapper">
           <table id="tableUser" class="display">
             <thead>
@@ -56,15 +92,14 @@
             <tbody></tbody>
           </table>
         </div>
-      </div>
+      </section>
 
-      <div style="margin-top: 12px">
-        <button
-          class="btn-secondary"
-          onclick="window.location.href = 'admin.html'"
-        >
-          ← Kembali
-        </button>
+      <!-- BACK -->
+      <div class="pill-actions">
+        <a href="admin.html" class="pill-btn danger">
+          <i class="hgi hgi-stroke hgi-rounded hgi-arrow-left-02"></i>
+          Kembali
+        </a>
       </div>
     </main>
 
@@ -77,56 +112,118 @@
     <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
     <script src="./assets/js/clock.js"></script>
 
-    <!-- nanti script profil kita taruh di sini -->
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      function getInitial(name) {
+        if (!name) return "?";
+
+        return String(name).trim().charAt(0).toUpperCase();
+      }
+
+      function escapeHtml(text) {
+        return String(text || "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+    </script>
+
+    <!-- AUTH GUARD -->
     <script type="module" src="./assets/js/auth-guard.js"></script>
+
+    <!-- USERS LIST -->
     <script type="module">
       import { db } from "./assets/js/firebase.js";
+
       import {
         collection,
         getDocs,
       } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
       async function loadUsers() {
-        const snapshot = await getDocs(collection(db, "users"));
+        try {
+          const snapshot = await getDocs(collection(db, "users"));
 
-        let data = [];
+          let data = [];
 
-        snapshot.forEach((doc) => {
-          const d = doc.data();
+          snapshot.forEach((doc) => {
+            const d = doc.data();
 
-          data.push([
-            d.nama,
-            d.username,
-            d.aktif
-              ? "<span class='badge-active'>Aktif</span>"
-              : "<span class='badge-inactive'>Nonaktif</span>",
-          ]);
-        });
+            const nama = d.nama || "-";
+            const username = d.username || "-";
+            const role = d.role || "pegawai";
 
-        // init DataTable
-        const table = $("#tableUser").DataTable({
-          data: data,
-          columns: [
-            { title: "Nama" },
-            { title: "Username" },
-            { title: "Status" },
-          ],
-          pageLength: 10,
-          destroy: true,
-        });
+            data.push([
+              `
+                <div class="user-name-cell">
+                  <span class="user-avatar-mini">${getInitial(nama)}</span>
 
-        // klik row
-        $("#tableUser tbody").on("click", "tr", function () {
-          const rowData = table.row(this).data();
-          const username = rowData[1];
+                  <span class="user-name-text">
+                    <strong>${escapeHtml(nama)}</strong>
+                    <small>${escapeHtml(role)}</small>
+                  </span>
+                </div>
+              `,
+              `<span class="username-cell">${escapeHtml(username)}</span>`,
+              d.aktif
+                ? "<span class='badge-active'>Aktif</span>"
+                : "<span class='badge-inactive'>Nonaktif</span>",
+              username,
+            ]);
+          });
 
-          window.location.href = `userdetail.html?username=${username}`;
-        });
+          document.getElementById("userCount").innerText =
+            `${data.length} User`;
+
+          const table = $("#tableUser").DataTable({
+            data: data,
+            columns: [
+              { title: "Nama" },
+              { title: "Username" },
+              { title: "Status" },
+              { title: "rawUsername", visible: false },
+            ],
+            pageLength: 10,
+            destroy: true,
+            ordering: true,
+            language: {
+              search: "Cari:",
+              lengthMenu: "Tampilkan _MENU_ data",
+              info: "Menampilkan _START_ - _END_ dari _TOTAL_ user",
+              infoEmpty: "Tidak ada user",
+              zeroRecords: "User tidak ditemukan",
+              paginate: {
+                previous: "Sebelumnya",
+                next: "Berikutnya",
+              },
+            },
+          });
+
+          $("#tableUser tbody").on("click", "tr", function () {
+            const rowData = table.row(this).data();
+
+            if (!rowData) return;
+
+            const username = rowData[3];
+
+            window.location.href = `userdetail.html?username=${encodeURIComponent(
+              username,
+            )}`;
+          });
+        } catch (error) {
+          console.error("LOAD USERS ERROR:", error);
+
+          Swal.fire("Error", "Gagal memuat daftar user", "error");
+        }
       }
 
       loadUsers();
     </script>
 
+    <!-- ADMIN PROTECT -->
     <script type="module">
       import "./assets/js/admin-protect.js";
     </script>

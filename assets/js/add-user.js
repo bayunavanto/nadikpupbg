@@ -5,42 +5,32 @@ import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebase
 import {
   doc,
   setDoc,
+  serverTimestamp,
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-/* =========================
-   BUTTON INIT
-========================= */
 const btn = document.getElementById("btnCreate");
 
-/* =========================
-   CREATE USER
-========================= */
 btn.addEventListener("click", async () => {
   const nama = document.getElementById("nama").value.trim();
   const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value;
   const aktif = document.getElementById("aktif").value === "true";
+  const role = document.getElementById("role").value;
 
-  /* =========================
-     VALIDATION SEDERHANA
-  ========================= */
-  if (!nama || !username || !password) {
+  if (!nama || !username || !password || !role) {
     Swal.fire("Error", "Semua field wajib diisi", "warning");
     return;
   }
 
   try {
     btn.disabled = true;
-    btn.innerText = "Membuat user...";
+    btn.innerHTML = `
+      <span class="mini-loader" style="border-top-color: #ffffff"></span>
+      Membuat user...
+    `;
 
-    /* =========================
-       GENERATE EMAIL OTOMATIS
-    ========================= */
     const email = `${username}@nadikpupbg.local`;
 
-    /* =========================
-       CREATE AUTH USER (UID GENERATED)
-    ========================= */
     const userCred = await createUserWithEmailAndPassword(
       auth,
       email,
@@ -49,17 +39,15 @@ btn.addEventListener("click", async () => {
 
     const uid = userCred.user.uid;
 
-    /* =========================
-       SAVE FIRESTORE (UID BASED)
-    ========================= */
     await setDoc(doc(db, "users", uid), {
       uid,
       nama,
       username,
       email,
-      role: "pegawai",
+      role,
       aktif,
-      createdAt: new Date(),
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
     });
 
     Swal.fire({
@@ -67,19 +55,22 @@ btn.addEventListener("click", async () => {
       title: "Berhasil",
       text: "User baru berhasil dibuat",
     }).then(() => {
-      window.location.href = "dashboard.html";
+      window.location.href = "admin.html";
     });
 
-    /* reset form */
     document.getElementById("nama").value = "";
     document.getElementById("username").value = "";
     document.getElementById("password").value = "";
+    document.getElementById("role").value = "pegawai";
+    document.getElementById("aktif").value = "true";
   } catch (err) {
     console.error(err);
-
     Swal.fire("Error", err.message, "error");
   } finally {
     btn.disabled = false;
-    btn.innerText = "Buat User";
+    btn.innerHTML = `
+      <i class="hgi hgi-stroke hgi-rounded hgi-user-add-01"></i>
+      Buat User
+    `;
   }
 });

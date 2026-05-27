@@ -4,29 +4,36 @@
     <base target="_top" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>NADI - Navigasi Administrasi Digital Internal</title>
+
     <link
       rel="shortcut icon"
       href="assets/img/nadiv2.png"
       type="image/x-icon"
     />
+
+    <!-- HugeIcons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css"
+    />
+
     <link rel="stylesheet" href="./assets/css/interface.css" />
   </head>
+
   <body>
     <!-- HEADER -->
     <header>
       <div class="logo">
-        <img
-          src="assets/img/nadiv2.png"
-          alt="Logo Instansi"
-          width="85"
-          style="display: block; margin: 2 auto 20px"
-        />
+        <img src="assets/img/nadiv2.png" alt="Logo Instansi" />
+
         <span>
-          NADI - Navigasi Administrasi Digital Internal <br />KPU Kab.
-          Purbalingga
+          NADI<br />
+          <small>KPU Kab. Purbalingga</small>
         </span>
       </div>
+
       <div class="clock" id="clock">--:--:--</div>
     </header>
 
@@ -37,11 +44,27 @@
       </div>
 
       <div class="menu-container">
-        <a href="absenmasuk.html" class="menu-btn primary">📝 Absen masuk</a>
-        <a href="absenkeluar.html" class="menu-btn secondary"
-          >📝 Absen keluar</a
-        >
-        <a href="dashboard.html" class="menu-btn danger">&larr; Kembali</a>
+        <a href="absenmasuk.html" class="menu-btn primary">
+          <i class="hgi hgi-stroke hgi-rounded hgi-login-03"></i>
+          Absen masuk
+        </a>
+
+        <a href="absenkeluar.html" class="menu-btn">
+          <i class="hgi hgi-stroke hgi-rounded hgi-logout-03"></i>
+          Absen keluar
+        </a>
+
+        <a href="historyabsen.html" class="menu-btn">
+          <i class="hgi hgi-stroke hgi-rounded hgi-time-schedule"></i>
+          Riwayat Absen
+        </a>
+      </div>
+
+      <div class="pill-actions">
+        <a href="dashboard.html" class="pill-btn danger">
+          <i class="hgi hgi-stroke hgi-rounded hgi-arrow-left-02"></i>
+          Kembali
+        </a>
       </div>
 
       <div id="content"></div>
@@ -56,23 +79,24 @@
     <script>
       document.getElementById("year").textContent = new Date().getFullYear();
 
-      // script waktu
-
       // Fungsi update jam di kanan atas
       function updateClock() {
         const now = new Date();
         const jam = now.getHours().toString().padStart(2, "0");
         const menit = now.getMinutes().toString().padStart(2, "0");
         const detik = now.getSeconds().toString().padStart(2, "0");
+
         document.getElementById("clock").textContent =
           `${jam}:${menit}:${detik}`;
       }
+
       setInterval(updateClock, 1000);
       updateClock();
     </script>
 
     <!-- script firebase -->
     <script type="module" src="./assets/js/auth-guard.js"></script>
+
     <script type="module">
       import {
         collection,
@@ -120,12 +144,18 @@
         if (!data) {
           el.innerHTML = `
             <div class="title">Status Hari Ini</div>
-            <div class="bad">❌ Belum absen hari ini</div>
+            <div class="bad">
+              <i class="hgi hgi-stroke hgi-rounded hgi-cancel-circle"></i>
+              Belum absen hari ini
+            </div>
           `;
         } else {
           el.innerHTML = `
             <div class="title">Status Hari Ini</div>
-            <div class="ok">📌 Sudah absen</div>
+            <div class="ok">
+              <i class="hgi hgi-stroke hgi-rounded hgi-checkmark-circle-02"></i>
+              Sudah absen
+            </div>
             <div>Masuk: ${data.jamMasuk || "-"} (${data.statusMasuk || "-"})</div>
             <div>Keluar: ${data.jamKeluar || "-"} (${data.statusKeluar || "-"})</div>
           `;

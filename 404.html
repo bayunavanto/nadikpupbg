@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>404 - Halaman Tidak Ditemukan</title>
+
+    <link
+      rel="shortcut icon"
+      href="assets/img/nadiv2.png"
+      type="image/x-icon"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css"
+    />
+
+    <style>
+      :root {
+        --primary: #6666ff;
+        --primary-dark: #4f46e5;
+        --primary-soft: #eef2ff;
+        --bg: #f6f7fb;
+        --text: #111827;
+        --muted: #6b7280;
+        --card: #ffffff;
+        --danger: #dc2626;
+        --danger-soft: #fff1f2;
+      }
+
+      * {
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, sans-serif;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 20px;
+
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(102, 102, 255, 0.14),
+            transparent 34%
+          ),
+          radial-gradient(
+            circle at bottom right,
+            rgba(102, 102, 255, 0.08),
+            transparent 30%
+          ),
+          var(--bg);
+
+        color: var(--text);
+      }
+
+      .error-card {
+        width: 100%;
+        max-width: 430px;
+
+        background: var(--card);
+        border-radius: 28px;
+        padding: 28px 24px;
+
+        text-align: center;
+
+        border: 1px solid rgba(229, 231, 235, 0.9);
+        box-shadow: 0 18px 40px rgba(17, 24, 39, 0.08);
+
+        position: relative;
+        overflow: hidden;
+      }
+
+      .error-card::before {
+        content: "";
+        position: absolute;
+        top: -60px;
+        right: -60px;
+
+        width: 160px;
+        height: 160px;
+
+        border-radius: 999px;
+        background: rgba(102, 102, 255, 0.1);
+        filter: blur(8px);
+      }
+
+      .logo {
+        width: 70px;
+        height: 70px;
+
+        margin: 0 auto 18px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 24px;
+        background: var(--primary-soft);
+      }
+
+      .logo img {
+        width: 48px;
+        height: 48px;
+        object-fit: contain;
+      }
+
+      .error-icon {
+        width: 64px;
+        height: 64px;
+
+        margin: 0 auto 18px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 999px;
+
+        background: var(--danger-soft);
+        color: var(--danger);
+      }
+
+      .error-icon .hgi {
+        font-size: 32px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 42px;
+        font-weight: 900;
+        color: var(--primary);
+      }
+
+      h2 {
+        margin: 6px 0 8px;
+        font-size: 21px;
+        font-weight: 850;
+      }
+
+      p {
+        margin: 0;
+
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.5;
+      }
+
+      .actions {
+        margin-top: 24px;
+
+        display: grid;
+        gap: 10px;
+      }
+
+      .btn-primary,
+      .btn-soft {
+        height: 48px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+
+        border-radius: 999px;
+
+        text-decoration: none;
+
+        font-size: 14px;
+        font-weight: 800;
+
+        transition:
+          transform 0.2s ease,
+          background 0.2s ease;
+      }
+
+      .btn-primary {
+        background: var(--primary);
+        color: #ffffff;
+      }
+
+      .btn-primary:hover {
+        background: var(--primary-dark);
+        transform: translateY(-1px);
+      }
+
+      .btn-soft {
+        background: var(--primary-soft);
+        color: var(--primary);
+      }
+
+      .btn-soft:hover {
+        transform: translateY(-1px);
+      }
+
+      .footer {
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="error-card">
+      <div class="logo">
+        <img src="assets/img/nadiv2.png" alt="Logo NADI" />
+      </div>
+
+      <div class="error-icon">
+        <i class="hgi hgi-stroke hgi-rounded hgi-alert-circle"></i>
+      </div>
+
+      <h1>404</h1>
+      <h2>Halaman tidak ditemukan</h2>
+
+      <p>
+        Maaf, halaman yang kamu akses tidak tersedia atau mungkin sudah
+        dipindahkan.
+      </p>
+
+      <div class="actions">
+        <a href="dashboard.html" class="btn-primary">
+          <i class="hgi hgi-stroke hgi-rounded hgi-home-01"></i>
+          Kembali ke Dashboard
+        </a>
+
+        <a href="index.html" class="btn-soft">
+          <i class="hgi hgi-stroke hgi-rounded hgi-login-03"></i>
+          Ke Halaman Login
+        </a>
+      </div>
+
+      <div class="footer">NADI - KPU Kabupaten Purbalingga</div>
+    </main>
+  </body>
+</html>

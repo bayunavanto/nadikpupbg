@@ -4,50 +4,68 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>NADI - Formulir Absen Online KPU Kab. Purbalingga</title>
+
+    <title>
+      NADI - Navigasi Administrasi Digital Internal KPU Kab. Purbalingga
+    </title>
+
     <link rel="icon" href="assets/img/nadiv2.png" type="image/png" />
+
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css"
       rel="stylesheet"
     />
+
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     />
+
     <link rel="stylesheet" href="./assets/css/auth.css" />
   </head>
+
   <body>
     <div class="registration-form">
       <form id="frm" autocomplete="off">
-        <div>
-          <img
-            src="assets/img/nadiv2.png"
-            alt="Logo Instansi"
-            width="100"
-            style="display: block; margin: 0 auto 20px"
-          />
+        <div class="auth-header">
+          <div class="logo-wrap">
+            <img
+              src="assets/img/nadiv2.png"
+              alt="Logo NADI"
+              style="height: 150px; width: auto"
+            />
+          </div>
+
+          <!-- <div class="auth-badge">NADI</div> -->
+
+          <h1 class="auth-title">Selamat Datang</h1>
+
+          <p class="auth-subtitle">
+            Masuk untuk mengakses layanan administrasi digital internal KPU
+            Kabupaten Purbalingga.
+          </p>
         </div>
-        <div style="text-align: center; margin-bottom: 25px">
-          <div
-            class="error"
-            id="errorMsg"
-            style="text-align: center; margin-bottom: 25px"
-          ></div>
-        </div>
+
+        <div class="error" id="errorMsg"></div>
+
         <div class="form-group">
+          <label for="username" class="input-label">Username</label>
           <input
             type="text"
             id="username"
-            placeholder="Username"
+            placeholder="Masukkan username"
             class="form-control item"
           />
         </div>
+
         <div class="form-group">
+          <label for="password" class="input-label">Password</label>
+
           <div class="password-wrapper">
             <input
               type="password"
               id="password"
-              placeholder="Password"
+              placeholder="Masukkan password"
               class="form-control item"
             />
 
@@ -70,6 +88,7 @@
             </span>
           </div>
         </div>
+
         <div class="form-group">
           <button
             type="button"
@@ -81,16 +100,19 @@
           </button>
         </div>
       </form>
+
       <div class="social-media">
         <div>
-          <small
-            >Dev by
-            <a href="https://vantolab.biz.id" target="_blank">Vanss</a></small
-          >
+          <small>
+            Dev by
+            <a href="https://vantolab.biz.id" target="_blank">Vanss</a>
+          </small>
         </div>
       </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
       let isPasswordVisible = false;
 
@@ -118,6 +140,7 @@
         }
       }
     </script>
+
     <script type="module">
       import { auth, db } from "./assets/js/firebase.js";
       import {
@@ -172,6 +195,7 @@
           } else {
             errorMsg.innerText = "Terjadi kesalahan saat login";
           }
+
           // 🔓 ENABLE KEMBALI
           btn.disabled = false;
           btn.innerText = "Login";
@@ -195,6 +219,7 @@
           if (snapshot.empty) {
             await signOut(auth);
             Swal.fire("Error", "Data user tidak ditemukan", "error");
+
             // 🔓 ENABLE KEMBALI
             btn.disabled = false;
             btn.innerText = "Login";
@@ -207,6 +232,7 @@
           if (userData.aktif !== true) {
             await signOut(auth);
             Swal.fire("Akses Ditolak", "User tidak aktif", "error");
+
             // 🔓 ENABLE KEMBALI
             btn.disabled = false;
             btn.innerText = "Login";
@@ -219,6 +245,7 @@
           console.error("AUTH CHECK ERROR:", err);
           await signOut(auth);
           Swal.fire("Error", "Terjadi kesalahan sistem", "error");
+
           // 🔓 ENABLE KEMBALI
           btn.disabled = false;
           btn.innerText = "Login";

@@ -1,0 +1,309 @@
+<!doctype html>
+<html>
+  <head>
+    <base target="_top" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>NADI - Riwayat Absensi</title>
+
+    <link
+      rel="shortcut icon"
+      href="assets/img/nadiv2.png"
+      type="image/x-icon"
+    />
+
+    <!-- HugeIcons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css"
+    />
+
+    <link rel="stylesheet" href="./assets/css/interface.css" />
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <header>
+      <div class="logo">
+        <img src="assets/img/nadiv2.png" alt="Logo Instansi" />
+
+        <span>
+          NADI<br />
+          <small>KPU Kab. Purbalingga</small>
+        </span>
+      </div>
+
+      <div class="clock" id="clock">--:--:--</div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main>
+      <section class="page-title">
+        <h2>Riwayat Absensi</h2>
+        <p>Lihat catatan absensi masuk dan keluar kamu.</p>
+      </section>
+
+      <section class="history-filter-card">
+        <div class="filter-group">
+          <label for="monthFilter">Bulan</label>
+          <input type="month" id="monthFilter" />
+        </div>
+
+        <button type="button" class="pill-btn" onclick="loadHistoryAbsensi()">
+          <i class="hgi hgi-stroke hgi-rounded hgi-search-01"></i>
+          Tampilkan
+        </button>
+      </section>
+
+      <section class="history-summary">
+        <div class="history-summary-card">
+          <span>Total Hari</span>
+          <strong id="totalHari">0</strong>
+        </div>
+
+        <div class="history-summary-card">
+          <span>Sudah Keluar</span>
+          <strong id="totalLengkap">0</strong>
+        </div>
+      </section>
+
+      <section class="history-card">
+        <div class="history-header">
+          <div>
+            <h3>Timeline Absensi</h3>
+            <p id="historyInfo">Memuat data...</p>
+          </div>
+        </div>
+
+        <div class="timeline-list" id="historyList">
+          <div class="empty-state">Memuat riwayat absensi...</div>
+        </div>
+      </section>
+
+      <div class="pill-actions">
+        <a href="absensi.html" class="pill-btn danger">
+          <i class="hgi hgi-stroke hgi-rounded hgi-arrow-left-02"></i>
+          Kembali
+        </a>
+      </div>
+
+      <div id="content"></div>
+    </main>
+
+    <footer>
+      © <span id="year"></span> NADI - Navigasi Administrasi Digital Internal
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      function updateClock() {
+        const now = new Date();
+        const jam = now.getHours().toString().padStart(2, "0");
+        const menit = now.getMinutes().toString().padStart(2, "0");
+        const detik = now.getSeconds().toString().padStart(2, "0");
+
+        document.getElementById("clock").textContent =
+          `${jam}:${menit}:${detik}`;
+      }
+
+      setInterval(updateClock, 1000);
+      updateClock();
+
+      function formatTanggal(tanggal) {
+        if (!tanggal) return "-";
+
+        const date = new Date(tanggal + "T00:00:00");
+
+        return date.toLocaleDateString("id-ID", {
+          weekday: "long",
+          day: "2-digit",
+          month: "long",
+          year: "numeric",
+        });
+      }
+
+      function getCurrentMonth() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, "0");
+
+        return `${year}-${month}`;
+      }
+
+      document.getElementById("monthFilter").value = getCurrentMonth();
+    </script>
+
+    <!-- AUTH GUARD -->
+    <script type="module" src="./assets/js/auth-guard.js"></script>
+
+    <script type="module">
+      import { auth, db } from "./assets/js/firebase.js";
+
+      import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+      import {
+        collection,
+        query,
+        where,
+        getDocs,
+      } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+      let currentUser = null;
+
+      window.loadHistoryAbsensi = async function () {
+        const historyList = document.getElementById("historyList");
+        const historyInfo = document.getElementById("historyInfo");
+        const totalHari = document.getElementById("totalHari");
+        const totalLengkap = document.getElementById("totalLengkap");
+        const monthFilter = document.getElementById("monthFilter").value;
+
+        if (!currentUser) return;
+
+        historyList.innerHTML = `
+          <div class="empty-state">Memuat riwayat absensi...</div>
+        `;
+
+        try {
+          const q = query(
+            collection(db, "absensi"),
+            where("username", "==", currentUser.username),
+          );
+
+          const snapshot = await getDocs(q);
+
+          let data = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+
+          if (monthFilter) {
+            data = data.filter((item) => {
+              return item.tanggal && item.tanggal.startsWith(monthFilter);
+            });
+          }
+
+          data.sort((a, b) => {
+            return String(b.tanggal || "").localeCompare(
+              String(a.tanggal || ""),
+            );
+          });
+
+          totalHari.innerText = data.length;
+
+          const lengkap = data.filter(
+            (item) => item.jamMasuk && item.jamKeluar,
+          ).length;
+          totalLengkap.innerText = lengkap;
+
+          if (data.length === 0) {
+            historyInfo.innerText = "Belum ada data pada periode ini.";
+            historyList.innerHTML = `
+              <div class="empty-state">
+                <i class="hgi hgi-stroke hgi-rounded hgi-calendar-remove-02"></i>
+                <span>Belum ada riwayat absensi pada bulan ini.</span>
+              </div>
+            `;
+            return;
+          }
+
+          historyInfo.innerText = `${data.length} data ditemukan`;
+
+          historyList.innerHTML = data
+            .map((item) => {
+              const masuk = item.jamMasuk || "-";
+              const keluar = item.jamKeluar || "-";
+              const statusMasuk = item.statusMasuk || "-";
+              const statusKeluar = item.statusKeluar || "-";
+
+              const isMasukAda = !!item.jamMasuk;
+              const isKeluarAda = !!item.jamKeluar;
+
+              let keluarClass = "pending";
+              let keluarText = "Belum lengkap";
+
+              if (isMasukAda && isKeluarAda) {
+                keluarClass = "done";
+                keluarText = "Lengkap";
+              } else if (!isMasukAda && isKeluarAda) {
+                keluarText = "Belum absen masuk";
+              } else if (isMasukAda && !isKeluarAda) {
+                keluarText = "Belum absen keluar";
+              } else {
+                keluarText = "Belum lengkap";
+              }
+
+              return `
+                <article class="timeline-item">
+                  <div class="timeline-dot">
+                    <i class="hgi hgi-stroke hgi-rounded hgi-calendar-03"></i>
+                  </div>
+
+                  <div class="timeline-content">
+                    <div class="timeline-top">
+                      <div>
+                        <h4>${formatTanggal(item.tanggal)}</h4>
+                        <p>${item.tanggal || "-"}</p>
+                      </div>
+
+                      <span class="history-badge ${keluarClass}">
+                        ${keluarText}
+                      </span>
+                    </div>
+
+                    <div class="history-detail-grid">
+                      <div class="history-detail">
+                        <span>
+                          <i class="hgi hgi-stroke hgi-rounded hgi-login-03"></i>
+                          Masuk
+                        </span>
+                        <strong>${masuk}</strong>
+                        <small>${statusMasuk}</small>
+                      </div>
+
+                      <div class="history-detail">
+                        <span>
+                          <i class="hgi hgi-stroke hgi-rounded hgi-logout-03"></i>
+                          Keluar
+                        </span>
+                        <strong>${keluar}</strong>
+                        <small>${statusKeluar}</small>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              `;
+            })
+            .join("");
+        } catch (error) {
+          console.error("LOAD HISTORY ERROR:", error);
+
+          historyInfo.innerText = "Gagal memuat data.";
+          historyList.innerHTML = `
+            <div class="empty-state">
+              <i class="hgi hgi-stroke hgi-rounded hgi-alert-circle"></i>
+              <span>Terjadi kesalahan saat memuat riwayat absensi.</span>
+            </div>
+          `;
+        }
+      };
+
+      onAuthStateChanged(auth, async (user) => {
+        if (!user) {
+          window.location.href = "index.html";
+          return;
+        }
+
+        currentUser = {
+          username: user.email.split("@")[0],
+          nama: user.email.split("@")[0],
+        };
+
+        await loadHistoryAbsensi();
+      });
+    </script>
+  </body>
+</html>

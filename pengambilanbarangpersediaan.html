@@ -3,138 +3,483 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <link
       rel="shortcut icon"
       href="assets/img/nadiv2.png"
       type="image/x-icon"
     />
+
+    <!-- HugeIcons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css"
+    />
+
     <title>NADI - Formulir Pengambilan Barang</title>
 
     <style>
+      :root {
+        --primary: #6666ff;
+        --primary-dark: #4f46e5;
+        --primary-soft: #eef2ff;
+
+        --bg: #f6f7fb;
+        --card: #ffffff;
+
+        --text: #111827;
+        --muted: #6b7280;
+        --border: #e5e7eb;
+
+        --danger: #dc2626;
+        --danger-soft: #fff1f2;
+
+        --radius: 24px;
+        --radius-md: 18px;
+
+        --shadow: 0 18px 40px rgba(17, 24, 39, 0.08);
+        --shadow-soft: 0 8px 22px rgba(17, 24, 39, 0.06);
+      }
+
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: Arial, sans-serif;
+        font-family: "Segoe UI", Tahoma, sans-serif;
+      }
+
+      html,
+      body {
+        min-height: 100%;
       }
 
       body {
-        background: #f4f6f9;
-        color: #333;
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(102, 102, 255, 0.12),
+            transparent 34%
+          ),
+          radial-gradient(
+            circle at bottom right,
+            rgba(102, 102, 255, 0.08),
+            transparent 30%
+          ),
+          var(--bg);
+
+        color: var(--text);
+        min-height: 100vh;
       }
 
-      /* HEADER BAR */
+      .hgi {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 18px;
+        line-height: 1;
+
+        flex-shrink: 0;
+      }
+
+      /* =========================
+         HEADER
+      ========================= */
       header {
-        background: #1f3c88;
-        color: white;
-        padding: 12px 16px;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+
+        height: 72px;
+
         display: flex;
         align-items: center;
         justify-content: space-between;
+        gap: 14px;
+
+        padding: 12px 18px;
+
+        background: rgba(255, 255, 255, 0.86);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+
+        border-bottom: 1px solid rgba(229, 231, 235, 0.9);
       }
 
       .header-left,
-      .header-center,
       .header-right {
         display: flex;
         align-items: center;
+        flex-shrink: 0;
       }
 
       .header-center {
+        min-width: 0;
         flex: 1;
-        justify-content: center;
-        font-size: 24px;
-        font-weight: bold;
+
+        text-align: center;
+      }
+
+      .header-center h1 {
+        margin: 0;
+
+        font-size: 17px;
+        font-weight: 850;
+        line-height: 1.2;
+
+        color: var(--text);
+      }
+
+      .header-center p {
+        margin-top: 3px;
+
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--muted);
       }
 
       /* BACK BUTTON */
       .back-btn {
-        background: rgba(255, 255, 255, 0.15);
-        color: white;
-        padding: 6px 10px;
-        border-radius: 6px;
+        height: 42px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+
+        padding: 0 15px;
+
+        border-radius: 999px;
+
+        background: #ffffff;
+        color: var(--primary);
+
+        border: 1px solid rgba(102, 102, 255, 0.18);
+
         text-decoration: none;
         font-size: 13px;
+        font-weight: 750;
+
+        box-shadow: 0 8px 20px rgba(17, 24, 39, 0.06);
+
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease,
+          background 0.2s ease;
       }
 
       .back-btn:hover {
-        background: rgba(255, 255, 255, 0.25);
+        transform: translateY(-1px);
+        background: var(--primary-soft);
+        box-shadow: 0 12px 26px rgba(17, 24, 39, 0.08);
+      }
+
+      .back-btn:active {
+        transform: translateY(0) scale(0.98);
       }
 
       /* LOGO */
       .logo {
-        width: 70px;
-        height: 70px;
-        border-radius: 6px;
-        object-fit: cover;
+        width: 48px;
+        height: 48px;
+
+        object-fit: contain;
+        display: block;
+
+        padding: 7px;
+
+        border-radius: 16px;
+        background: var(--primary-soft);
+        border: 1px solid rgba(102, 102, 255, 0.12);
       }
 
-      /* CONTAINER */
+      /* =========================
+         CONTAINER
+      ========================= */
       .container {
-        max-width: 900px;
-        margin: 20px auto;
-        padding: 10px;
+        width: 100%;
+        max-width: 980px;
+
+        margin: 18px auto 0;
+        padding: 0 16px 16px;
       }
 
-      /* CARD */
+      .page-intro {
+        position: relative;
+
+        background: var(--card);
+        border-radius: var(--radius);
+
+        padding: 18px;
+
+        border: 1px solid rgba(229, 231, 235, 0.9);
+        box-shadow: var(--shadow-soft);
+
+        margin-bottom: 14px;
+
+        overflow: hidden;
+      }
+
+      .page-intro::before {
+        content: "";
+
+        position: absolute;
+        top: -52px;
+        right: -52px;
+
+        width: 145px;
+        height: 145px;
+
+        border-radius: 999px;
+        background: rgba(102, 102, 255, 0.1);
+        filter: blur(2px);
+      }
+
+      .page-intro h2,
+      .page-intro p {
+        position: relative;
+        z-index: 1;
+      }
+
+      .page-intro h2 {
+        margin: 0;
+
+        font-size: 20px;
+        font-weight: 850;
+        letter-spacing: -0.2px;
+      }
+
+      .page-intro p {
+        margin-top: 6px;
+
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1.45;
+      }
+
+      /* =========================
+         CARD FORM
+      ========================= */
       .card {
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        background: var(--card);
+        border-radius: var(--radius);
+
+        border: 1px solid rgba(229, 231, 235, 0.9);
+        box-shadow: var(--shadow);
+
         overflow: hidden;
       }
 
       .card-header {
-        padding: 12px 16px;
-        background: #f0f2f5;
+        padding: 14px 16px;
+
+        background: #ffffff;
+
         display: flex;
         justify-content: space-between;
         align-items: center;
-        font-weight: bold;
+        gap: 12px;
+
+        border-bottom: 1px solid rgba(229, 231, 235, 0.9);
       }
 
-      .btn {
-        background: #1f3c88;
-        color: white;
-        padding: 6px 10px;
-        border-radius: 6px;
+      .card-header-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        min-width: 0;
+      }
+
+      .card-header-icon {
+        width: 38px;
+        height: 38px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        flex-shrink: 0;
+
+        border-radius: 14px;
+        background: var(--primary-soft);
+        color: var(--primary);
+      }
+
+      .card-header-icon .hgi {
+        font-size: 19px;
+      }
+
+      .card-header strong {
+        display: block;
+
+        font-size: 14px;
+        font-weight: 850;
+        color: var(--text);
+      }
+
+      .card-header small {
+        display: block;
+
+        margin-top: 2px;
+
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 600;
+      }
+
+      .open-form-btn {
+        height: 38px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+
+        padding: 0 13px;
+
+        border-radius: 999px;
+
+        background: var(--primary);
+        color: #ffffff;
+
         text-decoration: none;
         font-size: 12px;
+        font-weight: 800;
+
+        transition:
+          transform 0.2s ease,
+          background 0.2s ease;
       }
 
-      .btn:hover {
-        background: #16306b;
+      .open-form-btn:hover {
+        transform: translateY(-1px);
+        background: var(--primary-dark);
       }
 
       /* FORM */
       .form-wrapper {
         width: 100%;
-        height: 85vh;
+        height: calc(100vh - 250px);
+        min-height: 620px;
+
+        background: #ffffff;
       }
 
       .form-wrapper iframe {
         width: 100%;
         height: 100%;
+
         border: none;
+        display: block;
       }
 
       /* FOOTER */
       footer {
         text-align: center;
-        padding: 12px;
-        margin-top: 20px;
-        font-size: 13px;
-        color: #666;
+        padding: 18px 12px 24px;
+
+        font-size: 12px;
+        color: var(--muted);
       }
 
-      /* MOBILE */
+      /* =========================
+         MOBILE
+      ========================= */
       @media (max-width: 600px) {
-        .header-center {
-          font-size: 15px;
+        header {
+          height: 68px;
+
+          padding: 10px 12px;
+          gap: 10px;
+        }
+
+        .back-btn {
+          height: 40px;
+          padding: 0 12px;
+
+          font-size: 0;
+          gap: 0;
+        }
+
+        .back-btn .hgi {
+          font-size: 19px;
+        }
+
+        .header-center h1 {
+          font-size: 13px;
+          line-height: 1.25;
+        }
+
+        .header-center p {
+          display: none;
+        }
+
+        .logo {
+          width: 44px;
+          height: 44px;
+
+          padding: 6px;
+          border-radius: 15px;
+        }
+
+        .container {
+          margin-top: 14px;
+          padding: 0 12px 14px;
+        }
+
+        .page-intro {
+          padding: 16px;
+          border-radius: 22px;
+        }
+
+        .page-intro h2 {
+          font-size: 18px;
+        }
+
+        .page-intro p {
+          font-size: 12.5px;
+        }
+
+        .card {
+          border-radius: 22px;
+        }
+
+        .card-header {
+          padding: 12px;
+        }
+
+        .card-header-icon {
+          width: 36px;
+          height: 36px;
+          border-radius: 13px;
+        }
+
+        .card-header strong {
+          font-size: 13px;
+        }
+
+        .card-header small {
+          font-size: 11px;
+        }
+
+        .open-form-btn {
+          width: 38px;
+          height: 38px;
+
+          padding: 0;
+          font-size: 0;
+          gap: 0;
+        }
+
+        .open-form-btn .hgi {
+          font-size: 18px;
         }
 
         .form-wrapper {
-          height: 80vh;
+          height: calc(100vh - 245px);
+          min-height: 560px;
         }
       }
     </style>
@@ -144,26 +489,53 @@
     <!-- HEADER -->
     <header>
       <div class="header-left">
-        <a href="dashboard.html" class="back-btn">← Kembali</a>
+        <a href="dashboard.html" class="back-btn">
+          <i class="hgi hgi-stroke hgi-rounded hgi-arrow-left-02"></i>
+          Kembali
+        </a>
       </div>
 
       <div class="header-center">
-        Formulir Pengambilan Barang persediaan / ATK
+        <h1>Pengambilan Barang</h1>
+        <p>Persediaan / ATK</p>
       </div>
 
       <div class="header-right">
-        <!-- ganti src dengan logo kamu -->
-        <img class="logo" src="assets/img/nadiv2.png" alt="Logo" />
+        <img class="logo" src="assets/img/nadiv2.png" alt="Logo NADI" />
       </div>
     </header>
 
     <div class="container">
-      <div class="card">
-        <!-- <div class="card-header">
-          <span>Form Pengisian</span>
+      <section class="page-intro">
+        <h2>Formulir Pengambilan Barang</h2>
+        <p>
+          Silakan isi formulir pengambilan barang persediaan atau ATK melalui
+          form yang tersedia di bawah ini.
+        </p>
+      </section>
 
-          <a href="#" class="btn" target="_blank"> Spreadsheet </a>
-        </div> -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-header-title">
+            <div class="card-header-icon">
+              <i class="hgi hgi-stroke hgi-rounded hgi-package"></i>
+            </div>
+
+            <div>
+              <strong>Form Pengisian</strong>
+              <small>Google Form tersemat</small>
+            </div>
+          </div>
+
+          <a
+            class="open-form-btn"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSc3MKsnCPu3HSYlQcVvChbW82y7aJBNMGa9bUGlWHr2bu_IcA/viewform?embedded=true"
+            target="_blank"
+          >
+            <i class="hgi hgi-stroke hgi-rounded hgi-link-square-02"></i>
+            Buka
+          </a>
+        </div>
 
         <div class="form-wrapper">
           <iframe
@@ -173,8 +545,9 @@
             frameborder="0"
             marginheight="0"
             marginwidth="0"
-            >Memuat…</iframe
           >
+            Memuat…
+          </iframe>
         </div>
       </div>
     </div>

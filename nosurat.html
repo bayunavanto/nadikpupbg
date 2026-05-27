@@ -1,0 +1,1414 @@
+<!doctype html>
+<html>
+  <head>
+    <base target="_top" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>No Surat - NADI</title>
+
+    <link
+      rel="shortcut icon"
+      href="assets/img/nadiv2.png"
+      type="image/x-icon"
+    />
+
+    <!-- HugeIcons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css"
+    />
+
+    <link rel="stylesheet" href="./assets/css/interface.css" />
+
+    <style>
+      /* =========================
+         NO SURAT PAGE
+      ========================= */
+      .nosurat-page {
+        width: 100%;
+        max-width: 860px;
+
+        margin-top: 90px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 40px;
+
+        padding: 18px;
+      }
+
+      .nosurat-hero {
+        position: relative;
+
+        background: rgba(255, 255, 255, 0.96);
+        border-radius: 28px;
+        padding: 20px;
+
+        border: 1px solid rgba(229, 231, 235, 0.9);
+        box-shadow: var(--shadow-soft);
+
+        margin-bottom: 18px;
+
+        overflow: hidden;
+      }
+
+      .nosurat-hero::before {
+        content: "";
+
+        position: absolute;
+        top: -60px;
+        right: -50px;
+
+        width: 170px;
+        height: 170px;
+
+        border-radius: 999px;
+        background: rgba(102, 102, 255, 0.12);
+        filter: blur(8px);
+      }
+
+      .nosurat-hero::after {
+        content: "";
+
+        position: absolute;
+        bottom: -70px;
+        left: 18%;
+
+        width: 150px;
+        height: 150px;
+
+        border-radius: 999px;
+        background: rgba(110, 231, 183, 0.14);
+        filter: blur(14px);
+      }
+
+      .nosurat-hero-content {
+        position: relative;
+        z-index: 1;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .nosurat-hero h2 {
+        margin: 0;
+
+        color: var(--text);
+        font-size: 24px;
+        font-weight: 850;
+        letter-spacing: -0.3px;
+      }
+
+      .nosurat-hero p {
+        margin: 6px 0 0;
+
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1.45;
+      }
+
+      .nosurat-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+
+        margin-bottom: 10px;
+        padding: 7px 11px;
+
+        border-radius: 999px;
+
+        background: var(--primary-soft);
+        color: var(--primary);
+
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .nosurat-badge .hgi {
+        font-size: 16px;
+      }
+
+      .nosurat-hero-icon {
+        width: 60px;
+        height: 60px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        flex-shrink: 0;
+
+        border-radius: 22px;
+
+        background: var(--primary-soft);
+        color: var(--primary);
+      }
+
+      .nosurat-hero-icon .hgi {
+        font-size: 30px;
+      }
+
+      .nosurat-card {
+        background: rgba(255, 255, 255, 0.96);
+
+        border-radius: 26px;
+        padding: 18px;
+
+        border: 1px solid rgba(229, 231, 235, 0.9);
+        box-shadow: var(--shadow-soft);
+
+        margin-bottom: 18px;
+      }
+
+      .nosurat-section-title {
+        margin-bottom: 16px;
+      }
+
+      .nosurat-section-title h3 {
+        margin: 0;
+
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+
+        color: var(--text);
+        font-size: 18px;
+        font-weight: 850;
+      }
+
+      .nosurat-section-title h3 .hgi {
+        width: 36px;
+        height: 36px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 14px;
+
+        background: var(--primary-soft);
+        color: var(--primary);
+
+        font-size: 18px;
+      }
+
+      .nosurat-section-title p {
+        margin: 5px 0 0;
+
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1.45;
+      }
+
+      .nosurat-form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+
+        margin-bottom: 16px;
+      }
+
+      .nosurat-form-group {
+        min-width: 0;
+      }
+
+      .nosurat-form-group.full {
+        grid-column: 1 / -1;
+      }
+
+      .nosurat-form-group label {
+        display: block;
+
+        margin-bottom: 7px;
+
+        color: var(--text);
+        font-size: 13px;
+        font-weight: 750;
+      }
+
+      .nosurat-input-wrap {
+        position: relative;
+      }
+
+      .nosurat-input-icon {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+
+        color: var(--primary);
+        pointer-events: none;
+      }
+
+      .nosurat-input-icon .hgi {
+        font-size: 20px;
+      }
+
+      .nosurat-card input,
+      .nosurat-card select,
+      .nosurat-card textarea {
+        width: 100%;
+
+        border-radius: 18px;
+        border: 1px solid var(--border);
+
+        outline: none;
+
+        background: #f9fafb;
+        color: var(--text);
+
+        font-size: 14px;
+        font-weight: 600;
+
+        transition:
+          border-color 0.2s ease,
+          box-shadow 0.2s ease,
+          background 0.2s ease;
+      }
+
+      .nosurat-card input,
+      .nosurat-card select {
+        min-height: 52px;
+        padding: 0 14px 0 48px;
+      }
+
+      .nosurat-card textarea {
+        min-height: 96px;
+        resize: vertical;
+
+        padding: 14px;
+        line-height: 1.5;
+      }
+
+      .nosurat-card select {
+        appearance: none;
+        -webkit-appearance: none;
+
+        padding-right: 44px;
+
+        cursor: pointer;
+      }
+
+      .nosurat-card input:focus,
+      .nosurat-card select:focus,
+      .nosurat-card textarea:focus {
+        background: #ffffff;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(102, 102, 255, 0.12);
+      }
+
+      .nosurat-select-arrow {
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+
+        color: var(--muted);
+        pointer-events: none;
+      }
+
+      .nosurat-select-arrow .hgi {
+        font-size: 18px;
+      }
+
+      .nosurat-helper-card {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+
+        padding: 14px;
+
+        border-radius: 20px;
+
+        background: #f9f9ff;
+        border: 1px solid rgba(229, 231, 235, 0.85);
+
+        margin-bottom: 18px;
+      }
+
+      .nosurat-helper-icon {
+        width: 42px;
+        height: 42px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        flex-shrink: 0;
+
+        border-radius: 16px;
+
+        background: var(--primary-soft);
+        color: var(--primary);
+      }
+
+      .nosurat-helper-icon .hgi {
+        font-size: 20px;
+      }
+
+      .nosurat-helper-card strong {
+        display: block;
+
+        color: var(--text);
+        font-size: 14px;
+        font-weight: 850;
+
+        margin-bottom: 4px;
+      }
+
+      .nosurat-helper-card small {
+        display: block;
+
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1.45;
+      }
+
+      .nosurat-submit-btn {
+        width: 100%;
+        height: 52px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+
+        border: none;
+        border-radius: 18px;
+
+        background: var(--primary);
+        color: #ffffff;
+
+        font-size: 15px;
+        font-weight: 850;
+
+        cursor: pointer;
+
+        box-shadow: 0 12px 24px rgba(102, 102, 255, 0.22);
+
+        transition:
+          background 0.2s ease,
+          transform 0.2s ease,
+          opacity 0.2s ease;
+      }
+
+      .nosurat-submit-btn:hover {
+        transform: translateY(-1px);
+        background: var(--primary-dark);
+      }
+
+      .nosurat-submit-btn:active {
+        transform: scale(0.98);
+      }
+
+      .nosurat-submit-btn:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .nosurat-submit-btn .hgi {
+        font-size: 20px;
+      }
+
+      .mini-loader {
+        width: 20px;
+        height: 20px;
+
+        border-radius: 999px;
+        border: 3px solid rgba(255, 255, 255, 0.45);
+        border-top-color: #ffffff;
+
+        animation: spin 0.8s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* =========================
+         HISTORY
+      ========================= */
+      .nosurat-history-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .nosurat-history-item {
+        position: relative;
+
+        padding: 15px;
+
+        border-radius: 22px;
+
+        background: #ffffff;
+        border: 1px solid rgba(229, 231, 235, 0.9);
+
+        overflow: hidden;
+      }
+
+      .nosurat-history-item::after {
+        content: "";
+
+        position: absolute;
+        right: -35px;
+        bottom: -35px;
+
+        width: 120px;
+        height: 120px;
+
+        border-radius: 999px;
+        background: rgba(102, 102, 255, 0.08);
+        filter: blur(18px);
+      }
+
+      .nosurat-history-inner {
+        position: relative;
+        z-index: 1;
+      }
+
+      .nosurat-history-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+
+        margin-bottom: 12px;
+      }
+
+      .nosurat-number {
+        margin: 0;
+
+        color: var(--text);
+        font-size: 17px;
+        font-weight: 850;
+        line-height: 1.35;
+
+        word-break: break-word;
+      }
+
+      .nosurat-meta {
+        margin: 5px 0 0;
+
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .nosurat-status {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        flex-shrink: 0;
+
+        padding: 6px 10px;
+
+        border-radius: 999px;
+
+        font-size: 11px;
+        font-weight: 850;
+      }
+
+      .nosurat-status.dipakai {
+        background: var(--success-soft);
+        color: var(--success);
+      }
+
+      .nosurat-status.menunggu_pembatalan {
+        background: #fff7ed;
+        color: #f59e0b;
+      }
+
+      .nosurat-status.tersedia {
+        background: var(--primary-soft);
+        color: var(--primary);
+      }
+
+      .nosurat-desc {
+        margin: 0;
+
+        color: var(--text);
+        font-size: 14px;
+        font-weight: 650;
+        line-height: 1.5;
+      }
+
+      .nosurat-small-desc {
+        margin: 7px 0 0;
+
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1.45;
+      }
+
+      .empty-state {
+        width: 100%;
+
+        padding: 22px 16px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+
+        text-align: center;
+
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 700;
+
+        background: #f9f9ff;
+        border: 1px dashed rgba(102, 102, 255, 0.25);
+        border-radius: 22px;
+      }
+
+      .empty-state .hgi {
+        font-size: 30px;
+        color: var(--primary);
+      }
+
+      /* =========================
+         RESULT BOTTOM SHEET
+      ========================= */
+      .sheet-overlay {
+        position: fixed;
+        inset: 0;
+
+        display: none;
+        align-items: flex-end;
+        justify-content: center;
+
+        background: rgba(17, 24, 39, 0.42);
+
+        z-index: 3000;
+      }
+
+      .sheet-overlay.show {
+        display: flex;
+      }
+
+      .sheet {
+        width: 100%;
+        max-width: 520px;
+
+        background: #ffffff;
+
+        border-radius: 28px 28px 0 0;
+        padding: 18px 20px 22px;
+
+        box-shadow: 0 -20px 50px rgba(17, 24, 39, 0.18);
+
+        animation: sheetUp 0.22s ease;
+      }
+
+      @keyframes sheetUp {
+        from {
+          opacity: 0;
+          transform: translateY(28px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .sheet-handle {
+        width: 46px;
+        height: 5px;
+
+        margin: 0 auto 20px;
+
+        border-radius: 999px;
+        background: #d1d5db;
+      }
+
+      .result-icon {
+        width: 64px;
+        height: 64px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin: 0 auto 16px;
+
+        border-radius: 999px;
+
+        background: var(--success-soft);
+        color: var(--success);
+      }
+
+      .result-icon .hgi {
+        font-size: 32px;
+      }
+
+      .sheet h3 {
+        margin: 0;
+
+        text-align: center;
+
+        color: var(--text);
+        font-size: 20px;
+        font-weight: 850;
+      }
+
+      .sheet p {
+        margin: 8px 0 18px;
+
+        text-align: center;
+
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.5;
+      }
+
+      .result-number-box {
+        padding: 14px;
+
+        border-radius: 18px;
+
+        background: #f9f9ff;
+        border: 1px solid rgba(229, 231, 235, 0.9);
+
+        text-align: center;
+
+        margin-bottom: 16px;
+      }
+
+      .result-number-box small {
+        display: block;
+
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 700;
+
+        margin-bottom: 6px;
+      }
+
+      .result-number-box strong {
+        display: block;
+
+        color: var(--primary);
+        font-size: 19px;
+        font-weight: 900;
+        line-height: 1.35;
+
+        word-break: break-word;
+      }
+
+      .sheet-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .sheet-btn {
+        height: 48px;
+
+        border: none;
+        border-radius: 16px;
+
+        font-size: 14px;
+        font-weight: 850;
+
+        cursor: pointer;
+
+        transition:
+          transform 0.2s ease,
+          background 0.2s ease;
+      }
+
+      .sheet-btn:active {
+        transform: scale(0.98);
+      }
+
+      .sheet-btn.primary {
+        background: var(--primary);
+        color: #ffffff;
+      }
+
+      .sheet-btn.soft {
+        background: #f3f4ff;
+        color: var(--primary);
+      }
+
+      @media (max-width: 576px) {
+        .nosurat-page {
+          margin-top: 82px;
+          padding: 14px;
+        }
+
+        .nosurat-hero {
+          padding: 18px;
+          border-radius: 24px;
+        }
+
+        .nosurat-hero h2 {
+          font-size: 20px;
+        }
+
+        .nosurat-hero p {
+          font-size: 12.5px;
+        }
+
+        .nosurat-hero-icon {
+          width: 52px;
+          height: 52px;
+          border-radius: 19px;
+        }
+
+        .nosurat-card {
+          border-radius: 24px;
+          padding: 14px;
+        }
+
+        .nosurat-form-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .nosurat-history-top {
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .sheet {
+          border-radius: 26px 26px 0 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <header>
+      <div class="logo">
+        <img src="assets/img/nadiv2.png" alt="Logo NADI" />
+
+        <span>
+          NADI<br />
+          <small>KPU Kab. Purbalingga</small>
+        </span>
+      </div>
+
+      <div class="clock" id="clock">--:--:--</div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="nosurat-page">
+      <!-- HERO -->
+      <section class="nosurat-hero">
+        <div class="nosurat-hero-content">
+          <div>
+            <span class="nosurat-badge">
+              <i class="hgi hgi-stroke hgi-rounded hgi-file-01"></i>
+              Layanan Surat
+            </span>
+
+            <h2>Nomor Surat</h2>
+            <p>Pengambilan nomor surat Ketua dan Sekretaris.</p>
+          </div>
+
+          <div class="nosurat-hero-icon">
+            <i class="hgi hgi-stroke hgi-rounded hgi-file-01"></i>
+          </div>
+        </div>
+      </section>
+
+      <!-- FORM -->
+      <section class="nosurat-card">
+        <div class="nosurat-section-title">
+          <h3>
+            <i class="hgi hgi-stroke hgi-rounded hgi-edit-02"></i>
+            Ambil Nomor Surat
+          </h3>
+          <p>
+            Lengkapi data surat. Nomor akan dibuat otomatis sesuai jenis nomor
+            dan tahun surat.
+          </p>
+        </div>
+
+        <div class="nosurat-form-grid">
+          <div class="nosurat-form-group">
+            <label for="jenisInput">Jenis Nomor</label>
+
+            <div class="nosurat-input-wrap">
+              <span class="nosurat-input-icon">
+                <i class="hgi hgi-stroke hgi-rounded hgi-user-star-01"></i>
+              </span>
+
+              <select id="jenisInput">
+                <option value="ketua">Ketua</option>
+                <option value="sekretaris">Sekretaris</option>
+              </select>
+
+              <span class="nosurat-select-arrow">
+                <i class="hgi hgi-stroke hgi-rounded hgi-arrow-down-01"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="nosurat-form-group">
+            <label for="tanggalSuratInput">Tanggal Surat</label>
+
+            <div class="nosurat-input-wrap">
+              <span class="nosurat-input-icon">
+                <i class="hgi hgi-stroke hgi-rounded hgi-calendar-03"></i>
+              </span>
+
+              <input type="date" id="tanggalSuratInput" />
+            </div>
+          </div>
+
+          <div class="nosurat-form-group full">
+            <label for="kodeKlasifikasiInput">Kode Klasifikasi</label>
+
+            <div class="nosurat-input-wrap">
+              <span class="nosurat-input-icon">
+                <i class="hgi hgi-stroke hgi-rounded hgi-code"></i>
+              </span>
+
+              <input
+                type="text"
+                id="kodeKlasifikasiInput"
+                placeholder="Contoh: KU.03.0/3303/1/2026"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+
+          <div class="nosurat-form-group full">
+            <label for="perihalInput">Perihal</label>
+
+            <textarea
+              id="perihalInput"
+              placeholder="Tuliskan perihal surat..."
+            ></textarea>
+          </div>
+
+          <div class="nosurat-form-group full">
+            <label for="tujuanInput">Tujuan / Keterangan</label>
+
+            <textarea
+              id="tujuanInput"
+              placeholder="Opsional. Contoh: PPK Kecamatan, Bawaslu, atau keterangan lainnya..."
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="nosurat-helper-card">
+          <span class="nosurat-helper-icon">
+            <i class="hgi hgi-stroke hgi-rounded hgi-information-circle"></i>
+          </span>
+
+          <div>
+            <strong>Catatan penomoran</strong>
+            <small>
+              Nomor Ketua dan Sekretaris berjalan terpisah. Setiap awal tahun,
+              nomor otomatis dimulai kembali dari 001.
+            </small>
+          </div>
+        </div>
+
+        <button type="button" class="nosurat-submit-btn" id="btnCreateNomor">
+          <i class="hgi hgi-stroke hgi-rounded hgi-file-add"></i>
+          Ambil Nomor
+        </button>
+      </section>
+
+      <!-- HISTORY -->
+      <section class="nosurat-card">
+        <div class="nosurat-section-title">
+          <h3>
+            <i class="hgi hgi-stroke hgi-rounded hgi-time-schedule"></i>
+            Riwayat Nomor Saya
+          </h3>
+          <p>Daftar nomor surat yang pernah kamu ambil.</p>
+        </div>
+
+        <div class="nosurat-history-list" id="historyList">
+          <div class="empty-state">
+            <i class="hgi hgi-stroke hgi-rounded hgi-file-01"></i>
+            Memuat riwayat nomor surat...
+          </div>
+        </div>
+      </section>
+
+      <!-- BACK -->
+      <div class="pill-actions">
+        <a href="dashboard.html" class="pill-btn danger">
+          <i class="hgi hgi-stroke hgi-rounded hgi-arrow-left-02"></i>
+          Kembali
+        </a>
+      </div>
+    </main>
+
+    <!-- RESULT SHEET -->
+    <div class="sheet-overlay" id="resultSheetOverlay">
+      <div class="sheet">
+        <div class="sheet-handle"></div>
+
+        <div class="result-icon">
+          <i class="hgi hgi-stroke hgi-rounded hgi-checkmark-circle-02"></i>
+        </div>
+
+        <h3>Nomor Surat Berhasil Dibuat</h3>
+
+        <p>Gunakan nomor berikut untuk dokumen surat kamu.</p>
+
+        <div class="result-number-box">
+          <small>Nomor Surat</small>
+          <strong id="resultNomorText">-</strong>
+        </div>
+
+        <div class="sheet-actions">
+          <button
+            type="button"
+            class="sheet-btn soft"
+            onclick="closeResultSheet()"
+          >
+            Tutup
+          </button>
+
+          <button
+            type="button"
+            class="sheet-btn primary"
+            onclick="copyResultNomor()"
+          >
+            Salin Nomor
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      © <span id="year"></span> NADI - Navigasi Administrasi Digital Internal
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./assets/js/clock.js"></script>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      let latestNomorLengkap = "";
+
+      function getTodayJakarta() {
+        return new Date().toLocaleDateString("sv-SE", {
+          timeZone: "Asia/Jakarta",
+        });
+      }
+
+      function formatDateId(value) {
+        if (!value) return "-";
+
+        const date = new Date(value + "T00:00:00");
+
+        return date.toLocaleDateString("id-ID", {
+          day: "2-digit",
+          month: "long",
+          year: "numeric",
+        });
+      }
+
+      function formatJenis(value) {
+        if (value === "ketua") return "Ketua";
+        if (value === "sekretaris") return "Sekretaris";
+        return value || "-";
+      }
+
+      function formatStatus(value) {
+        if (value === "dipakai") return "Dipakai";
+        if (value === "menunggu_pembatalan") return "Menunggu Pembatalan";
+        if (value === "tersedia") return "Tersedia";
+        return value || "-";
+      }
+
+      function escapeHtml(text) {
+        return String(text || "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      function openResultSheet(nomorLengkap) {
+        latestNomorLengkap = nomorLengkap;
+        document.getElementById("resultNomorText").innerText = nomorLengkap;
+        document.getElementById("resultSheetOverlay").classList.add("show");
+      }
+
+      function closeResultSheet() {
+        document.getElementById("resultSheetOverlay").classList.remove("show");
+      }
+
+      async function copyResultNomor() {
+        if (!latestNomorLengkap) return;
+
+        try {
+          await navigator.clipboard.writeText(latestNomorLengkap);
+
+          Swal.fire({
+            icon: "success",
+            title: "Disalin",
+            text: "Nomor surat berhasil disalin",
+            timer: 1300,
+            showConfirmButton: false,
+          });
+        } catch (error) {
+          Swal.fire("Info", latestNomorLengkap, "info");
+        }
+      }
+
+      document
+        .getElementById("resultSheetOverlay")
+        .addEventListener("click", function (event) {
+          if (event.target.id === "resultSheetOverlay") {
+            closeResultSheet();
+          }
+        });
+
+      document.getElementById("tanggalSuratInput").value = getTodayJakarta();
+    </script>
+
+    <!-- AUTH GUARD -->
+    <script type="module" src="./assets/js/auth-guard.js"></script>
+
+    <!-- FIREBASE NO SURAT -->
+    <script type="module">
+      import { auth, db } from "./assets/js/firebase.js";
+
+      import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+      import {
+        collection,
+        doc,
+        getDoc,
+        getDocs,
+        query,
+        where,
+        runTransaction,
+        serverTimestamp,
+      } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+      const btnCreate = document.getElementById("btnCreateNomor");
+      const historyList = document.getElementById("historyList");
+
+      const jenisInput = document.getElementById("jenisInput");
+      const tanggalSuratInput = document.getElementById("tanggalSuratInput");
+      const kodeKlasifikasiInput = document.getElementById(
+        "kodeKlasifikasiInput",
+      );
+      const perihalInput = document.getElementById("perihalInput");
+      const tujuanInput = document.getElementById("tujuanInput");
+
+      let currentUser = null;
+      let currentProfile = null;
+
+      function padNomor(number) {
+        return String(number).padStart(3, "0");
+      }
+
+      function getYearFromDate(dateKey) {
+        return Number(String(dateKey).split("-")[0]);
+      }
+
+      function setButtonLoading(isLoading) {
+        btnCreate.disabled = isLoading;
+
+        if (isLoading) {
+          btnCreate.innerHTML = `
+        <span class="mini-loader"></span>
+        Mengambil nomor...
+      `;
+        } else {
+          btnCreate.innerHTML = `
+        <i class="hgi hgi-stroke hgi-rounded hgi-file-add"></i>
+        Ambil Nomor
+      `;
+        }
+      }
+
+      async function loadProfile(user) {
+        const ref = doc(db, "users", user.uid);
+        const snap = await getDoc(ref);
+
+        if (snap.exists()) {
+          const data = snap.data();
+
+          currentProfile = {
+            uid: user.uid,
+            nama: data.nama || user.email.split("@")[0],
+            username: data.username || user.email.split("@")[0],
+            role: data.role || "pegawai",
+          };
+        } else {
+          currentProfile = {
+            uid: user.uid,
+            nama: user.email.split("@")[0],
+            username: user.email.split("@")[0],
+            role: "pegawai",
+          };
+        }
+      }
+
+      async function createNomorSurat() {
+        if (!currentUser || !currentProfile) return;
+
+        const jenis = jenisInput.value;
+        const tanggalSurat = tanggalSuratInput.value;
+        const kodeKlasifikasi = kodeKlasifikasiInput.value.trim();
+        const perihal = perihalInput.value.trim();
+        const tujuan = tujuanInput.value.trim();
+
+        if (!jenis || !tanggalSurat || !kodeKlasifikasi || !perihal) {
+          Swal.fire(
+            "Perhatian",
+            "Jenis nomor, tanggal surat, kode klasifikasi, dan perihal wajib diisi",
+            "warning",
+          );
+          return;
+        }
+
+        const tahun = getYearFromDate(tanggalSurat);
+
+        if (!tahun) {
+          Swal.fire("Error", "Tanggal surat tidak valid", "error");
+          return;
+        }
+
+        setButtonLoading(true);
+
+        try {
+          const result = await runTransaction(db, async (transaction) => {
+            const counterId = `${tahun}_${jenis}`;
+            const counterRef = doc(db, "nomor_surat_counter", counterId);
+            const counterSnap = await transaction.get(counterRef);
+
+            let lastNumber = 0;
+            let lastTanggalSurat = null;
+            let lastNomorFormatted = null;
+
+            if (counterSnap.exists()) {
+              const counterData = counterSnap.data();
+
+              lastNumber = counterData.lastNumber || 0;
+              lastTanggalSurat = counterData.lastTanggalSurat || null;
+              lastNomorFormatted = counterData.lastNomorFormatted || null;
+            }
+
+            // Cegah tanggal surat mundur dari nomor terakhir pada tahun + jenis yang sama
+            if (lastTanggalSurat && tanggalSurat < lastTanggalSurat) {
+              throw new Error(
+                `Tanggal surat tidak boleh lebih awal dari nomor terakhir. Nomor terakhir ${lastNomorFormatted || ""} bertanggal ${formatDateId(lastTanggalSurat)}.`,
+              );
+            }
+
+            const nextNumber = lastNumber + 1;
+
+            if (nextNumber > 999) {
+              throw new Error(
+                "Nomor surat sudah mencapai batas 999 untuk tahun dan jenis ini",
+              );
+            }
+
+            const nomorFormatted = padNomor(nextNumber);
+            const nomorLengkap = `${nomorFormatted}/${kodeKlasifikasi}`;
+
+            const nomorRef = doc(collection(db, "nomor_surat"));
+
+            transaction.set(nomorRef, {
+              tahun,
+              jenis,
+
+              nomor: nextNumber,
+              nomorFormatted,
+              kodeKlasifikasi,
+              nomorLengkap,
+
+              tanggalSurat,
+              perihal,
+              tujuan,
+              keterangan: tujuan,
+
+              status: "dipakai",
+
+              createdByUid: currentProfile.uid,
+              createdByNama: currentProfile.nama,
+              createdByUsername: currentProfile.username,
+
+              cancelRequestedAt: null,
+              cancelRequestedByUid: null,
+              cancelReason: null,
+
+              cancelApprovedAt: null,
+              cancelApprovedByUid: null,
+
+              reused: false,
+              reusedAt: null,
+
+              createdAt: serverTimestamp(),
+              updatedAt: serverTimestamp(),
+            });
+
+            transaction.set(
+              counterRef,
+              {
+                tahun,
+                jenis,
+                lastNumber: nextNumber,
+                lastTanggalSurat: tanggalSurat,
+                lastNomorFormatted: nomorFormatted,
+                updatedAt: serverTimestamp(),
+              },
+              { merge: true },
+            );
+
+            return {
+              id: nomorRef.id,
+              nomorLengkap,
+            };
+          });
+
+          openResultSheet(result.nomorLengkap);
+
+          kodeKlasifikasiInput.value = "";
+          perihalInput.value = "";
+          tujuanInput.value = "";
+
+          await loadHistory();
+        } catch (error) {
+          console.error("CREATE NOMOR SURAT ERROR:", error);
+          Swal.fire("Error", error.message || "Gagal mengambil nomor", "error");
+        } finally {
+          setButtonLoading(false);
+        }
+      }
+
+      async function loadHistory() {
+        if (!currentProfile) return;
+
+        historyList.innerHTML = `
+      <div class="empty-state">
+        <i class="hgi hgi-stroke hgi-rounded hgi-file-01"></i>
+        Memuat riwayat nomor surat...
+      </div>
+    `;
+
+        try {
+          const q = query(
+            collection(db, "nomor_surat"),
+            where("createdByUid", "==", currentProfile.uid),
+          );
+
+          const snapshot = await getDocs(q);
+
+          let data = snapshot.docs.map((item) => ({
+            id: item.id,
+            ...item.data(),
+          }));
+
+          data.sort((a, b) => {
+            const yearCompare = Number(b.tahun || 0) - Number(a.tahun || 0);
+
+            if (yearCompare !== 0) return yearCompare;
+
+            const dateCompare = String(b.tanggalSurat || "").localeCompare(
+              String(a.tanggalSurat || ""),
+            );
+
+            if (dateCompare !== 0) return dateCompare;
+
+            return Number(b.nomor || 0) - Number(a.nomor || 0);
+          });
+
+          if (data.length === 0) {
+            historyList.innerHTML = `
+          <div class="empty-state">
+            <i class="hgi hgi-stroke hgi-rounded hgi-file-remove"></i>
+            Belum ada riwayat nomor surat.
+          </div>
+        `;
+            return;
+          }
+
+          historyList.innerHTML = data
+            .map((item) => {
+              return `
+            <article class="nosurat-history-item">
+              <div class="nosurat-history-inner">
+                <div class="nosurat-history-top">
+                  <div>
+                    <h4 class="nosurat-number">
+                      ${escapeHtml(item.nomorLengkap || "-")}
+                    </h4>
+
+                    <div class="nosurat-meta">
+                      <span>${formatJenis(item.jenis)}</span>
+                      <span>•</span>
+                      <span>${formatDateId(item.tanggalSurat)}</span>
+                    </div>
+                  </div>
+
+                  <span class="nosurat-status ${escapeHtml(item.status || "dipakai")}">
+                    ${formatStatus(item.status || "dipakai")}
+                  </span>
+                </div>
+
+                <p class="nosurat-desc">${escapeHtml(item.perihal || "-")}</p>
+
+                ${
+                  item.tujuan
+                    ? `<p class="nosurat-small-desc">${escapeHtml(item.tujuan)}</p>`
+                    : ""
+                }
+              </div>
+            </article>
+          `;
+            })
+            .join("");
+        } catch (error) {
+          console.error("LOAD HISTORY NOMOR SURAT ERROR:", error);
+
+          historyList.innerHTML = `
+        <div class="empty-state">
+          <i class="hgi hgi-stroke hgi-rounded hgi-alert-circle"></i>
+          Gagal memuat riwayat nomor surat.
+        </div>
+      `;
+        }
+      }
+
+      btnCreate.addEventListener("click", createNomorSurat);
+
+      onAuthStateChanged(auth, async (user) => {
+        if (!user) {
+          window.location.href = "index.html";
+          return;
+        }
+
+        currentUser = user;
+
+        await loadProfile(user);
+        await loadHistory();
+      });
+    </script>
+  </body>
+</html>

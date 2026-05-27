@@ -4,6 +4,7 @@
     <base target="_top" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Profil - NADI</title>
 
     <link
@@ -11,25 +12,25 @@
       href="assets/img/nadiv2.png"
       type="image/x-icon"
     />
-    <link rel="stylesheet" href="./assets/css/interface.css" />
+
+    <!-- HugeIcons -->
     <link
       rel="stylesheet"
-      href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css"
+      href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css"
     />
+
+    <link rel="stylesheet" href="./assets/css/interface.css" />
   </head>
 
   <body>
-    <!-- HEADER (SAMA PERSIS DENGAN DASHBOARD) -->
+    <!-- HEADER -->
     <header>
       <div class="logo">
-        <img
-          src="assets/img/nadiv2.png"
-          width="85"
-          style="display: block; margin: 2 auto 20px"
-        />
+        <img src="assets/img/nadiv2.png" alt="Logo NADI" />
+
         <span>
-          NADI - Navigasi Administrasi Digital Internal <br />
-          KPU Kab. Purbalingga
+          NADI<br />
+          <small>KPU Kab. Purbalingga</small>
         </span>
       </div>
 
@@ -38,45 +39,183 @@
 
     <!-- MAIN -->
     <main class="profile-page">
-      <!-- HEADER CARD -->
-      <div class="profile-card">
-        <div class="profile-header">
-          <img src="assets/img/nadi-logo.png" class="profile-avatar" />
+      <!-- HERO CARD -->
+      <section class="profile-hero-v2">
+        <div class="profile-card profile-hero-card">
+          <div class="profile-header">
+            <div class="profile-avatar-box">
+              <img
+                src="assets/img/nadiv2.png"
+                class="profile-avatar"
+                alt="Avatar"
+              />
+            </div>
 
-          <div class="profile-info">
-            <h2 id="nama">Nama Pegawai</h2>
-            <p id="username">@username</p>
+            <div class="profile-info">
+              <span class="profile-badge">
+                <i class="hgi hgi-stroke hgi-rounded hgi-user-circle"></i>
+                Akun Aktif
+              </span>
+
+              <h2 id="heroNama">Nama Pegawai</h2>
+              <p id="heroUsername">@username</p>
+            </div>
           </div>
         </div>
+      </section>
+
+      <!-- INFO PROFIL -->
+      <div class="profile-section-heading">
+        <h2>Info Profil</h2>
       </div>
 
-      <!-- ACTION CARD -->
-      <div class="action-card">
-        <a href="ubahpassword.html">
-          <button class="btn-warning">🔑 Ubah Password</button>
+      <section class="profile-list-card">
+        <div class="profile-list-item">
+          <div class="profile-list-icon">
+            <i class="hgi hgi-stroke hgi-rounded hgi-user"></i>
+          </div>
+
+          <div class="profile-list-content">
+            <small>Nama</small>
+            <strong id="nama">Memuat nama...</strong>
+          </div>
+        </div>
+
+        <div class="profile-divider"></div>
+
+        <div class="profile-list-item">
+          <div class="profile-list-icon">
+            <i class="hgi hgi-stroke hgi-rounded hgi-id"></i>
+          </div>
+
+          <div class="profile-list-content">
+            <small>Username</small>
+            <strong id="username">-</strong>
+          </div>
+        </div>
+
+        <div class="profile-divider"></div>
+
+        <div class="profile-list-item">
+          <div class="profile-list-icon">
+            <i class="hgi hgi-stroke hgi-rounded hgi-mail-01"></i>
+          </div>
+
+          <div class="profile-list-content">
+            <small>Email System</small>
+            <strong id="accountEmail">-</strong>
+          </div>
+
+          <button
+            type="button"
+            class="profile-info-button"
+            onclick="showEmailInfo()"
+            title="Info email system"
+          >
+            <i class="hgi hgi-stroke hgi-rounded hgi-information-circle"></i>
+          </button>
+        </div>
+
+        <div class="profile-divider"></div>
+
+        <div class="profile-list-item">
+          <div class="profile-list-icon">
+            <i class="hgi hgi-stroke hgi-rounded hgi-user-star-01"></i>
+          </div>
+
+          <div class="profile-list-content">
+            <small>Role</small>
+            <strong id="role">-</strong>
+          </div>
+        </div>
+      </section>
+
+      <!-- INFO PRIBADI -->
+      <div class="profile-section-heading with-action">
+        <h2>Info Pribadi</h2>
+
+        <!-- kalau halaman edit profile belum ada, boleh comment dulu -->
+        <!--
+        <a href="editprofile.html" class="profile-edit-floating">
+          <i class="hgi hgi-stroke hgi-rounded hgi-pencil-edit-02"></i>
+        </a>
+        -->
+      </div>
+
+      <section class="profile-list-card">
+        <div class="profile-list-item">
+          <div class="profile-list-icon">
+            <i class="hgi hgi-stroke hgi-rounded hgi-id"></i>
+          </div>
+
+          <div class="profile-list-content">
+            <small>NIP</small>
+            <strong id="nip">-</strong>
+          </div>
+        </div>
+
+        <div class="profile-divider"></div>
+
+        <div class="profile-list-item">
+          <div class="profile-list-icon">
+            <i class="hgi hgi-stroke hgi-rounded hgi-building-03"></i>
+          </div>
+
+          <div class="profile-list-content">
+            <small>Unit Kerja</small>
+            <strong id="unitKerja">-</strong>
+          </div>
+        </div>
+
+        <div class="profile-divider"></div>
+
+        <div class="profile-list-item">
+          <div class="profile-list-icon">
+            <i class="hgi hgi-stroke hgi-rounded hgi-user-group"></i>
+          </div>
+
+          <div class="profile-list-content">
+            <small>Jenis Kelamin</small>
+            <strong id="jenisKelamin">-</strong>
+          </div>
+        </div>
+
+        <div class="profile-divider"></div>
+
+        <div class="profile-list-item">
+          <div class="profile-list-icon">
+            <i class="hgi hgi-stroke hgi-rounded hgi-birthday-cake"></i>
+          </div>
+
+          <div class="profile-list-content">
+            <small>Tanggal Lahir</small>
+            <strong id="tanggalLahir">-</strong>
+          </div>
+        </div>
+
+        <div class="profile-divider"></div>
+
+        <div class="profile-list-item">
+          <div class="profile-list-icon">
+            <i class="hgi hgi-stroke hgi-rounded hgi-mail-02"></i>
+          </div>
+
+          <div class="profile-list-content">
+            <small>Email User</small>
+            <strong id="emailUser">-</strong>
+          </div>
+        </div>
+      </section>
+
+      <!-- BACK -->
+      <div class="pill-actions">
+        <a href="dashboard.html" class="pill-btn danger">
+          <i class="hgi hgi-stroke hgi-rounded hgi-arrow-left-02"></i>
+          Kembali
         </a>
       </div>
 
-      <!-- HISTORY SECTION -->
-      <div class="section-card">
-        <h3>📅 Riwayat Absensi</h3>
-
-        <div class="table-wrapper">
-          <table id="absensiTable" class="display">
-            <thead>
-              <tr>
-                <th>Tanggal</th>
-                <th>Masuk</th>
-                <th>Keluar</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-
-          <a href="dashboard.html" class="back-btn-box">← Kembali</a>
-        </div>
-      </div>
+      <div id="content"></div>
     </main>
 
     <footer>
@@ -84,12 +223,173 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
     <script src="./assets/js/clock.js"></script>
 
-    <!-- nanti script profil kita taruh di sini -->
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      function showEmailInfo() {
+        Swal.fire({
+          icon: "info",
+          title: "Email System",
+          text: "Email ini digunakan oleh sistem NADI untuk login/authentication.",
+        });
+      }
+    </script>
+
+    <!-- AUTH GUARD -->
     <script type="module" src="./assets/js/auth-guard.js"></script>
-    <script type="module" src="./assets/js/profile.js"></script>
+
+    <!-- PROFILE DATA -->
+    <script type="module">
+      import { auth, db } from "./assets/js/firebase.js";
+
+      import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+      import {
+        collection,
+        query,
+        where,
+        getDocs,
+      } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+      const heroNamaEl = document.getElementById("heroNama");
+      const heroUsernameEl = document.getElementById("heroUsername");
+
+      const namaEl = document.getElementById("nama");
+      const usernameEl = document.getElementById("username");
+      const accountEmailEl = document.getElementById("accountEmail");
+      const roleEl = document.getElementById("role");
+
+      const nipEl = document.getElementById("nip");
+      const unitKerjaEl = document.getElementById("unitKerja");
+      const jenisKelaminEl = document.getElementById("jenisKelamin");
+      const tanggalLahirEl = document.getElementById("tanggalLahir");
+      const emailUserEl = document.getElementById("emailUser");
+
+      function setText(el, value) {
+        if (!el) return;
+        el.innerText = value && String(value).trim() !== "" ? value : "-";
+      }
+
+      function formatRole(value) {
+        if (!value) return "-";
+
+        const role = String(value).trim();
+
+        return role.charAt(0).toUpperCase() + role.slice(1);
+      }
+
+      function formatTanggal(value) {
+        if (!value) return "-";
+
+        // Kalau datanya sudah yyyy-mm-dd, biarkan seperti Flutter
+        if (typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value)) {
+          return value;
+        }
+
+        try {
+          const date = new Date(value);
+
+          if (isNaN(date.getTime())) return value;
+
+          return date.toLocaleDateString("id-ID", {
+            day: "2-digit",
+            month: "long",
+            year: "numeric",
+          });
+        } catch (error) {
+          return value;
+        }
+      }
+
+      onAuthStateChanged(auth, async (user) => {
+        if (!user) {
+          window.location.href = "index.html";
+          return;
+        }
+
+        // Username SELALU dari email system:
+        // contoh bayu@nadikpupbg.local => bayu
+        const username = user.email.split("@")[0];
+        const emailSystem = user.email;
+
+        setText(heroUsernameEl, username);
+        setText(usernameEl, username);
+        setText(accountEmailEl, emailSystem);
+
+        try {
+          const q = query(
+            collection(db, "users"),
+            where("username", "==", username),
+          );
+
+          const snapshot = await getDocs(q);
+
+          if (snapshot.empty) {
+            setText(heroNamaEl, username);
+            setText(namaEl, username);
+            Swal.fire("Error", "Data profil tidak ditemukan", "error");
+            return;
+          }
+
+          const data = snapshot.docs[0].data();
+
+          const nama = data.nama || username;
+
+          setText(heroNamaEl, nama);
+          setText(namaEl, nama);
+
+          // Tetap pakai username dari email system, bukan data.username
+          setText(heroUsernameEl, username);
+          setText(usernameEl, username);
+
+          // Email system juga dari Firebase Auth
+          setText(accountEmailEl, emailSystem || "-");
+
+          setText(roleEl, formatRole(data.role || "pegawai"));
+
+          setText(nipEl, data.nip || data.NIP || "-");
+
+          setText(
+            unitKerjaEl,
+            data.unitKerja ||
+              data.unit_kerja ||
+              data.unit ||
+              data.satker ||
+              "-",
+          );
+
+          setText(
+            jenisKelaminEl,
+            data.jenisKelamin || data.jenis_kelamin || data.gender || "-",
+          );
+
+          setText(
+            tanggalLahirEl,
+            formatTanggal(
+              data.tanggalLahir ||
+                data.tanggal_lahir ||
+                data.tglLahir ||
+                data.tgl_lahir ||
+                "",
+            ),
+          );
+
+          setText(
+            emailUserEl,
+            data.emailUser ||
+              data.email_user ||
+              data.emailPribadi ||
+              data.email_pribadi ||
+              data.email ||
+              "-",
+          );
+        } catch (error) {
+          console.error("LOAD PROFILE ERROR:", error);
+          Swal.fire("Error", "Gagal memuat data profil", "error");
+        }
+      });
+    </script>
   </body>
 </html>

@@ -1,0 +1,1049 @@
+<!doctype html>
+<html>
+  <head>
+    <base target="_top" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Download LKHP - NADI</title>
+
+    <link
+      rel="shortcut icon"
+      href="assets/img/nadiv2.png"
+      type="image/x-icon"
+    />
+
+    <!-- HugeIcons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css"
+    />
+
+    <link rel="stylesheet" href="./assets/css/interface.css" />
+
+    <style>
+      /* =========================
+         DOWNLOAD LKHP PAGE
+      ========================= */
+      .download-lkhp-page {
+        width: 100%;
+        max-width: 900px;
+
+        margin-top: 90px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 40px;
+
+        padding: 18px;
+      }
+
+      .download-hero {
+        position: relative;
+
+        background: rgba(255, 255, 255, 0.96);
+        border-radius: 28px;
+        padding: 20px;
+
+        border: 1px solid rgba(229, 231, 235, 0.9);
+        box-shadow: var(--shadow-soft);
+
+        margin-bottom: 18px;
+
+        overflow: hidden;
+      }
+
+      .download-hero::before {
+        content: "";
+
+        position: absolute;
+        top: -60px;
+        right: -50px;
+
+        width: 170px;
+        height: 170px;
+
+        border-radius: 999px;
+        background: rgba(102, 102, 255, 0.12);
+        filter: blur(8px);
+      }
+
+      .download-hero::after {
+        content: "";
+
+        position: absolute;
+        bottom: -70px;
+        left: 18%;
+
+        width: 150px;
+        height: 150px;
+
+        border-radius: 999px;
+        background: rgba(110, 231, 183, 0.14);
+        filter: blur(14px);
+      }
+
+      .download-hero-content {
+        position: relative;
+        z-index: 1;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .download-hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+
+        margin-bottom: 10px;
+        padding: 7px 11px;
+
+        border-radius: 999px;
+
+        background: var(--primary-soft);
+        color: var(--primary);
+
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .download-hero-badge .hgi {
+        font-size: 16px;
+      }
+
+      .download-hero h2 {
+        margin: 0;
+
+        color: var(--text);
+        font-size: 24px;
+        font-weight: 850;
+        letter-spacing: -0.3px;
+      }
+
+      .download-hero p {
+        margin: 6px 0 0;
+
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1.45;
+      }
+
+      .download-hero-icon {
+        width: 60px;
+        height: 60px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        flex-shrink: 0;
+
+        border-radius: 22px;
+
+        background: var(--primary-soft);
+        color: var(--primary);
+      }
+
+      .download-hero-icon .hgi {
+        font-size: 30px;
+      }
+
+      .download-card {
+        background: rgba(255, 255, 255, 0.96);
+
+        border-radius: 26px;
+        padding: 18px;
+
+        border: 1px solid rgba(229, 231, 235, 0.9);
+        box-shadow: var(--shadow-soft);
+
+        margin-bottom: 18px;
+      }
+
+      .download-section-title {
+        margin-bottom: 16px;
+      }
+
+      .download-section-title h3 {
+        margin: 0;
+
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+
+        color: var(--text);
+        font-size: 18px;
+        font-weight: 850;
+      }
+
+      .download-section-title h3 .hgi {
+        width: 36px;
+        height: 36px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 14px;
+
+        background: var(--primary-soft);
+        color: var(--primary);
+
+        font-size: 18px;
+      }
+
+      .download-section-title p {
+        margin: 5px 0 0;
+
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1.45;
+      }
+
+      .download-form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+
+        margin-bottom: 16px;
+      }
+
+      .download-form-group {
+        min-width: 0;
+      }
+
+      .download-form-group.full {
+        grid-column: 1 / -1;
+      }
+
+      .download-form-group label {
+        display: block;
+
+        margin-bottom: 7px;
+
+        color: var(--text);
+        font-size: 13px;
+        font-weight: 750;
+      }
+
+      .download-input-wrap {
+        position: relative;
+      }
+
+      .download-input-icon {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+
+        color: var(--primary);
+        pointer-events: none;
+      }
+
+      .download-input-icon .hgi {
+        font-size: 20px;
+      }
+
+      .download-card input,
+      .download-card select {
+        width: 100%;
+        min-height: 52px;
+
+        padding: 0 14px 0 48px;
+
+        border-radius: 18px;
+        border: 1px solid var(--border);
+
+        outline: none;
+
+        background: #f9fafb;
+        color: var(--text);
+
+        font-size: 14px;
+        font-weight: 600;
+
+        transition:
+          border-color 0.2s ease,
+          box-shadow 0.2s ease,
+          background 0.2s ease;
+      }
+
+      .download-card select {
+        appearance: none;
+        -webkit-appearance: none;
+
+        padding-right: 44px;
+
+        cursor: pointer;
+      }
+
+      .download-card input:focus,
+      .download-card select:focus {
+        background: #ffffff;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(102, 102, 255, 0.12);
+      }
+
+      .download-select-arrow {
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+
+        color: var(--muted);
+        pointer-events: none;
+      }
+
+      .download-select-arrow .hgi {
+        font-size: 18px;
+      }
+
+      .download-info-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+
+        margin-bottom: 18px;
+      }
+
+      .download-info-card {
+        background: #f9f9ff;
+        border: 1px solid rgba(229, 231, 235, 0.8);
+        border-radius: 20px;
+
+        padding: 14px;
+      }
+
+      .download-info-card span {
+        display: block;
+
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 700;
+
+        margin-bottom: 6px;
+      }
+
+      .download-info-card strong {
+        display: block;
+
+        color: var(--text);
+        font-size: 22px;
+        font-weight: 850;
+      }
+
+      .download-submit-btn {
+        width: 100%;
+        height: 52px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+
+        border: none;
+        border-radius: 18px;
+
+        background: var(--primary);
+        color: #ffffff;
+
+        font-size: 15px;
+        font-weight: 850;
+
+        cursor: pointer;
+
+        box-shadow: 0 12px 24px rgba(102, 102, 255, 0.22);
+
+        transition:
+          background 0.2s ease,
+          transform 0.2s ease,
+          opacity 0.2s ease;
+      }
+
+      .download-submit-btn:hover {
+        transform: translateY(-1px);
+        background: var(--primary-dark);
+      }
+
+      .download-submit-btn:active {
+        transform: scale(0.98);
+      }
+
+      .download-submit-btn:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .download-submit-btn .hgi {
+        font-size: 20px;
+      }
+
+      .mini-loader {
+        width: 20px;
+        height: 20px;
+
+        border-radius: 999px;
+        border: 3px solid rgba(255, 255, 255, 0.45);
+        border-top-color: #ffffff;
+
+        animation: spin 0.8s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .download-note {
+        margin-top: 14px;
+
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+
+        padding: 13px;
+
+        border-radius: 18px;
+
+        background: #f9fafb;
+        border: 1px solid rgba(229, 231, 235, 0.85);
+
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1.45;
+      }
+
+      .download-note .hgi {
+        margin-top: 1px;
+        color: var(--primary);
+        font-size: 18px;
+      }
+
+      @media (max-width: 576px) {
+        .download-lkhp-page {
+          margin-top: 82px;
+          padding: 14px;
+        }
+
+        .download-hero {
+          padding: 18px;
+          border-radius: 24px;
+        }
+
+        .download-hero h2 {
+          font-size: 20px;
+        }
+
+        .download-hero p {
+          font-size: 12.5px;
+        }
+
+        .download-hero-icon {
+          width: 52px;
+          height: 52px;
+          border-radius: 19px;
+        }
+
+        .download-card {
+          border-radius: 24px;
+          padding: 14px;
+        }
+
+        .download-form-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .download-info-grid {
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+
+        .download-info-card strong {
+          font-size: 20px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <header>
+      <div class="logo">
+        <img src="assets/img/nadiv2.png" alt="Logo NADI" />
+
+        <span>
+          NADI<br />
+          <small>KPU Kab. Purbalingga</small>
+        </span>
+      </div>
+
+      <div class="clock" id="clock">--:--:--</div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="download-lkhp-page">
+      <!-- HERO -->
+      <section class="download-hero">
+        <div class="download-hero-content">
+          <div>
+            <span class="download-hero-badge">
+              <i class="hgi hgi-stroke hgi-rounded hgi-shield-user"></i>
+              Admin Area
+            </span>
+
+            <h2>Download LKHP</h2>
+            <p>
+              Unduh laporan kegiatan harian pegawai berdasarkan bulan untuk
+              kebutuhan rekap administrasi.
+            </p>
+          </div>
+
+          <div class="download-hero-icon">
+            <i class="hgi hgi-stroke hgi-rounded hgi-download-04"></i>
+          </div>
+        </div>
+      </section>
+
+      <!-- FORM CARD -->
+      <section class="download-card">
+        <div class="download-section-title">
+          <h3>
+            <i class="hgi hgi-stroke hgi-rounded hgi-filter"></i>
+            Filter Download
+          </h3>
+          <p>
+            Pilih periode dan cakupan data LKHP yang ingin diekspor ke Excel.
+          </p>
+        </div>
+
+        <div class="download-form-grid">
+          <div class="download-form-group">
+            <label for="monthInput">Bulan</label>
+
+            <div class="download-input-wrap">
+              <span class="download-input-icon">
+                <i class="hgi hgi-stroke hgi-rounded hgi-calendar-03"></i>
+              </span>
+
+              <input type="month" id="monthInput" />
+            </div>
+          </div>
+
+          <div class="download-form-group">
+            <label for="modeSelect">Mode Download</label>
+
+            <div class="download-input-wrap">
+              <span class="download-input-icon">
+                <i class="hgi hgi-stroke hgi-rounded hgi-user-group"></i>
+              </span>
+
+              <select id="modeSelect">
+                <option value="all">Semua Pegawai</option>
+                <option value="single">Per Pegawai</option>
+              </select>
+
+              <span class="download-select-arrow">
+                <i class="hgi hgi-stroke hgi-rounded hgi-arrow-down-01"></i>
+              </span>
+            </div>
+          </div>
+
+          <div
+            class="download-form-group full"
+            id="pegawaiGroup"
+            style="display: none"
+          >
+            <label for="pegawaiSelect">Pegawai</label>
+
+            <div class="download-input-wrap">
+              <span class="download-input-icon">
+                <i class="hgi hgi-stroke hgi-rounded hgi-user"></i>
+              </span>
+
+              <select id="pegawaiSelect">
+                <option value="">Memuat pegawai...</option>
+              </select>
+
+              <span class="download-select-arrow">
+                <i class="hgi hgi-stroke hgi-rounded hgi-arrow-down-01"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="download-info-grid">
+          <div class="download-info-card">
+            <span>Total Pegawai</span>
+            <strong id="totalPegawai">0</strong>
+          </div>
+
+          <div class="download-info-card">
+            <span>Estimasi Data</span>
+            <strong id="totalLaporan">-</strong>
+          </div>
+
+          <div class="download-info-card">
+            <span>Periode</span>
+            <strong id="periodeText">-</strong>
+          </div>
+        </div>
+
+        <button type="button" class="download-submit-btn" id="btnDownload">
+          <i class="hgi hgi-stroke hgi-rounded hgi-file-download"></i>
+          Generate Excel
+        </button>
+
+        <div class="download-note">
+          <i class="hgi hgi-stroke hgi-rounded hgi-information-circle"></i>
+          <span>
+            Data yang diambil hanya berdasarkan bulan terpilih. File Excel akan
+            berisi sheet Data LKHP dan Rekap Pegawai.
+          </span>
+        </div>
+      </section>
+
+      <!-- BACK -->
+      <div class="pill-actions">
+        <a href="admin.html" class="pill-btn danger">
+          <i class="hgi hgi-stroke hgi-rounded hgi-arrow-left-02"></i>
+          Kembali
+        </a>
+      </div>
+    </main>
+
+    <footer>
+      © <span id="year"></span> NADI - Navigasi Administrasi Digital Internal
+    </footer>
+
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- SheetJS / XLSX -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+    <script src="./assets/js/clock.js"></script>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      const monthInput = document.getElementById("monthInput");
+      const modeSelect = document.getElementById("modeSelect");
+      const pegawaiGroup = document.getElementById("pegawaiGroup");
+      const pegawaiSelect = document.getElementById("pegawaiSelect");
+      const totalPegawaiEl = document.getElementById("totalPegawai");
+      const totalLaporanEl = document.getElementById("totalLaporan");
+      const periodeTextEl = document.getElementById("periodeText");
+      const btnDownload = document.getElementById("btnDownload");
+
+      function getCurrentMonthValue() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, "0");
+
+        return `${year}-${month}`;
+      }
+
+      function getMonthRange(monthValue) {
+        const [year, month] = monthValue.split("-").map(Number);
+
+        const firstKey = `${year}-${String(month).padStart(2, "0")}-01`;
+
+        const lastDate = new Date(year, month, 0).getDate();
+
+        const lastKey = `${year}-${String(month).padStart(2, "0")}-${String(
+          lastDate,
+        ).padStart(2, "0")}`;
+
+        return { firstKey, lastKey, year, month };
+      }
+
+      function getMonthLabel(monthValue) {
+        if (!monthValue) return "-";
+
+        const [year, month] = monthValue.split("-").map(Number);
+
+        const date = new Date(year, month - 1, 1);
+
+        return date.toLocaleDateString("id-ID", {
+          month: "long",
+          year: "numeric",
+        });
+      }
+
+      function formatTimestamp(value) {
+        if (!value) return "-";
+
+        try {
+          let date;
+
+          if (value.toDate) {
+            date = value.toDate();
+          } else {
+            date = new Date(value);
+          }
+
+          if (isNaN(date.getTime())) return "-";
+
+          return date.toLocaleString("id-ID", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+        } catch (error) {
+          return "-";
+        }
+      }
+
+      function safeValue(value) {
+        if (value === undefined || value === null || value === "") return "-";
+        return value;
+      }
+
+      function sanitizeFileName(value) {
+        return String(value || "download")
+          .replace(/[\\/:*?"<>|]/g, "-")
+          .replace(/\s+/g, "-")
+          .toLowerCase();
+      }
+
+      function setButtonLoading(isLoading) {
+        btnDownload.disabled = isLoading;
+
+        if (isLoading) {
+          btnDownload.innerHTML = `
+            <span class="mini-loader"></span>
+            Menyiapkan Excel...
+          `;
+        } else {
+          btnDownload.innerHTML = `
+            <i class="hgi hgi-stroke hgi-rounded hgi-file-download"></i>
+            Generate Excel
+          `;
+        }
+      }
+
+      function updateUiByMode() {
+        const mode = modeSelect.value;
+
+        pegawaiGroup.style.display = mode === "single" ? "block" : "none";
+      }
+
+      function updatePeriodText() {
+        periodeTextEl.innerText = getMonthLabel(monthInput.value);
+      }
+
+      monthInput.value = getCurrentMonthValue();
+      updatePeriodText();
+
+      modeSelect.addEventListener("change", updateUiByMode);
+      monthInput.addEventListener("change", updatePeriodText);
+    </script>
+
+    <!-- AUTH GUARD -->
+    <script type="module" src="./assets/js/auth-guard.js"></script>
+
+    <!-- DOWNLOAD LKHP -->
+    <script type="module">
+      import { db } from "./assets/js/firebase.js";
+
+      import {
+        collection,
+        query,
+        where,
+        getDocs,
+      } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+      let users = [];
+      let usersByUid = new Map();
+
+      async function loadUsers() {
+        try {
+          const snapshot = await getDocs(collection(db, "users"));
+
+          users = [];
+          usersByUid = new Map();
+
+          snapshot.forEach((docSnap) => {
+            const data = docSnap.data();
+
+            const user = {
+              uid: docSnap.id,
+              nama: data.nama || data.username || docSnap.id,
+              username: data.username || "-",
+              unitKerja:
+                data.unitKerja ||
+                data.unit_kerja ||
+                data.unit ||
+                data.satker ||
+                "-",
+              role: data.role || "pegawai",
+              aktif: data.aktif === true,
+              emailUser:
+                data.emailUser ||
+                data.email_user ||
+                data.emailPribadi ||
+                data.email_pribadi ||
+                data.email ||
+                "-",
+            };
+
+            users.push(user);
+            usersByUid.set(user.uid, user);
+          });
+
+          users.sort((a, b) => String(a.nama).localeCompare(String(b.nama)));
+
+          totalPegawaiEl.innerText = users.length;
+
+          renderPegawaiOptions();
+        } catch (error) {
+          console.error("LOAD USERS ERROR:", error);
+          Swal.fire("Error", "Gagal memuat daftar pegawai", "error");
+        }
+      }
+
+      function renderPegawaiOptions() {
+        if (users.length === 0) {
+          pegawaiSelect.innerHTML = `
+            <option value="">Tidak ada pegawai</option>
+          `;
+          return;
+        }
+
+        pegawaiSelect.innerHTML = `
+          <option value="">Pilih pegawai</option>
+          ${users
+            .map((user) => {
+              return `
+                <option value="${user.uid}">
+                  ${user.nama} (${user.username})
+                </option>
+              `;
+            })
+            .join("")}
+        `;
+      }
+
+      async function loadLkhpByMonth() {
+        const monthValue = monthInput.value;
+
+        if (!monthValue) {
+          Swal.fire("Perhatian", "Pilih bulan terlebih dahulu", "warning");
+          return [];
+        }
+
+        const { firstKey, lastKey } = getMonthRange(monthValue);
+
+        const q = query(
+          collection(db, "lkhp"),
+          where("date_key", ">=", firstKey),
+          where("date_key", "<=", lastKey),
+        );
+
+        const snapshot = await getDocs(q);
+
+        let data = snapshot.docs.map((docSnap) => {
+          return {
+            id: docSnap.id,
+            ...docSnap.data(),
+          };
+        });
+
+        if (modeSelect.value === "single") {
+          const selectedUid = pegawaiSelect.value;
+
+          if (!selectedUid) {
+            Swal.fire("Perhatian", "Pilih pegawai terlebih dahulu", "warning");
+            return null;
+          }
+
+          data = data.filter((item) => item.uid === selectedUid);
+        }
+
+        data.sort((a, b) => {
+          const dateCompare = String(a.date_key || "").localeCompare(
+            String(b.date_key || ""),
+          );
+
+          if (dateCompare !== 0) return dateCompare;
+
+          const aTime = a.created_at?.toDate
+            ? a.created_at.toDate().getTime()
+            : 0;
+
+          const bTime = b.created_at?.toDate
+            ? b.created_at.toDate().getTime()
+            : 0;
+
+          return aTime - bTime;
+        });
+
+        return data;
+      }
+
+      function buildExcelRows(lkhpData) {
+        return lkhpData.map((item, index) => {
+          const user = usersByUid.get(item.uid);
+
+          return {
+            No: index + 1,
+            Tanggal: safeValue(item.date_key),
+            Nama: safeValue(user?.nama || item.nama),
+            Username: safeValue(user?.username),
+            "Unit Kerja": safeValue(user?.unitKerja),
+            Kegiatan: safeValue(item.kegiatan),
+            "Dicatat Pada": formatTimestamp(item.created_at),
+            "Diperbarui Pada": formatTimestamp(item.updated_at),
+            UID: safeValue(item.uid),
+          };
+        });
+      }
+
+      function buildRekapRows(lkhpData) {
+        const rekapMap = new Map();
+
+        lkhpData.forEach((item) => {
+          const uid = item.uid || "tanpa-uid";
+          const user = usersByUid.get(uid);
+
+          if (!rekapMap.has(uid)) {
+            rekapMap.set(uid, {
+              uid,
+              nama: user?.nama || item.nama || "-",
+              username: user?.username || "-",
+              unitKerja: user?.unitKerja || "-",
+              jumlahLaporan: 0,
+              tanggalSet: new Set(),
+            });
+          }
+
+          const row = rekapMap.get(uid);
+
+          row.jumlahLaporan += 1;
+
+          if (item.date_key) {
+            row.tanggalSet.add(item.date_key);
+          }
+        });
+
+        return Array.from(rekapMap.values())
+          .sort((a, b) => String(a.nama).localeCompare(String(b.nama)))
+          .map((item, index) => {
+            return {
+              No: index + 1,
+              Nama: item.nama,
+              Username: item.username,
+              "Unit Kerja": item.unitKerja,
+              "Jumlah Hari Isi": item.tanggalSet.size,
+              "Jumlah Kegiatan": item.jumlahLaporan,
+              UID: item.uid,
+            };
+          });
+      }
+
+      function autosizeColumns(worksheet, rows) {
+        const keys = rows.length > 0 ? Object.keys(rows[0]) : [];
+
+        const widths = keys.map((key) => {
+          const maxLength = rows.reduce((max, row) => {
+            const value = row[key] ? String(row[key]) : "";
+            return Math.max(max, value.length);
+          }, key.length);
+
+          return {
+            wch: Math.min(Math.max(maxLength + 2, 12), 55),
+          };
+        });
+
+        worksheet["!cols"] = widths;
+      }
+
+      function generateExcel(lkhpData) {
+        const monthLabel = getMonthLabel(monthInput.value);
+        const mode = modeSelect.value;
+
+        let selectedUserName = "";
+
+        if (mode === "single") {
+          const selectedUser = usersByUid.get(pegawaiSelect.value);
+          selectedUserName = selectedUser?.nama || "pegawai";
+        }
+
+        const dataRows = buildExcelRows(lkhpData);
+        const rekapRows = buildRekapRows(lkhpData);
+
+        const workbook = XLSX.utils.book_new();
+
+        const dataSheet = XLSX.utils.json_to_sheet(dataRows);
+        autosizeColumns(dataSheet, dataRows);
+        XLSX.utils.book_append_sheet(workbook, dataSheet, "Data LKHP");
+
+        const rekapSheet = XLSX.utils.json_to_sheet(rekapRows);
+        autosizeColumns(rekapSheet, rekapRows);
+        XLSX.utils.book_append_sheet(workbook, rekapSheet, "Rekap Pegawai");
+
+        const filename =
+          mode === "single"
+            ? `lkhp-${sanitizeFileName(selectedUserName)}-${sanitizeFileName(
+                monthLabel,
+              )}.xlsx`
+            : `lkhp-semua-pegawai-${sanitizeFileName(monthLabel)}.xlsx`;
+
+        XLSX.writeFile(workbook, filename);
+      }
+
+      btnDownload.addEventListener("click", async () => {
+        setButtonLoading(true);
+
+        try {
+          const data = await loadLkhpByMonth();
+
+          if (data === null) return;
+
+          totalLaporanEl.innerText = data.length;
+
+          if (data.length === 0) {
+            Swal.fire(
+              "Data kosong",
+              "Tidak ada data LKHP pada filter yang dipilih",
+              "info",
+            );
+            return;
+          }
+
+          generateExcel(data);
+
+          Swal.fire({
+            icon: "success",
+            title: "Berhasil",
+            text: "File Excel LKHP berhasil dibuat",
+            timer: 1500,
+            showConfirmButton: false,
+          });
+        } catch (error) {
+          console.error("DOWNLOAD LKHP ERROR:", error);
+
+          Swal.fire("Error", "Gagal membuat file Excel LKHP", "error");
+        } finally {
+          setButtonLoading(false);
+        }
+      });
+
+      await loadUsers();
+    </script>
+
+    <!-- ADMIN PROTECT -->
+    <script type="module">
+      import "./assets/js/admin-protect.js";
+    </script>
+  </body>
+</html>

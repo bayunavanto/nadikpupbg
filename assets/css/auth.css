@@ -1,28 +1,39 @@
 /* =========================
-   AUTH LOGIN STYLE (NADI)
+   AUTH LOGIN STYLE (NADI V2 WEB)
 ========================= */
 
 :root {
   --primary: #6666ff;
   --primary-dark: #4f46e5;
+  --primary-soft: #eef2ff;
 
-  --bg1: #eef2ff;
-  --bg2: #f8fafc;
+  --bg: #f6f7fb;
+  --bg-soft: #eef2ff;
 
-  --text: #1f2937;
+  --text: #111827;
   --muted: #6b7280;
+  --border: #e5e7eb;
 
   --card: #ffffff;
 
-  --radius: 18px;
+  --danger: #b42318;
+  --danger-bg: #fdeaea;
 
-  --shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  --radius: 24px;
+  --radius-md: 16px;
+
+  --shadow: 0 24px 60px rgba(17, 24, 39, 0.08);
 }
 
 /* RESET */
 * {
   box-sizing: border-box;
   font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+html,
+body {
+  min-height: 100%;
 }
 
 body {
@@ -33,7 +44,11 @@ body {
   align-items: center;
   justify-content: center;
 
-  background: linear-gradient(135deg, var(--bg1), var(--bg2));
+  background:
+    radial-gradient(circle at top left, rgba(102, 102, 255, 0.18), transparent 34%),
+    radial-gradient(circle at bottom right, rgba(102, 102, 255, 0.1), transparent 30%),
+    var(--bg);
+
   color: var(--text);
   padding: 20px;
 }
@@ -48,60 +63,150 @@ body {
 
 /* FORM CARD */
 .registration-form form {
-  background: var(--card);
-  padding: 40px 32px;
+  position: relative;
 
+  background: rgba(255, 255, 255, 0.92);
+  padding: 34px 28px 28px;
+
+  border: 1px solid rgba(229, 231, 235, 0.9);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
 
   text-align: center;
 
-  animation: fadeUp 0.5s ease;
+  animation: fadeUp 0.45s ease;
+  overflow: hidden;
 }
 
-/* LOGO */
-.registration-form img {
-  margin-bottom: 20px;
+.registration-form form::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+
+  height: 5px;
+  background: linear-gradient(90deg, var(--primary), var(--primary-dark));
 }
 
-/* TITLE / ERROR AREA */
-.registration-form h3 {
-  font-size: 18px;
-  margin-bottom: 6px;
+/* =========================
+   HEADER LOGIN
+========================= */
+.auth-header {
+  margin-bottom: 24px;
 }
 
-.registration-form small {
-  color: var(--muted);
+.logo-wrap {
+  width: 86px;
+  height: 86px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0 auto 16px;
+
+  background: var(--primary-soft);
+  border-radius: 24px;
+  border: 1px solid rgba(102, 102, 255, 0.14);
 }
 
-/* ERROR BOX */
-.error {
-  color: #b42318;
-  background: #fdeaea;
+.logo-wrap img {
+  width: 62px;
+  height: 62px;
+  object-fit: contain;
+  display: block;
+}
 
-  padding: 10px 12px;
-  border-radius: 10px;
+.auth-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
+  padding: 6px 12px;
+  margin-bottom: 12px;
+
+  border-radius: 999px;
+  background: var(--primary-soft);
+
+  color: var(--primary-dark);
   font-size: 12px;
-  margin-bottom: 15px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.auth-title {
+  margin: 0;
+
+  font-size: 22px;
+  line-height: 1.25;
+  font-weight: 800;
+
+  color: var(--text);
+}
+
+.auth-subtitle {
+  margin: 8px auto 0;
+  max-width: 300px;
+
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* =========================
+   ERROR BOX
+========================= */
+.error {
+  width: 100%;
+
+  color: var(--danger);
+  background: var(--danger-bg);
+
+  padding: 11px 13px;
+  border-radius: 14px;
+
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+
+  margin-bottom: 16px;
 
   display: block;
+  text-align: center;
+}
+
+#errorMsg:empty {
+  display: none;
 }
 
 /* =========================
    INPUT STYLE
 ========================= */
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 14px;
   text-align: left;
+}
+
+.input-label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #374151;
+  font-size: 13px;
+  font-weight: 700;
 }
 
 .form-control.item {
   width: 100%;
+  height: 48px;
+
   padding: 12px 14px;
 
-  border-radius: 12px;
-  border: 1px solid #e5e7eb;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+
+  background: #ffffff;
+  color: var(--text);
 
   font-size: 14px;
 
@@ -109,100 +214,32 @@ body {
   transition: 0.2s ease;
 }
 
+.form-control.item::placeholder {
+  color: #9ca3af;
+}
+
 .form-control.item:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(102, 102, 255, 0.15);
+  box-shadow: 0 0 0 4px rgba(102, 102, 255, 0.12);
 }
 
-/* =========================
-   BUTTON LOGIN
-========================= */
-.create-account {
-  width: 100%;
-  padding: 12px 14px;
-
-  border: none;
-  border-radius: 12px;
-
-  background: var(--primary);
-  color: white;
-
-  font-weight: 600;
-  font-size: 15px;
-
-  cursor: pointer;
-
-  transition: 0.2s ease;
-}
-
-.create-account:hover {
-  background: var(--primary-dark);
-  transform: translateY(-2px);
-}
-
-.create-account:disabled {
-  background: #a5a5ff;
-  cursor: not-allowed;
-}
-
-/* =========================
-   FOOTER AREA
-========================= */
-.social-media {
-  text-align: center;
-  margin-top: 14px;
-
-  color: var(--muted);
-  font-size: 12px;
-}
-
-/* =========================
-   ANIMATION
-========================= */
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* =========================
-   MOBILE
-========================= */
-@media (max-width: 480px) {
-  .registration-form form {
-    padding: 30px 20px;
-  }
-
-  .form-control.item {
-    font-size: 13px;
-  }
-
-  .create-account {
-    font-size: 14px;
-  }
-}
-#errorMsg:empty {
-  display: none;
-}
 .password-wrapper {
   position: relative;
   width: 100%;
 }
 
 .password-wrapper input {
-  padding-right: 42px;
+  padding-right: 46px;
 }
 
 .toggle-password {
   position: absolute;
-  right: 12px;
+  right: 14px;
   top: 50%;
   transform: translateY(-50%);
+
+  width: 24px;
+  height: 24px;
 
   cursor: pointer;
   color: #6b7280;
@@ -215,5 +252,123 @@ body {
 }
 
 .toggle-password:hover {
-  color: #6666ff;
+  color: var(--primary);
+}
+
+/* =========================
+   BUTTON LOGIN
+========================= */
+.create-account {
+  width: 100%;
+  height: 48px;
+
+  margin-top: 4px;
+  padding: 12px 14px;
+
+  border: none;
+  border-radius: var(--radius-md);
+
+  background: var(--primary);
+  color: #ffffff;
+
+  font-weight: 800;
+  font-size: 15px;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.create-account:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(102, 102, 255, 0.22);
+}
+
+.create-account:active {
+  transform: translateY(0);
+}
+
+.create-account:disabled {
+  background: #a5a5ff;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* =========================
+   FOOTER AREA
+========================= */
+.social-media {
+  text-align: center;
+  margin-top: 16px;
+
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.social-media small {
+  color: var(--muted);
+}
+
+.social-media a {
+  color: var(--primary-dark);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.social-media a:hover {
+  text-decoration: underline;
+}
+
+/* =========================
+   ANIMATION
+========================= */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 480px) {
+  body {
+    align-items: flex-start;
+    padding: 22px 16px;
+  }
+
+  .registration-form {
+    margin-top: 28px;
+  }
+
+  .registration-form form {
+    padding: 30px 20px 24px;
+    border-radius: 22px;
+  }
+
+  .auth-title {
+    font-size: 20px;
+  }
+
+  .auth-subtitle {
+    font-size: 12.5px;
+  }
+
+  .form-control.item {
+    height: 46px;
+    font-size: 13px;
+  }
+
+  .create-account {
+    height: 46px;
+    font-size: 14px;
+  }
 }
